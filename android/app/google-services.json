@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "891460718489",
+    "project_id": "mydispatch-ac127",
+    "storage_bucket": "mydispatch-ac127.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:891460718489:android:0e8afc02b788ca6a2ecd08",
+        "android_client_info": {
+          "package_name": "com.example.mydispatch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "891460718489-6uufn9epcvsj280qs06edcotmvb0m87d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeb8mZbDcdrglNfTrNyzofBiXHrZz-3IE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "891460718489-6uufn9epcvsj280qs06edcotmvb0m87d.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "891460718489-63erqm5qtgmijvmi3shqrv7b4keaj0rf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mydispatch"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

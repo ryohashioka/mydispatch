@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'login&register/welcome_screen.dart';
+import 'login&register/create_employee.dart';
+import 'login&register/create_outsider.dart';
 // import 'login&register/create_employee.dart';
 // import 'package:firebase_core/firebase_core.dart';
 // import 'firebase_options.dart';
@@ -9,4 +11,18 @@ import 'login&register/welcome_screen.dart';
 
 void main() {
   runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: MainPage(),
+      routes:  <String, WidgetBuilder>{
+        '/home':(BuildContext context) =>  MainPage(),
+        '/new_employee': (BuildContext context) => NewEmployee(),
+        '/new_outsider': (BuildContext context) => NewOutsider(),
+      },
+    );
+  }
 }

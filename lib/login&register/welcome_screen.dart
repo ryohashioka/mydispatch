@@ -11,7 +11,7 @@ class MainPage extends StatelessWidget {
       ),
       body:
       Container(
-        padding: EdgeInsets.all(80.0),
+        padding: EdgeInsets.all(40.0),
         child: Center(
           child: Column(
             children: <Widget>[
@@ -48,8 +48,8 @@ class MainPage extends StatelessWidget {
                   ),
                 ),
               ),
-              TextButton(onPressed: () => Navigator.of(context).pushNamed('/new_employee'), child: Text('社員向け新規登録')),
-              TextButton(onPressed: () => Navigator.of(context).pushNamed('/new_outsider'), child: Text('お客様向け新規登録')),
+              ElevatedButton(onPressed: () => Navigator.of(context).pushNamed('/new_employee'), child: Text('社員向け新規登録')),
+              ElevatedButton(onPressed: () => Navigator.of(context).pushNamed('/new_outsider'), child: Text('お客様向け新規登録')),
             ],
           ),
         ),

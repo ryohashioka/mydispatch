@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class NewOutsider extends StatefulWidget {
+class NewEmployee extends StatefulWidget {
   @override
-  _NewOutsiderState createState() => _NewOutsiderState();
+  _NewEmployeeState createState() => _NewEmployeeState();
 }
 
-class _NewOutsiderState extends State<NewOutsider> {
+class _NewEmployeeState extends State<NewEmployee> {
 
   String _text = '';
 
@@ -18,34 +18,20 @@ class _NewOutsiderState extends State<NewOutsider> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Create New Users'),
+          title: Text('Create New Users'),
       ),
       body:SingleChildScrollView(
-        // padding: const EdgeInsets.all(70.0),
         child: Column(
           children: <Widget>[
             Text(
               "$_text",
               style: TextStyle(
-                  color: Colors.green,
+                  color: Colors.blueAccent,
                   fontSize: 30.0,
                   fontWeight: FontWeight.w500
               ),
             ),
-            new TextField(
-              enabled: true,
-              style: TextStyle(color: Colors.black),
-              obscureText: false,
-              maxLines:1 ,
-              decoration: const InputDecoration(
-                icon: Icon(Icons.work_outline_outlined),
-                hintText: '会社名を入力してください',
-                labelText: 'CompanyName *',
-              ),
-              //パスワード
-              onChanged: _handleText,
-            ),
-            new TextField(
+            TextField(
               enabled: true,
               style: TextStyle(color: Colors.black),
               obscureText: false,
@@ -58,7 +44,7 @@ class _NewOutsiderState extends State<NewOutsider> {
               //パスワード
               onChanged: _handleText,
             ),
-            new TextField(
+             TextField(
               enabled: true,
               style: TextStyle(color: Colors.black),
               obscureText: false,
@@ -70,19 +56,19 @@ class _NewOutsiderState extends State<NewOutsider> {
               ),
               onChanged: _handleText,
             ),
-            new TextField(
+             TextField(
               enabled: true,
               style: TextStyle(color: Colors.black),
               obscureText: false,
               maxLines:1 ,
               decoration: const InputDecoration(
-                icon: Icon(Icons.drive_file_rename_outline),
-                hintText: '役職を入力してください',
-                labelText: 'Position *',
+                icon: Icon(Icons.fire_truck_outlined),
+                hintText: '担当トラックを入力してください',
+                labelText: 'Truck *',
               ),
               onChanged: _handleText,
             ),
-            new TextField(
+             TextField(
               enabled: true,
               style: TextStyle(color: Colors.black),
               obscureText: false,
@@ -94,7 +80,7 @@ class _NewOutsiderState extends State<NewOutsider> {
               ),
               onChanged: _handleText,
             ),
-            new TextField(
+             TextField(
               enabled: true,
               style: TextStyle(color: Colors.black),
               obscureText: false,
@@ -106,7 +92,7 @@ class _NewOutsiderState extends State<NewOutsider> {
               ),
               onChanged: _handleText,
             ),
-            new TextField(
+             TextField(
               enabled: true,
               style: TextStyle(color: Colors.black),
               obscureText: false,
@@ -118,6 +104,7 @@ class _NewOutsiderState extends State<NewOutsider> {
               ),
               onChanged: _handleText,
             ),
+            ElevatedButton(onPressed: () => Navigator.of(context).pushNamed('/new_employee'), child: Text('Register')),
           ],
         ),
       ),

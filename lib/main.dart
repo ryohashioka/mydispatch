@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'login&register/welcome_screen.dart';
-import 'login&register/create_employee.dart';
-import 'login&register/create_outsider.dart';
-// import 'login&register/create_employee.dart';
+import 'login_register/home.dart';
+import 'login_register/create_employee.dart';
+import 'login_register/create_outsider.dart';
+// import 'login_register/create_employee.dart';
 // import 'package:firebase_core/firebase_core.dart';
 // import 'firebase_options.dart';
 // import 'package:firebase_auth/firebase_auth.dart';

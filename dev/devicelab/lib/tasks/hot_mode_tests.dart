@@ -84,7 +84,7 @@ TaskFunction createHotModeTest({String? deviceIdOverride, Map<String, String>? e
             if (hotReloadCount == 1) {
               // Update a file for ~50 library invalidation.
               final File appDartSource = file(path.join(
-                _editedFlutterGalleryDir.path, 'lib/demo/calculator/welcome_screen.dart',
+                _editedFlutterGalleryDir.path, 'lib/demo/calculator/home.dart',
               ));
               appDartSource.writeAsStringSync(
                 appDartSource.readAsStringSync().replaceFirst(kSourceLine, kReplacementLine)

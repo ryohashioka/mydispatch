@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class NewEmployee extends StatefulWidget {
+class NewTruck extends StatefulWidget {
   @override
-  _NewEmployeeState createState() => _NewEmployeeState();
+  _NewTruck createState() => _NewTruck();
 }
 
-class _NewEmployeeState extends State<NewEmployee> {
+class _NewTruck extends State<NewTruck> {
 
   String _text = '';
 

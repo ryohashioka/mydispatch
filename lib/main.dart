@@ -3,13 +3,21 @@ import 'package:flutter/services.dart';
 import 'login_register/home.dart';
 import 'login_register/create_employee.dart';
 import 'login_register/create_outsider.dart';
+import 'login_register/miss_password.dart';
+import 'pages/menu.dart';
 // import 'login_register/create_employee.dart';
-// import 'package:firebase_core/firebase_core.dart';
-// import 'firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  // firebaseとflutterでアプリを作るときの定型文↑
   runApp(MyApp());
 }
 
@@ -22,6 +30,8 @@ class MyApp extends StatelessWidget {
         '/home':(BuildContext context) =>  MainPage(),
         '/new_employee': (BuildContext context) => NewEmployee(),
         '/new_outsider': (BuildContext context) => NewOutsider(),
+        '/miss_password': (BuildContext context) => MissPassword(),
+        '/menu': (BuildContext context) => MenuPage(),
       },
     );
   }

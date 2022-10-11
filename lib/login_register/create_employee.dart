@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class NewEmployee extends StatefulWidget {
   @override
@@ -104,10 +105,31 @@ class _NewEmployeeState extends State<NewEmployee> {
               ),
               onChanged: _handleText,
             ),
-            ElevatedButton(onPressed: () => Navigator.of(context).pushNamed('/new_employee'), child: Text('Register')),
+            ElevatedButton(
+                onPressed: () => create(context, 'taku08132001@icloud.com','taku0813'),
+                child: Text('Register')
+            ),
           ],
         ),
       ),
     );
   }
 }
+ void create(BuildContext context, String email, String password) async {
+   try {
+     final credential = await FirebaseAuth.instance
+         .createUserWithEmailAndPassword(
+       email: email,
+       password: password,
+     );
+     Navigator.of(context).pop();
+   } on FirebaseAuthException catch (e) {
+     if (e.code == 'weak-password') {
+       print('The password provided is too weak.');
+     } else if (e.code == 'email-already-in-use') {
+       print('The account already exists for that email.');
+     }
+   } catch (e) {
+     print(e);
+   }
+ }

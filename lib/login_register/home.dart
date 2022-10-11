@@ -1,8 +1,34 @@
 import 'package:flutter/material.dart';
 import 'create_employee.dart';
 import 'create_outsider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
+ const MainPage({Key? key}) : super(key: key);
+
+ @override
+  State<StatefulWidget> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+
+  User? user;
+
+  @override
+  void initState() {
+    super.initState();
+
+    FirebaseAuth.instance
+        .authStateChanges()
+        .listen((User? user) {
+      if (user == null) {
+        print('User is currently signed out!');
+      } else {
+        print('User is signed in!');
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,15 +84,29 @@ class MainPage extends StatelessWidget {
               ),
               ButtonBar(
                 buttonPadding: EdgeInsets.all(30.0),
-                  children:[ElevatedButton(onPressed: null, child: Text('log in'))]),
+                  children:[ElevatedButton(
+                      onPressed: () =>login('taku08132001@icloud.com', 'taku0813'),
+                      child: Text('log in'))]),
               ElevatedButton(onPressed: () => Navigator.of(context).pushNamed('/new_employee'), child: Text('社員向け新規登録')),
               ElevatedButton(onPressed: () => Navigator.of(context).pushNamed('/new_outsider'), child: Text('お客様向け新規登録')),
-              TextButton(onPressed: null, child: Text('パスワードをお忘れの方はこちら')),
+              TextButton(onPressed: () => Navigator.of(context).pushNamed('/miss_password'), child: Text('パスワードをお忘れの方はこちら')),
             ],
           ),
         ),
       ),
       ),
     );
+  }
+}
+void login(String email, String password) async {
+  try {
+    final credential = await FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: email, password: password);
+  } on FirebaseAuthException catch (e) {
+    if (e.code == 'user-not-found') {
+      print('No user found for that email.');
+    } else if (e.code == 'wrong-password') {
+      print('Wrong password provided for that user.');
+    }
   }
 }

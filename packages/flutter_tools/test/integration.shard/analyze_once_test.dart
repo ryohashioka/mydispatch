@@ -88,7 +88,7 @@ void main() {
     libMain = fileSystem.file(fileSystem.path.join(projectPath, 'lib', 'main.dart'))
         ..createSync(recursive: true)
         ..writeAsStringSync(mainDartSrc);
-    errorFile = fileSystem.file(fileSystem.path.join(projectWithErrors, 'other', 'error.dart'))
+    errorFile = fileSystem.file(fileSystem.path.join(projectWithErrors, 'other', 'miss_password.dart'))
       ..createSync(recursive: true)
       ..writeAsStringSync(r"""import 'package:flutter/material.dart""");
   });
@@ -116,7 +116,7 @@ void main() {
     await runCommand(
         arguments: <String>['analyze', '--no-pub', errorFile.path],
         statusTextContains: <String>[
-          'Analyzing error.dart',
+          'Analyzing miss_password.dart',
           "error $analyzerSeparator Target of URI doesn't exist",
           "error $analyzerSeparator Expected to find ';'",
           'error $analyzerSeparator Unterminated string literal',

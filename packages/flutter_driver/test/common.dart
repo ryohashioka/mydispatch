@@ -4,7 +4,7 @@
 
 import 'dart:io';
 
-import 'package:flutter_driver/src/common/error.dart';
+import 'package:flutter_driver/src/common/miss_password.dart';
 import 'package:test_api/test_api.dart'; // ignore: deprecated_member_use
 
 export 'package:test_api/fake.dart'; // ignore: deprecated_member_use

@@ -8,7 +8,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import '../rendering/mock_canvas.dart';
 
-/// Unit tests error.dart's usage via ErrorWidget.
+/// Unit tests miss_password.dart's usage via ErrorWidget.
 void main() {
   const String errorMessage = 'Some error message';
 

@@ -7,7 +7,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:fake_async/fake_async.dart';
-import 'package:flutter_driver/src/common/error.dart';
+import 'package:flutter_driver/src/common/miss_password.dart';
 import 'package:flutter_driver/src/common/health.dart';
 import 'package:flutter_driver/src/common/layer_tree.dart';
 import 'package:flutter_driver/src/common/wait.dart';

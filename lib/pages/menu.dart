@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 class MenuPage extends StatelessWidget {
   const MenuPage({Key? key}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,11 +13,11 @@ class MenuPage extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            Text('menu page'),
+            Text("Here is menu page."),
             ElevatedButton(
                 onPressed: () async {
                   await FirebaseAuth.instance.signOut();
-                  Navigator.of(context).pushReplacementNamed('/home');
+                  // Navigator.of(context).pushReplacementNamed('/home');
                 },
                 child: Text('Logout')
             )
@@ -27,4 +26,5 @@ class MenuPage extends StatelessWidget {
       ),
     );
   }
+
 }

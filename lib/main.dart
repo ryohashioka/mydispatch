@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         '/new_employee': (BuildContext context) => NewEmployee(),
         '/new_outsider': (BuildContext context) => NewOutsider(),
         '/miss_password': (BuildContext context) => MissPassword(),
-        '/menu': (BuildContext context) => MenuPage(),
+
       },
     );
   }

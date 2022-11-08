@@ -83,10 +83,14 @@ class _MainPageState extends State<MainPage> {
                 ),
               ),
               ButtonBar(
-                buttonPadding: EdgeInsets.all(30.0),
+                buttonPadding: EdgeInsets.all(40.0),
                   children:[ElevatedButton(
                       onPressed: () =>login('taku08132001@icloud.com', 'taku0813'),
-                      child: Text('log in'))]),
+                      child: Text('log in'),
+                    style: ElevatedButton.styleFrom(
+                      alignment: Alignment.center,
+                    ),
+                  )]),
               ElevatedButton(onPressed: () => Navigator.of(context).pushNamed('/new_employee'), child: Text('社員向け新規登録')),
               ElevatedButton(onPressed: () => Navigator.of(context).pushNamed('/new_outsider'), child: Text('お客様向け新規登録')),
               TextButton(onPressed: () => Navigator.of(context).pushNamed('/miss_password'), child: Text('パスワードをお忘れの方はこちら')),

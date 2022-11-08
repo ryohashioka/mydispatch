@@ -13,7 +13,7 @@ class MenuPage extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            Text("Here is menu page."),
+            Text('menu page'),
             ElevatedButton(
                 onPressed: () async {
                   await FirebaseAuth.instance.signOut();
@@ -26,5 +26,4 @@ class MenuPage extends StatelessWidget {
       ),
     );
   }
-
 }

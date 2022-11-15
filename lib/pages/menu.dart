@@ -12,20 +12,57 @@ class MenuPage extends StatelessWidget {
       ),
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text("Here is menu page."),
-            ElevatedButton(
-                onPressed: () async {
-                  await FirebaseAuth.instance.signOut();
-                  // Navigator.of(context).pushReplacementNamed('/home');
-                },
-                child: Text('Logout')
-            )
+            Expanded(
+              child: Container(
+                width: 600,height: 240,
+                child: Image.asset(
+                    'assets/images/menu1_search.jpg',
+                    fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                width: 600,height: 240,
+                child: Image.asset(
+                  'assets/images/menu2_schedule.jpg',
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                width: 600,height: 240,
+                child: Image.asset(
+                  'assets/images/menu3_gps.jpg',
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                width: 600,height: 240,
+                child: Image.asset(
+                  'assets/images/menu4_info.jpg',
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
           ],
+          // children: [
+          //   Text("Here is menu page."),
+          //   ElevatedButton(
+          //       onPressed: () async {
+          //         await FirebaseAuth.instance.signOut();
+          //         // Navigator.of(context).pushReplacementNamed('/home');
+          //       },
+          //       child: Text('Logout')
+          //   )
+          // ],
         ),
       ),
     );
   }
 }
-
-//test//

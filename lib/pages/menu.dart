@@ -26,5 +26,5 @@ class MenuPage extends StatelessWidget {
       ),
     );
   }
-
 }
+

@@ -50,17 +50,14 @@ class MenuPage extends StatelessWidget {
                 ),
               ),
             ),
+            ElevatedButton(
+              onPressed: () async {
+               await FirebaseAuth.instance.signOut();
+                Navigator.of(context).pushReplacementNamed('/home');
+                },
+                child: Text('Logout')
+            ),
           ],
-          // children: [
-          //   Text("Here is menu page."),
-          //   ElevatedButton(
-          //       onPressed: () async {
-          //         await FirebaseAuth.instance.signOut();
-          //         // Navigator.of(context).pushReplacementNamed('/home');
-          //       },
-          //       child: Text('Logout')
-          //   )
-          // ],
         ),
       ),
     );

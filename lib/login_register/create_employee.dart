@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class NewEmployee extends StatefulWidget {
   @override
@@ -141,6 +142,27 @@ class _NewEmployeeState extends State<NewEmployee> {
         email: _email,
         password: _password,
       );
+
+      print(credential);
+
+      if(credential.user != null) {
+        print(credential.user!.uid);
+
+        var db = FirebaseFirestore.instance;
+
+        db
+
+            .collection("users")
+            .doc(credential.user!.uid)
+            .set({
+              "name": "西川　拓",
+              "affiliation": "所属",
+              "truck": 10,
+              "phone": "000-0000-0000",
+        })
+        .onError((e, _) => print("Error writing ddocument: $e"));
+      }
+
       Navigator.of(context).pop();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {

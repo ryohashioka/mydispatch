@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 class NewOutsider extends StatefulWidget {
   @override
@@ -21,160 +21,158 @@ class _NewOutsiderState extends State<NewOutsider> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Create New Users',),
+        title: Text(
+          'Create New Users',
+        ),
       ),
-      body:SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Form(
           key: _formKey,
-        // padding: const EdgeInsets.all(70.0),
-         child: Column(
-          children: <Widget>[
-            Text(
-              "$_text",
-              style: TextStyle(
-                  color: Colors.green,
-                  fontSize: 30.0,
-                  fontWeight: FontWeight.w500
+          // padding: const EdgeInsets.all(70.0),
+          child: Column(
+            children: <Widget>[
+              Text(
+                "$_text",
+                style: TextStyle(
+                    color: Colors.green,
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.w500),
               ),
-            ),
-            new TextField(
-              enabled: true,
-              style: TextStyle(color: Colors.black),
-              obscureText: false,
-              maxLines:1 ,
-              decoration: const InputDecoration(
-                icon: Icon(Icons.work_outline_outlined),
-                hintText: '会社名を入力してください',
-                labelText: 'CompanyName *',
+              new TextField(
+                enabled: true,
+                style: TextStyle(color: Colors.black),
+                obscureText: false,
+                maxLines: 1,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.work_outline_outlined),
+                  hintText: '会社名を入力してください',
+                  labelText: 'CompanyName *',
+                ),
+                //パスワード
+                onChanged: _handleText,
               ),
-              //パスワード
-              onChanged: _handleText,
-            ),
-            new TextField(
-              enabled: true,
-              style: TextStyle(color: Colors.black),
-              obscureText: false,
-              maxLines:1 ,
-              decoration: const InputDecoration(
-                icon: Icon(Icons.face),
-                hintText: '名前を入力してください',
-                labelText: 'Name *',
+              new TextField(
+                enabled: true,
+                style: TextStyle(color: Colors.black),
+                obscureText: false,
+                maxLines: 1,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.face),
+                  hintText: '名前を入力してください',
+                  labelText: 'Name *',
+                ),
+                //パスワード
+                onChanged: _handleText,
               ),
-              //パスワード
-              onChanged: _handleText,
-            ),
-            new TextField(
-              enabled: true,
-              style: TextStyle(color: Colors.black),
-              obscureText: false,
-              maxLines:1 ,
-              decoration: const InputDecoration(
-                icon: Icon(Icons.factory),
-                hintText: '所属を入力してください',
-                labelText: 'Affiliation *',
+              new TextField(
+                enabled: true,
+                style: TextStyle(color: Colors.black),
+                obscureText: false,
+                maxLines: 1,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.factory),
+                  hintText: '所属を入力してください',
+                  labelText: 'Affiliation *',
+                ),
+                onChanged: _handleText,
               ),
-              onChanged: _handleText,
-            ),
-            new TextField(
-              enabled: true,
-              style: TextStyle(color: Colors.black),
-              obscureText: false,
-              maxLines:1 ,
-              decoration: const InputDecoration(
-                icon: Icon(Icons.drive_file_rename_outline),
-                hintText: '役職を入力してください',
-                labelText: 'Position *',
+              new TextField(
+                enabled: true,
+                style: TextStyle(color: Colors.black),
+                obscureText: false,
+                maxLines: 1,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.drive_file_rename_outline),
+                  hintText: '役職を入力してください',
+                  labelText: 'Position *',
+                ),
+                onChanged: _handleText,
               ),
-              onChanged: _handleText,
-            ),
-            new TextField(
-              enabled: true,
-              style: TextStyle(color: Colors.black),
-              obscureText: false,
-              maxLines:1 ,
-              decoration: const InputDecoration(
-                icon: Icon(Icons.phone),
-                hintText: '電話番号を入力してください',
-                labelText: 'Phone *',
+              new TextField(
+                enabled: true,
+                style: TextStyle(color: Colors.black),
+                obscureText: false,
+                maxLines: 1,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.phone),
+                  hintText: '電話番号を入力してください',
+                  labelText: 'Phone *',
+                ),
+                keyboardType: TextInputType.phone,
+                onChanged: _handleText,
               ),
-              keyboardType: TextInputType.phone,
-              onChanged: _handleText,
-            ),
-            new TextFormField(
-              enabled: true,
-              style: TextStyle(color: Colors.black),
-              obscureText: false,
-              maxLines:1 ,
-              decoration: const InputDecoration(
-                icon: Icon(Icons.email),
-                hintText: 'メールアドレスを入力してください',
-                labelText: 'email *',
+              new TextFormField(
+                enabled: true,
+                style: TextStyle(color: Colors.black),
+                obscureText: false,
+                maxLines: 1,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.email),
+                  hintText: 'メールアドレスを入力してください',
+                  labelText: 'email *',
+                ),
+                keyboardType: TextInputType.emailAddress,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "メールアドレスを入力してください";
+                  }
+                  return null;
+                },
+                onSaved: (value) {
+                  _email = value!;
+                },
+                onChanged: _handleText,
               ),
-              keyboardType: TextInputType.emailAddress,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return "メールアドレスを入力してください";
-                }
-                return null;
-              },
-              onSaved: (value) {
-                _email = value!;
-              },
-              onChanged: _handleText,
-            ),
-            new TextFormField(
-              enabled: true,
-              style: TextStyle(color: Colors.black),
-              obscureText: false,
-              maxLines:1 ,
-              decoration: const InputDecoration(
-                icon: Icon(Icons.password),
-                hintText: 'パスワードを入力してください',
-                labelText: 'password *',
+              new TextFormField(
+                enabled: true,
+                style: TextStyle(color: Colors.black),
+                obscureText: false,
+                maxLines: 1,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.password),
+                  hintText: 'パスワードを入力してください',
+                  labelText: 'password *',
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "パスワードを入力してください";
+                  }
+                  return null;
+                },
+                onSaved: (value) {
+                  _password = value!;
+                },
+                onChanged: _handleText,
               ),
-              onChanged: _handleText,
-            validator: (value) {
-             if (value == null || value.isEmpty) {
-               return "パスワードを入力してください";
-             }
-             return null;
-            },
-            onSaved: (value) {
-             _password = value!;
-            },
-            onChanged: _handleText,
-            ),
-            ElevatedButton(
-                onPressed: () => create(context), child: Text('Register')),
-
-           ],
-         ),
-       ),
+              ElevatedButton(
+                  onPressed: () => create(context), child: Text('Register')),
+            ],
+          ),
+        ),
       ),
     );
   }
-}
 
-void create(BuildContext context) async {
-  if (_formKey.currentState != null && _formKey.currentState!.validate()) {
-    _formKey.currentState!.save();
-  }
-
-  try {
-    final credential =
-    await FirebaseAuth.instance.createUserWithEmailAndPassword(
-      email: _email,
-      password: _password,
-    );
-    Navigator.of(context).pop();
-  } on FirebaseAuthException catch (e) {
-    if (e.code == 'weak-password') {
-      print('The password provided is too weak.');
-    } else if (e.code == 'email-already-in-use') {
-      print('The account already exists for that email.');
+  void create(BuildContext context) async {
+    if (_formKey.currentState != null && _formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
     }
-  } catch (e) {
-    print(e);
+
+    try {
+      final credential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _email,
+        password: _password,
+      );
+      Navigator.of(context).pop();
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+      }
+    } catch (e) {
+      print(e);
+    }
   }
-}
 }

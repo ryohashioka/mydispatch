@@ -7,9 +7,11 @@ class NewOutsider extends StatefulWidget {
 }
 
 class _NewOutsiderState extends State<NewOutsider> {
+  final _formKey = GlobalKey<FormState>();
+  String _email = "";
+  String _password = "";
 
-  String _text = '';
-
+  String _text = "";
   void _handleText(String e) {
     setState(() {
       _text = e;
@@ -22,8 +24,10 @@ class _NewOutsiderState extends State<NewOutsider> {
         title: Text('Create New Users',),
       ),
       body:SingleChildScrollView(
+        child: Form(
+          key: _formKey,
         // padding: const EdgeInsets.all(70.0),
-        child: Column(
+         child: Column(
           children: <Widget>[
             Text(
               "$_text",
@@ -93,9 +97,10 @@ class _NewOutsiderState extends State<NewOutsider> {
                 hintText: '電話番号を入力してください',
                 labelText: 'Phone *',
               ),
+              keyboardType: TextInputType.phone,
               onChanged: _handleText,
             ),
-            new TextField(
+            new TextFormField(
               enabled: true,
               style: TextStyle(color: Colors.black),
               obscureText: false,
@@ -105,9 +110,19 @@ class _NewOutsiderState extends State<NewOutsider> {
                 hintText: 'メールアドレスを入力してください',
                 labelText: 'email *',
               ),
+              keyboardType: TextInputType.emailAddress,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return "メールアドレスを入力してください";
+                }
+                return null;
+              },
+              onSaved: (value) {
+                _email = value!;
+              },
               onChanged: _handleText,
             ),
-            new TextField(
+            new TextFormField(
               enabled: true,
               style: TextStyle(color: Colors.black),
               obscureText: false,
@@ -118,25 +133,38 @@ class _NewOutsiderState extends State<NewOutsider> {
                 labelText: 'password *',
               ),
               onChanged: _handleText,
+            validator: (value) {
+             if (value == null || value.isEmpty) {
+               return "パスワードを入力してください";
+             }
+             return null;
+            },
+            onSaved: (value) {
+             _password = value!;
+            },
+            onChanged: _handleText,
             ),
             ElevatedButton(
-                onPressed: () => create(context, 'taku08132001@icloud.com','taku0813'),
-                child: Text('Register')
-            ),
-            // ElevatedButton(onPressed: () => Navigator.of(context).pushNamed('/new_employee'), child: Text('Register')),
-          ],
-        ),
+                onPressed: () => create(context), child: Text('Register')),
+
+           ],
+         ),
+       ),
       ),
     );
   }
 }
 
-void create(BuildContext context, String email, String password) async {
+void create(BuildContext context) async {
+  if (_formKey.currentState != null && _formKey.currentState!.validate()) {
+    _formKey.currentState!.save();
+  }
+
   try {
-    final credential = await FirebaseAuth.instance
-        .createUserWithEmailAndPassword(
-      email: email,
-      password: password,
+    final credential =
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: _email,
+      password: _password,
     );
     Navigator.of(context).pop();
   } on FirebaseAuthException catch (e) {
@@ -148,4 +176,5 @@ void create(BuildContext context, String email, String password) async {
   } catch (e) {
     print(e);
   }
+}
 }

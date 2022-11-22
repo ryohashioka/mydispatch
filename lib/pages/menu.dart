@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mydispatch/components/user_profile.dart';
 
 class MenuPage extends StatelessWidget {
   const MenuPage({Key? key}) : super(key: key);
@@ -9,6 +10,23 @@ class MenuPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('メニュー'),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            const UserProfile(),
+            GestureDetector(
+              onTap: () async {
+                  await FirebaseAuth.instance.signOut();
+              },
+              child:  const ListTile(
+                  leading: Icon(Icons.logout),
+                  title: Text("Logout"),
+                  trailing: Icon(Icons.arrow_forward),
+              ),
+            ),
+          ],
+        ),
       ),
       body: Center(
         child: Column(
@@ -49,13 +67,6 @@ class MenuPage extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
-            ),
-            ElevatedButton(
-              onPressed: () async {
-               await FirebaseAuth.instance.signOut();
-                Navigator.of(context).pushReplacementNamed('/home');
-                },
-                child: Text('Logout')
             ),
           ],
         ),

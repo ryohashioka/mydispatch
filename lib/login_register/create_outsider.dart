@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class NewOutsider extends StatefulWidget {
   @override
@@ -152,7 +153,6 @@ class _NewOutsiderState extends State<NewOutsider> {
       ),
     );
   }
-
   void create(BuildContext context) async {
     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
       _formKey.currentState!.save();
@@ -160,10 +160,32 @@ class _NewOutsiderState extends State<NewOutsider> {
 
     try {
       final credential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _email,
         password: _password,
       );
+
+      print(credential);
+
+      if(credential.user != null) {
+        print(credential.user!.uid);
+
+        var db = FirebaseFirestore.instance;
+
+        db
+
+            .collection("users")
+            .doc(credential.user!.uid)
+            .set({
+          "company": "西川商工株式会社",
+          "name": "西川　拓",
+          "affiliation": "所属",
+          "position": "部長",
+          "phone": "000-0000-0000",
+        })
+            .onError((e, _) => print("Error writing ddocument: $e"));
+      }
+
       Navigator.of(context).pop();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {

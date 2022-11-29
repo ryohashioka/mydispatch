@@ -61,7 +61,7 @@ class LoginPage extends StatelessWidget {
                 ButtonBar(buttonPadding: EdgeInsets.all(30.0), children: [
                   ElevatedButton(
                       onPressed: () =>
-                          login("taku08132001@icloud.com", "taku0813"),
+                          login("", ""),
                       child: Text('log in'))
                 ]),
                 ElevatedButton(

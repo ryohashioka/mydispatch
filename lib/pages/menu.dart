@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mydispatch/components/user_profile.dart';
+import '/pages/driver_schedule.dart';
 
 class MenuPage extends StatelessWidget {
   const MenuPage({Key? key}) : super(key: key);
@@ -42,11 +43,18 @@ class MenuPage extends StatelessWidget {
               ),
             ),
             Expanded(
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(
+                      builder: (BuildContext context) => const DriverSchedule()
+                  ));
+                },
               child: Container(
                 width: 600,height: 240,
                 child: Image.asset(
                   'assets/images/menu2_schedule.jpg',
                   fit: BoxFit.cover,
+                   ),
                 ),
               ),
             ),

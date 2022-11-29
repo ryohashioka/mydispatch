@@ -10,6 +10,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:calendar_view/calendar_view.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,15 +25,18 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: MainPage(),
-      routes:  <String, WidgetBuilder>{
+    return CalendarControllerProvider(
+      controller: EventController(),
+      child: MaterialApp(
+        home: MainPage(),
+        routes:  <String, WidgetBuilder>{
         '/home':(BuildContext context) =>  MainPage(),
         '/new_employee': (BuildContext context) => NewEmployee(),
         '/new_outsider': (BuildContext context) => NewOutsider(),
         '/miss_password': (BuildContext context) => MissPassword(),
 
-      },
+       },
+      ),
     );
   }
 }

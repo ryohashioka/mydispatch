@@ -11,6 +11,11 @@ class _NewOutsiderState extends State<NewOutsider> {
   final _formKey = GlobalKey<FormState>();
   String _email = "";
   String _password = "";
+  String _company = "";
+  String _name = "";
+  String _affiriation = "";
+  String _position = "";
+  String _phonenumber = "";
 
   String _text = "";
   void _handleText(String e) {
@@ -39,7 +44,7 @@ class _NewOutsiderState extends State<NewOutsider> {
                     fontSize: 30.0,
                     fontWeight: FontWeight.w500),
               ),
-              new TextField(
+              new TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
                 obscureText: false,
@@ -49,10 +54,12 @@ class _NewOutsiderState extends State<NewOutsider> {
                   hintText: '会社名を入力してください',
                   labelText: 'CompanyName *',
                 ),
-                //パスワード
+                onSaved: (value) {
+                  _company = value!;
+                },
                 onChanged: _handleText,
               ),
-              new TextField(
+              new TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
                 obscureText: false,
@@ -62,10 +69,12 @@ class _NewOutsiderState extends State<NewOutsider> {
                   hintText: '名前を入力してください',
                   labelText: 'Name *',
                 ),
-                //パスワード
+                onSaved: (value) {
+                  _name = value!;
+                },
                 onChanged: _handleText,
               ),
-              new TextField(
+              new TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
                 obscureText: false,
@@ -75,9 +84,12 @@ class _NewOutsiderState extends State<NewOutsider> {
                   hintText: '所属を入力してください',
                   labelText: 'Affiliation *',
                 ),
+                onSaved: (value) {
+                  _affiriation = value!;
+                },
                 onChanged: _handleText,
               ),
-              new TextField(
+              new TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
                 obscureText: false,
@@ -87,9 +99,12 @@ class _NewOutsiderState extends State<NewOutsider> {
                   hintText: '役職を入力してください',
                   labelText: 'Position *',
                 ),
+                onSaved: (value) {
+                  _position = value!;
+                },
                 onChanged: _handleText,
               ),
-              new TextField(
+              new TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
                 obscureText: false,
@@ -100,6 +115,9 @@ class _NewOutsiderState extends State<NewOutsider> {
                   labelText: 'Phone *',
                 ),
                 keyboardType: TextInputType.phone,
+                onSaved: (value) {
+                  _phonenumber = value!;
+                },
                 onChanged: _handleText,
               ),
               new TextFormField(
@@ -177,11 +195,13 @@ class _NewOutsiderState extends State<NewOutsider> {
             .collection("users")
             .doc(credential.user!.uid)
             .set({
-          "company": "西川商工株式会社",
-          "name": "西川　拓",
-          "affiliation": "所属",
-          "position": "部長",
-          "phone": "000-0000-0000",
+          "company": _company,
+          "name": _name,
+          "affiliation": _affiriation,
+          "position": _position,
+          "phone": _phonenumber,
+          "email": _email,
+          "password": _password,
         })
             .onError((e, _) => print("Error writing ddocument: $e"));
       }

@@ -11,7 +11,10 @@ class _NewEmployeeState extends State<NewEmployee> {
   final _formKey = GlobalKey<FormState>();
   String _email = "";
   String _password = "";
-
+  String _name = "";
+  String _affiriation = "";
+  String _phonenumber = "";
+  String _trucknumber = "";
   String _text = '';
   void _handleText(String e) {
     setState(() {
@@ -29,7 +32,7 @@ class _NewEmployeeState extends State<NewEmployee> {
           key: _formKey,
           child: Column(
             children: <Widget>[
-              TextField(
+              TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
                 obscureText: false,
@@ -39,10 +42,12 @@ class _NewEmployeeState extends State<NewEmployee> {
                   hintText: '名前を入力してください',
                   labelText: 'Name *',
                 ),
-                //パスワード
-                onChanged: _handleText,
+                onSaved: (value) {
+                  _name = value!;
+                },
+          onChanged: _handleText,
               ),
-              TextField(
+              TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
                 obscureText: false,
@@ -52,9 +57,12 @@ class _NewEmployeeState extends State<NewEmployee> {
                   hintText: '所属を入力してください',
                   labelText: 'Affiliation *',
                 ),
+                onSaved: (value) {
+                  _affiriation = value!;
+                },
                 onChanged: _handleText,
               ),
-              TextField(
+              TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
                 obscureText: false,
@@ -64,9 +72,12 @@ class _NewEmployeeState extends State<NewEmployee> {
                   hintText: '担当トラックを入力してください',
                   labelText: 'Truck *',
                 ),
+                onSaved: (value) {
+                  _trucknumber = value!;
+                },
                 onChanged: _handleText,
               ),
-              TextField(
+              TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
                 obscureText: false,
@@ -77,6 +88,9 @@ class _NewEmployeeState extends State<NewEmployee> {
                   labelText: 'Phone *',
                 ),
                 keyboardType: TextInputType.phone,
+                onSaved: (value) {
+                  _phonenumber = value!;
+                },
                 onChanged: _handleText,
               ),
               TextFormField(
@@ -155,10 +169,12 @@ class _NewEmployeeState extends State<NewEmployee> {
             .collection("users")
             .doc(credential.user!.uid)
             .set({
-              "name": "西川　拓",
-              "affiliation": "所属",
-              "truck": 10,
-              "phone": "000-0000-0000",
+              "name": _name,
+              "affiliation": _affiriation,
+              "mail":_email,
+              "truck": _trucknumber,
+              "phone": _phonenumber,
+              "password":_password,
         })
         .onError((e, _) => print("Error writing ddocument: $e"));
       }

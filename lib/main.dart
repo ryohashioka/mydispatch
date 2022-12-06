@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mydispatch/login_register/create_schedule.dart';
+import 'package:mydispatch/pages/create_schedule.dart';
 import 'login_register/home.dart';
 import 'login_register/create_employee.dart';
 import 'login_register/create_outsider.dart';

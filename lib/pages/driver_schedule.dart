@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:calendar_view/calendar_view.dart';
+import "package:intl/intl.dart";
 import 'dart:math' as math;
 
 class DriverSchedule extends StatelessWidget {
@@ -7,11 +8,17 @@ class DriverSchedule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var rand = math.Random();
+    var dayFormat = DateFormat('yyyy/MM/dd(E)');
+
     return Scaffold(
       appBar: AppBar(
-        title: Text("スケジュール"),
+        title: Text("Shedule"),
       ),
-      body: MonthView(
+      body: DayView(
+        dateStringBuilder: (DateTime date, {DateTime? secondaryDate}) {
+          return dayFormat.format(date);
+        },
         onEventTap: (events, date) {
           print(events);
           print(date);

@@ -41,7 +41,7 @@ class _NewScheduleState extends State<NewSchedule> {
                     fontSize: 30.0,
                     fontWeight: FontWeight.w500),
               ),
-              new TextFormField(
+              TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
                 obscureText: false,
@@ -56,23 +56,40 @@ class _NewScheduleState extends State<NewSchedule> {
                 },
                 onChanged: _handleText,
               ),
-              new TextFormField(
-                enabled: true,
-                style: TextStyle(color: Colors.black),
-                obscureText: false,
-                maxLines: 1,
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.date_range),
-                  hintText: '開始日付を入力してください',
-                  labelText: 'Start Date *',
+              TextFormField(
+                  readOnly: true,
+                  // enabled: true,
+                  style: TextStyle(color: Colors.black),
+                  obscureText: false,
+                  maxLines: 1,
+                  decoration: const InputDecoration(
+                    icon: Icon(Icons.date_range),
+                    hintText: '開始日付を入力してください',
+                    labelText: 'Start Date *',
+                  ),
+                  keyboardType: TextInputType.datetime,
+                  onSaved: (value) {
+                    _startdate = value!;
+                  },
+                  onChanged: _handleText,
+                   onTap: () async {
+                     final DateTime? picked = await showDatePicker(
+                         context: context,
+                         initialDate: DateTime.now(),
+                         firstDate: new DateTime(2016),
+                         lastDate: new DateTime.now().add(
+                             new Duration(days: 360))
+                     );
+                     if (picked != null) {
+                       onSaved:(value) {
+                         _startdate = value!;
+                       };
+                     }
+                   }
                 ),
-                onSaved: (value) {
-                  _startdate = value!;
-                },
-                onChanged: _handleText,
-              ),
-              new TextFormField(
-                enabled: true,
+              TextFormField(
+                readOnly: true,
+                // enabled: true,
                 style: TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
@@ -81,6 +98,7 @@ class _NewScheduleState extends State<NewSchedule> {
                   hintText: '終了日付を入力してください',
                   labelText: 'End Date *',
                 ),
+                keyboardType: TextInputType.datetime,
                 onSaved: (value) {
                   _enddate = value!;
                 },
@@ -93,3 +111,4 @@ class _NewScheduleState extends State<NewSchedule> {
     );
   }
 }
+

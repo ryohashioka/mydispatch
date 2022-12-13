@@ -13,7 +13,7 @@ class DriverSchedule extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Shedule"),
+        title: Text("Schedule"),
       ),
       body: DayView(
         dateStringBuilder: (DateTime date, {DateTime? secondaryDate}) {
@@ -27,7 +27,8 @@ class DriverSchedule extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.of(context).pushNamed('/new_schedule');
-          }
+          },
+          child: Icon(Icons.calendar_today_outlined),
       ),
     );
   }

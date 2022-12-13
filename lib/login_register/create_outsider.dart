@@ -111,7 +111,7 @@ class _NewOutsiderState extends State<NewOutsider> {
                 maxLines: 1,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.phone),
-                  hintText: '電話番号を入力してください',
+                  hintText: '電話番号を入力してください（ハイフンなし）',
                   labelText: 'Phone *',
                 ),
                 keyboardType: TextInputType.phone,

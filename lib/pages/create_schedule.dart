@@ -53,7 +53,7 @@ class _NewScheduleState extends State<NewSchedule> {
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
-                  icon: Icon(Icons.drive_eta),
+                  icon: Icon(Icons.local_shipping_outlined),
                   hintText: '車番を入力してください',
                   labelText: 'Car Number *',
                 ),
@@ -114,7 +114,7 @@ class _NewScheduleState extends State<NewSchedule> {
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
-                  icon: Icon(Icons.drive_eta),
+                  icon: Icon(Icons.construction_outlined),
                   hintText: '現場名を入力してください',
                   labelText: 'Site Name',
                 ),

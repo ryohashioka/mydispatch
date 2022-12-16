@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
 class NewSchedule extends StatefulWidget {
   @override
@@ -15,10 +16,17 @@ class _NewScheduleState extends State<NewSchedule> {
   String _address ="";
   String _sitename ="";
   String _phonenumber ="";
-  String _startdate = "";
-  String _enddate = "";
+  DateTime? _startdate;
+  TimeOfDay? _starttime;
+  DateTime? _enddate;
+  TimeOfDay? _endtime;
 
   String _text = "";
+
+  final TextEditingController _startDateController = TextEditingController();
+  final TextEditingController _startTimeController = TextEditingController();
+  final TextEditingController _endDateController = TextEditingController();
+  final TextEditingController _endTimeController = TextEditingController();
 
   void _handleText(String e) {
     setState(() {
@@ -139,69 +147,158 @@ class _NewScheduleState extends State<NewSchedule> {
                 },
                 onChanged: _handleText,
               ),
-              TextFormField(
-                  readOnly: true,
-                  // enabled: true,
-                  style: TextStyle(color: Colors.black),
-                  obscureText: false,
-                  maxLines: 1,
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.date_range),
-                    hintText: '開始日付を入力してください',
-                    labelText: 'Start Date *',
+              Row(
+                children: [
+                  Flexible(child:
+                  TextFormField(
+                      controller: _startDateController,
+                      readOnly: true,
+                      // enabled: true,
+                      style: TextStyle(color: Colors.black),
+                      obscureText: false,
+                      maxLines: 1,
+                      decoration: const InputDecoration(
+                        icon: Icon(Icons.date_range),
+                        hintText: '開始日付を入力してください',
+                        labelText: 'Start Date *',
+                      ),
+                      keyboardType: TextInputType.datetime,
+                      onChanged: _handleText,
+                      onTap: () async {
+                        final DateTime? picked = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: new DateTime(2016),
+                            lastDate: new DateTime.now().add(
+                                new Duration(days: 360))
+                        );
+                        if (picked != null) {
+                          DateFormat outputFormat = DateFormat('yyyy/MM/dd');
+                          _startDateController.text = outputFormat.format(picked);
+                          _startdate =picked;
+                         }
+                        }
                   ),
-                  keyboardType: TextInputType.datetime,
-                  onSaved: (value) {
-                    _startdate = value!;
-                  },
-                  onChanged: _handleText,
-                   onTap: () async {
-                     final DateTime? picked = await showDatePicker(
-                         context: context,
-                         initialDate: DateTime.now(),
-                         firstDate: new DateTime(2016),
-                         lastDate: new DateTime.now().add(
-                             new Duration(days: 360))
-                     );
-                     if (picked != null) {
-                       onSaved:(value) {
-                         _startdate = value!;
-                       };
-                     }
-                   }
-                ),
-              TextFormField(
-                readOnly: true,
-                // enabled: true,
-                style: TextStyle(color: Colors.black),
-                obscureText: false,
-                maxLines: 1,
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.date_range),
-                  hintText: '終了日付を入力してください',
-                  labelText: 'End Date *',
-                ),
-                keyboardType: TextInputType.datetime,
-                onSaved: (value) {
-                  _enddate = value!;
-                },
-                onChanged: _handleText,
-                  onTap: () async {
-                    final DateTime? picked = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: new DateTime(2016),
-                        lastDate: new DateTime.now().add(
-                            new Duration(days: 360))
-                    );
-                    if (picked != null) {
-                      onSaved:(value) {
-                        _startdate = value!;
-                      };
-                    }
-                  }
+                  ),
+                  Container(
+                    width: 100,
+                    padding: EdgeInsets.only(left: 10),
+                    child:
+                    TextFormField(
+                        controller: _startTimeController,
+                        readOnly: true,
+                        // enabled: true,
+                        style: TextStyle(color: Colors.black),
+                        obscureText: false,
+                        maxLines: 1,
+                        decoration: const InputDecoration(
+                          hintText: '開始時間を入力してください',
+                          labelText: 'Start Hour *',
+                        ),
+                        keyboardType: TextInputType.datetime,
+                        onChanged: _handleText,
+                        onTap: () async {
+                          final TimeOfDay? picked = await showTimePicker(
+                            context: context,
+                            initialTime: TimeOfDay.now(),
+                          );
+                          if (picked != null) {
+                            _startTimeController.text = "${picked.hour}:${picked.minute}";
+                            _starttime=picked;
+                          }
+                        }
+                    ),
+                  )
+                ],
               ),
-              FloatingActionButton.extended(onPressed: null,
+              Row(
+                children: [
+                  Flexible(child:
+                  TextFormField(
+                      controller: _endDateController,
+                      readOnly: true,
+                      // enabled: true,
+                      style: TextStyle(color: Colors.black),
+                      obscureText: false,
+                      maxLines: 1,
+                      decoration: const InputDecoration(
+                        icon: Icon(Icons.date_range),
+                        hintText: '終了日付を入力してください',
+                        labelText: 'End Date *',
+                      ),
+                      keyboardType: TextInputType.datetime,
+                      onChanged: _handleText,
+                      onTap: () async {
+                        final DateTime? picked = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: new DateTime(2016),
+                            lastDate: new DateTime.now().add(
+                                new Duration(days: 360))
+                        );
+                        if (picked != null) {
+                          DateFormat outputFormat = DateFormat('yyyy/MM/dd');
+                          _endDateController.text = outputFormat.format(picked);
+                          _enddate =picked;
+                        }
+                      }
+                    ),
+                  ),
+                  Container(
+                    width: 100,
+                    padding: EdgeInsets.only(left: 10),
+                    child:
+                    TextFormField(
+                        controller: _endTimeController,
+                        readOnly: true,
+                        // enabled: true,
+                        style: TextStyle(color: Colors.black),
+                        obscureText: false,
+                        maxLines: 1,
+                        decoration: const InputDecoration(
+                          hintText: '終了時間を入力してください',
+                          labelText: 'End Hour *',
+                        ),
+                        keyboardType: TextInputType.datetime,
+                        onChanged: _handleText,
+                        onTap: () async {
+                          final TimeOfDay? picked = await showTimePicker(
+                              context: context,
+                              initialTime: TimeOfDay.now(),
+                          );
+                          if (picked != null) {
+                            _endTimeController.text = "${picked.hour}:${picked.minute}";
+                            _endtime =picked;
+                          }
+                        }
+                    ),
+                  )
+                ],
+              ),
+              FloatingActionButton.extended(
+                onPressed: () {
+                  var state = _formKey.currentState;
+                  if(state != null && state.validate()){
+                    var db = FirebaseFirestore.instance;
+                    db.collection("000-schedules").add({
+                      'start_datetime' : DateTime(
+                        _startdate!.year,
+                        _startdate!.month,
+                        _startdate!.day,
+                        _starttime!.hour,
+                        _starttime!.minute,
+                      ),
+                      'end_datetime' : DateTime(
+                        _enddate!.year,
+                        _enddate!.month,
+                        _enddate!.day,
+                        _endtime!.hour,
+                        _endtime!.minute,
+                      ),
+                      'created_user_id' :FirebaseAuth.instance.currentUser!.uid,
+                    });
+                  }
+                },
                   icon:Icon(Icons.add),
                   label:const Text('Register'),
               ),

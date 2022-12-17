@@ -24,14 +24,6 @@ class _NewTruck extends State<NewTruck> {
         // padding: const EdgeInsets.all(70.0),
         child: Column(
           children: <Widget>[
-            Text(
-              "$_text",
-              style: TextStyle(
-                  color: Colors.purpleAccent,
-                  fontSize: 30.0,
-                  fontWeight: FontWeight.w500
-              ),
-            ),
             new TextField(
               enabled: true,
               style: TextStyle(color: Colors.black),

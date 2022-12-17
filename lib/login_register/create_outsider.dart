@@ -37,13 +37,6 @@ class _NewOutsiderState extends State<NewOutsider> {
           // padding: const EdgeInsets.all(70.0),
           child: Column(
             children: <Widget>[
-              Text(
-                "$_text",
-                style: TextStyle(
-                    color: Colors.green,
-                    fontSize: 30.0,
-                    fontWeight: FontWeight.w500),
-              ),
               new TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),

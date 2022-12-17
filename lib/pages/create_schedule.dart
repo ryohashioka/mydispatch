@@ -48,13 +48,6 @@ class _NewScheduleState extends State<NewSchedule> {
           // padding: const EdgeInsets.all(70.0),
           child: Column(
             children: <Widget>[
-              Text(
-                "$_text",
-                style: TextStyle(
-                    color: Colors.green,
-                    fontSize: 30.0,
-                    fontWeight: FontWeight.w500),
-              ),
               TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
@@ -281,6 +274,12 @@ class _NewScheduleState extends State<NewSchedule> {
                   if(state != null && state.validate()){
                     var db = FirebaseFirestore.instance;
                     db.collection("000-schedules").add({
+                      'CarNumber' : _carnumber,
+                      'DriverName' : _drivername,
+                      'CompanyName' : _companyname,
+                      'Address' : _address,
+                      'SiteName' : _sitename,
+                      'PhoneNumber' : _phonenumber,
                       'start_datetime' : DateTime(
                         _startdate!.year,
                         _startdate!.month,

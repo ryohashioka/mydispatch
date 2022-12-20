@@ -225,16 +225,22 @@ class _NewScheduleState extends State<NewSchedule> {
                         final DateTime? picked = await showDatePicker(
                             context: context,
                             initialDate: DateTime.now(),
-                            firstDate: new DateTime(2016),
-                            lastDate: new DateTime.now().add(
-                                new Duration(days: 360))
+                            firstDate: DateTime(2016),
+                            lastDate: DateTime.now().add(
+                                Duration(days: 360))
                         );
                         if (picked != null) {
                           DateFormat outputFormat = DateFormat('yyyy/MM/dd');
                           _endDateController.text = outputFormat.format(picked);
                           _enddate =picked;
                         }
-                      }
+                      },
+                      validator: (value){
+                        if(value == null || value.isEmpty){
+                          return "必須項目です！";
+                        }
+                        return null;
+                        },
                     ),
                   ),
                   Container(
@@ -272,7 +278,10 @@ class _NewScheduleState extends State<NewSchedule> {
                 onPressed: () {
                   var state = _formKey.currentState;
                   if(state != null && state.validate()){
+                    state.save();
+
                     var db = FirebaseFirestore.instance;
+                    // TODO スケジュールに企業コードを適用
                     db.collection("000-schedules").add({
                       'CarNumber' : _carnumber,
                       'DriverName' : _drivername,
@@ -295,6 +304,8 @@ class _NewScheduleState extends State<NewSchedule> {
                         _endtime!.minute,
                       ),
                       'created_user_id' :FirebaseAuth.instance.currentUser!.uid,
+                    }).then((res) {
+                      Navigator.pop(context);
                     });
                   }
                 },

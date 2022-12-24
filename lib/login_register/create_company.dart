@@ -14,6 +14,8 @@ class _NewCompanyState extends State<NewCompany> {
   String _manager = "";
   String _phonenumber = "";
   String _email = "";
+  String _password ="";
+
   String _text = '';
   void _handleText(String e) {
     setState(() {
@@ -129,7 +131,7 @@ class _NewCompanyState extends State<NewCompany> {
 
         db
 
-            .collection("users")
+            .collection("company")
             .doc(credential.user!.uid)
             .set({
           "companyname": _companyname,

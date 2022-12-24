@@ -1,18 +1,33 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
-
+class LoginPage extends StatefulWidget {
   @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+
+class _LoginPageState extends State<LoginPage> {
+  final _formKey = GlobalKey<FormState>();
+  String _email = "";
+  String _password = "";
+
+  String _text = "";
+
+  void _handleText(String e) {
+    setState(() {
+      _text = e;
+    });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Home'),
       ),
-      body: Container(
-        child: SingleChildScrollView(
-          child: Center(
+      body: SingleChildScrollView(
+          child: Form(
             child: Column(
               children: <Widget>[
                 Container(
@@ -22,7 +37,7 @@ class LoginPage extends StatelessWidget {
                   child: Center(
                     child: Column(
                       children: [
-                        TextField(
+                        TextFormField(
                           enabled: true,
                           style: TextStyle(color: Colors.black),
                           obscureText: false,
@@ -42,7 +57,7 @@ class LoginPage extends StatelessWidget {
                   child: Center(
                     child: Column(
                       children: [
-                        TextField(
+                        TextFormField(
                           enabled: true,
                           style: TextStyle(color: Colors.black),
                           obscureText: false,
@@ -61,7 +76,7 @@ class LoginPage extends StatelessWidget {
                 ButtonBar(buttonPadding: EdgeInsets.all(30.0), children: [
                   ElevatedButton(
                       onPressed: () =>
-                          login("", ""),
+                          login(_email, _password),
                       child: Text('log in'))
                 ]),
                 ElevatedButton(
@@ -77,8 +92,7 @@ class LoginPage extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
+      );
   }
 
   void login(String email, String password) async {

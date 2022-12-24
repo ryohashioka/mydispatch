@@ -26,7 +26,7 @@ class DriverSchedule extends StatelessWidget {
           date: startDt,
           startTime: startDt,
           endTime: endDt,
-          title: "${data['CompanyName']} (${data['DriverName']}さん",
+          title: "${data['SiteName']}/ ${data['CompanyName']}様/ ${data['DriverName']}",
           event: doc.id,
         );
       }).toList();

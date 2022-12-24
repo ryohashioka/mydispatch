@@ -42,6 +42,7 @@ class _MainPageState extends State<MainPage> {
     if (user != null) {
       return const MenuPage();
     }
-    return const LoginPage();
+    return LoginPage();
+  //  TODO ↑修正前はreturn const だったがこれでいいのか・・・（constを消したらエラー消えた）
   }
 }

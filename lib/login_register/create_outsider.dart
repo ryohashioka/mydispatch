@@ -158,6 +158,10 @@ class _NewOutsiderState extends State<NewOutsider> {
               ),
               ElevatedButton(
                   onPressed: () => create(context), child: Text('Register')),
+              ElevatedButton(
+                  onPressed: () =>
+                      Navigator.of(context).pushNamed('/new_company'),
+                  child: Text('法人新規登録')),
             ],
           ),
         ),

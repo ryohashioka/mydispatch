@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mydispatch/login_register/create_company.dart';
 import 'package:mydispatch/pages/create_schedule.dart';
 import 'login_register/home.dart';
 import 'login_register/create_employee.dart';
@@ -31,11 +32,13 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         home: MainPage(),
         routes:  <String, WidgetBuilder>{
-        '/home':(BuildContext context) =>  MainPage(),
-        '/new_employee': (BuildContext context) => NewEmployee(),
-        '/new_outsider': (BuildContext context) => NewOutsider(),
-        '/miss_password': (BuildContext context) => MissPassword(),
+          '/home':(BuildContext context) =>  MainPage(),
+          '/new_employee': (BuildContext context) => NewEmployee(),
+          '/new_outsider': (BuildContext context) => NewOutsider(),
+          '/miss_password': (BuildContext context) => MissPassword(),
           '/new_schedule': (BuildContext context) => NewSchedule(),
+          '/new_company' : (BuildContext context) => NewCompany(),
+
 
        },
       ),

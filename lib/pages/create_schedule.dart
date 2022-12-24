@@ -20,6 +20,7 @@ class _NewScheduleState extends State<NewSchedule> {
   TimeOfDay? _starttime;
   DateTime? _enddate;
   TimeOfDay? _endtime;
+  String _description ="";
 
   String _text = "";
 
@@ -274,6 +275,22 @@ class _NewScheduleState extends State<NewSchedule> {
                   )
                 ],
               ),
+              TextFormField(
+                enabled: true,
+                style: TextStyle(color: Colors.black),
+                obscureText: false,
+                maxLines: 1,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.text_fields_outlined),
+                  hintText: '備考',
+                  labelText: 'Description',
+                ),
+                keyboardType: TextInputType.text,
+                onSaved: (value) {
+                  _description = value!;
+                },
+                onChanged: _handleText,
+              ),
               FloatingActionButton.extended(
                 onPressed: () {
                   var state = _formKey.currentState;
@@ -303,6 +320,7 @@ class _NewScheduleState extends State<NewSchedule> {
                         _endtime!.hour,
                         _endtime!.minute,
                       ),
+                      'Description' :_description,
                       'created_user_id' :FirebaseAuth.instance.currentUser!.uid,
                     }).then((res) {
                       Navigator.pop(context);

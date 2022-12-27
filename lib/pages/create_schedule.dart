@@ -4,30 +4,37 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
 class NewSchedule extends StatefulWidget {
+
+  final String? id;
+
+  const NewSchedule({Key? key, this.id}) : super(key: key);
+
   @override
   _NewScheduleState createState() => _NewScheduleState();
 }
 
 class _NewScheduleState extends State<NewSchedule> {
   final _formKey = GlobalKey<FormState>();
-  String _carnumber = "";
-  String _drivername = "";
-  String _companyname = "";
-  String _address ="";
-  String _sitename ="";
-  String _phonenumber ="";
-  DateTime? _startdate;
-  TimeOfDay? _starttime;
-  DateTime? _enddate;
-  TimeOfDay? _endtime;
-  String _description ="";
+  late DateTime _startdate;
+  late TimeOfDay _starttime;
+  late DateTime _enddate;
+  late TimeOfDay _endtime;
 
   String _text = "";
 
+  final TextEditingController _carNumberController = TextEditingController();
+  final TextEditingController _driverNameController = TextEditingController();
+  final TextEditingController _companyNameController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _siteNameController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _startDateController = TextEditingController();
   final TextEditingController _startTimeController = TextEditingController();
   final TextEditingController _endDateController = TextEditingController();
   final TextEditingController _endTimeController = TextEditingController();
+
+  DateFormat _outputFormat = DateFormat('yyyy/MM/dd');
 
   void _handleText(String e) {
     setState(() {
@@ -35,13 +42,68 @@ class _NewScheduleState extends State<NewSchedule> {
     });
   }
 
+  //startDateとStartTimeの値をセットする文
+  void _setStartDt(DateTime dt) {
+    _startdate = dt;
+    _startDateController.text = _outputFormat.format(dt);
+    _starttime = TimeOfDay(hour: dt.hour, minute: dt.minute);
+    _startTimeController.text = "${dt.hour}:${dt.minute}";
+  }
+
+  void _setEndDt(DateTime dt) {
+    _enddate = dt;
+    _endDateController.text = _outputFormat.format(dt);
+    _endtime = TimeOfDay(hour: dt.hour, minute: dt.minute);
+    _endTimeController.text = "${dt.hour}:${dt.minute}";
+  }
+
+  @override
+  void initState() {
+    _setStartDt(DateTime.now());
+    _setEndDt(DateTime.now());
+
+    if(widget.id != null) {
+      print(widget.id);
+      FirebaseFirestore.instance.collection('000-schedules').doc(widget.id).get().then((DocumentSnapshot doc) {
+        final data = doc.data() as Map<String,dynamic>;
+        final startDt = data['start_datetime'].toDate();
+        _setStartDt(startDt);
+        final endDt = data['end_datetime'].toDate();
+        _setEndDt(endDt);
+        _carNumberController.text = data['CarNumber'];
+        _driverNameController.text = data['DriverName'];
+        _companyNameController.text = data['CompanyName'];
+        _addressController.text = data['Address'];
+        _siteNameController.text = data['SiteName'];
+        _phoneNumberController.text = data['PhoneNumber'];
+        _descriptionController.text = data['Description'];
+
+      });
+    }
+
+    super.initState();
+  }
+
 
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Create New Schedule',
+          widget.id == null ? 'Create New Schedule' : 'Edit Schedule',
         ),
+        actions: [
+          if(widget.id != null)
+          IconButton(
+            icon: const Icon(Icons.delete_outline_outlined),
+            onPressed: () {
+              FirebaseFirestore.instance
+                  .collection('000-schedules')
+                  .doc(widget.id)
+                  .delete();
+              Navigator.pop(context);
+            },
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -50,6 +112,7 @@ class _NewScheduleState extends State<NewSchedule> {
           child: Column(
             children: <Widget>[
               TextFormField(
+                controller: _carNumberController,
                 enabled: true,
                 style: TextStyle(color: Colors.black),
                 obscureText: false,
@@ -60,12 +123,10 @@ class _NewScheduleState extends State<NewSchedule> {
                   labelText: 'Car Number *',
                 ),
                 keyboardType: TextInputType.number,
-                onSaved: (value) {
-                  _carnumber = value!;
-                },
                 onChanged: _handleText,
               ),
               TextFormField(
+                controller: _driverNameController,
                 enabled: true,
                 style: TextStyle(color: Colors.black),
                 obscureText: false,
@@ -75,12 +136,10 @@ class _NewScheduleState extends State<NewSchedule> {
                   hintText: 'ドライバーを選択してください',
                   labelText: 'Driver Name *',
                 ),
-                onSaved: (value) {
-                  _drivername = value!;
-                },
                 onChanged: _handleText,
               ),
               TextFormField(
+                controller: _companyNameController,
                 enabled: true,
                 style: TextStyle(color: Colors.black),
                 obscureText: false,
@@ -90,12 +149,10 @@ class _NewScheduleState extends State<NewSchedule> {
                   hintText: '取引先を入力してください',
                   labelText: 'Company Name *',
                 ),
-                onSaved: (value) {
-                  _companyname = value!;
-                },
                 onChanged: _handleText,
               ),
               TextFormField(
+                controller: _addressController,
                 enabled: true,
                 style: TextStyle(color: Colors.black),
                 obscureText: false,
@@ -105,12 +162,10 @@ class _NewScheduleState extends State<NewSchedule> {
                   hintText: '住所を入力してください',
                   labelText: 'Address *',
                 ),
-                onSaved: (value) {
-                  _address = value!;
-                },
                 onChanged: _handleText,
               ),
               TextFormField(
+                controller: _siteNameController,
                 enabled: true,
                 style: TextStyle(color: Colors.black),
                 obscureText: false,
@@ -120,12 +175,10 @@ class _NewScheduleState extends State<NewSchedule> {
                   hintText: '現場名を入力してください',
                   labelText: 'Site Name',
                 ),
-                onSaved: (value) {
-                  _sitename = value!;
-                },
                 onChanged: _handleText,
               ),
               TextFormField(
+                controller: _phoneNumberController,
                 enabled: true,
                 style: TextStyle(color: Colors.black),
                 obscureText: false,
@@ -136,9 +189,6 @@ class _NewScheduleState extends State<NewSchedule> {
                   labelText: 'Phone Number',
                 ),
                 keyboardType: TextInputType.phone,
-                onSaved: (value) {
-                  _phonenumber = value!;
-                },
                 onChanged: _handleText,
               ),
               Row(
@@ -161,14 +211,13 @@ class _NewScheduleState extends State<NewSchedule> {
                       onTap: () async {
                         final DateTime? picked = await showDatePicker(
                             context: context,
-                            initialDate: DateTime.now(),
+                            initialDate: _startdate,
                             firstDate: new DateTime(2016),
                             lastDate: new DateTime.now().add(
                                 new Duration(days: 360))
                         );
                         if (picked != null) {
-                          DateFormat outputFormat = DateFormat('yyyy/MM/dd');
-                          _startDateController.text = outputFormat.format(picked);
+                          _startDateController.text = _outputFormat.format(picked);
                           _startdate =picked;
                          }
                         }
@@ -194,7 +243,7 @@ class _NewScheduleState extends State<NewSchedule> {
                         onTap: () async {
                           final TimeOfDay? picked = await showTimePicker(
                             context: context,
-                            initialTime: TimeOfDay.now(),
+                            initialTime: _starttime,
                           );
                           if (picked != null) {
                             _startTimeController.text = "${picked.hour}:${picked.minute}";
@@ -225,14 +274,13 @@ class _NewScheduleState extends State<NewSchedule> {
                       onTap: () async {
                         final DateTime? picked = await showDatePicker(
                             context: context,
-                            initialDate: DateTime.now(),
+                            initialDate: _enddate,
                             firstDate: DateTime(2016),
                             lastDate: DateTime.now().add(
                                 Duration(days: 360))
                         );
                         if (picked != null) {
-                          DateFormat outputFormat = DateFormat('yyyy/MM/dd');
-                          _endDateController.text = outputFormat.format(picked);
+                          _endDateController.text = _outputFormat.format(picked);
                           _enddate =picked;
                         }
                       },
@@ -264,7 +312,7 @@ class _NewScheduleState extends State<NewSchedule> {
                         onTap: () async {
                           final TimeOfDay? picked = await showTimePicker(
                               context: context,
-                              initialTime: TimeOfDay.now(),
+                              initialTime: _endtime,
                           );
                           if (picked != null) {
                             _endTimeController.text = "${picked.hour}:${picked.minute}";
@@ -276,6 +324,7 @@ class _NewScheduleState extends State<NewSchedule> {
                 ],
               ),
               TextFormField(
+                controller: _descriptionController,
                 enabled: true,
                 style: TextStyle(color: Colors.black),
                 obscureText: false,
@@ -286,9 +335,6 @@ class _NewScheduleState extends State<NewSchedule> {
                   labelText: 'Description',
                 ),
                 keyboardType: TextInputType.text,
-                onSaved: (value) {
-                  _description = value!;
-                },
                 onChanged: _handleText,
               ),
               FloatingActionButton.extended(
@@ -300,12 +346,12 @@ class _NewScheduleState extends State<NewSchedule> {
                     var db = FirebaseFirestore.instance;
                     // TODO スケジュールに企業コードを適用
                     db.collection("000-schedules").add({
-                      'CarNumber' : _carnumber,
-                      'DriverName' : _drivername,
-                      'CompanyName' : _companyname,
-                      'Address' : _address,
-                      'SiteName' : _sitename,
-                      'PhoneNumber' : _phonenumber,
+                      'CarNumber' : _carNumberController.text,
+                      'DriverName' : _driverNameController,
+                      'CompanyName' : _companyNameController,
+                      'Address' : _addressController,
+                      'SiteName' : _siteNameController,
+                      'PhoneNumber' : _phoneNumberController,
                       'start_datetime' : DateTime(
                         _startdate!.year,
                         _startdate!.month,
@@ -320,7 +366,7 @@ class _NewScheduleState extends State<NewSchedule> {
                         _endtime!.hour,
                         _endtime!.minute,
                       ),
-                      'Description' :_description,
+                      'Description' :_descriptionController,
                       'created_user_id' :FirebaseAuth.instance.currentUser!.uid,
                     }).then((res) {
                       Navigator.pop(context);
@@ -337,4 +383,14 @@ class _NewScheduleState extends State<NewSchedule> {
     );
   }
 }
+
+//TODO
+// if(widget.id != null) {
+//                       // 更新
+//                       db.collection("").doc(widget.id).set({}).then((res) {
+//                         Navigator.pop(context);
+//                       });
+//                     } else {
+//                       // 新規
+//                     }
 

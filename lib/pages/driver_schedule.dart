@@ -3,6 +3,7 @@ import 'package:calendar_view/calendar_view.dart';
 import "package:intl/intl.dart";
 import 'dart:math' as math;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:mydispatch/pages/create_schedule.dart';
 
 class DriverSchedule extends StatelessWidget {
   const DriverSchedule({Key? key}) : super(key: key);
@@ -49,16 +50,21 @@ class DriverSchedule extends StatelessWidget {
         dateStringBuilder: (DateTime date, {DateTime? secondaryDate}) {
           return dayFormat.format(date);
         },
-        onEventTap: (events, date) {
-          print(events);
-          print(date);
+        onEventTap: (events, date) async {
           String? docID = events[0].event as String?;
-          FirebaseFirestore.instance.collection('000-schedules').doc(docID).delete();
+          await Navigator.of(context).push(MaterialPageRoute(builder: (context) => NewSchedule(id: docID))
+          );
           getSchedules(context);
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-          onPressed: () async {
+          // print(events);
+          // print(date);
+          //   String? docID = events[0].event as String?;
+          //   FirebaseFirestore.instance.collection('000-schedules').doc(docID).delete();
+          //   getSchedules(context);
+            },
+          ),
+          floatingActionButton: FloatingActionButton(
+          onPressed: ()
+           async {
             await Navigator.of(context).pushNamed('/new_schedule');
             getSchedules(context);
           },

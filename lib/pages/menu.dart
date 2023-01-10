@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mydispatch/components/user_profile.dart';
+import 'package:mydispatch/data/MyUser.dart';
 import '/pages/driver_schedule.dart';
 
 class MenuPage extends StatelessWidget {
@@ -16,14 +17,26 @@ class MenuPage extends StatelessWidget {
         child: ListView(
           children: <Widget>[
             const UserProfile(),
+            if(MyUser.isAdmin())
             GestureDetector(
               onTap: () async {
-                  await FirebaseAuth.instance.signOut();
+                  print("CreateCompany ページへ遷移する");
+                  Navigator.pushNamed(context, '/new_company');
               },
               child:  const ListTile(
                   leading: Icon(Icons.logout),
-                  title: Text("Logout"),
+                  title: Text("法人登録"),
                   trailing: Icon(Icons.arrow_forward),
+              ),
+            ),
+            GestureDetector(
+              onTap: () async {
+                await FirebaseAuth.instance.signOut();
+              },
+              child:  const ListTile(
+                leading: Icon(Icons.logout),
+                title: Text("Logout"),
+                trailing: Icon(Icons.arrow_forward),
               ),
             ),
           ],

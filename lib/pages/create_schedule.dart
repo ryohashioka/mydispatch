@@ -20,8 +20,6 @@ class _NewScheduleState extends State<NewSchedule> {
   late DateTime _enddate;
   late TimeOfDay _endtime;
 
-  String _text = "";
-
   final TextEditingController _carNumberController = TextEditingController();
   final TextEditingController _driverNameController = TextEditingController();
   final TextEditingController _companyNameController = TextEditingController();
@@ -35,12 +33,6 @@ class _NewScheduleState extends State<NewSchedule> {
   final TextEditingController _endTimeController = TextEditingController();
 
   DateFormat _outputFormat = DateFormat('yyyy/MM/dd');
-
-  void _handleText(String e) {
-    setState(() {
-      _text = e;
-    });
-  }
 
   //startDateとStartTimeの値をセットする文
   void _setStartDt(DateTime dt) {
@@ -123,7 +115,6 @@ class _NewScheduleState extends State<NewSchedule> {
                   labelText: 'Car Number *',
                 ),
                 keyboardType: TextInputType.number,
-                onChanged: _handleText,
               ),
               TextFormField(
                 controller: _driverNameController,
@@ -136,7 +127,6 @@ class _NewScheduleState extends State<NewSchedule> {
                   hintText: 'ドライバーを選択してください',
                   labelText: 'Driver Name *',
                 ),
-                onChanged: _handleText,
               ),
               TextFormField(
                 controller: _companyNameController,
@@ -149,7 +139,6 @@ class _NewScheduleState extends State<NewSchedule> {
                   hintText: '取引先を入力してください',
                   labelText: 'Company Name *',
                 ),
-                onChanged: _handleText,
               ),
               TextFormField(
                 controller: _addressController,
@@ -162,7 +151,6 @@ class _NewScheduleState extends State<NewSchedule> {
                   hintText: '住所を入力してください',
                   labelText: 'Address *',
                 ),
-                onChanged: _handleText,
               ),
               TextFormField(
                 controller: _siteNameController,
@@ -175,7 +163,6 @@ class _NewScheduleState extends State<NewSchedule> {
                   hintText: '現場名を入力してください',
                   labelText: 'Site Name',
                 ),
-                onChanged: _handleText,
               ),
               TextFormField(
                 controller: _phoneNumberController,
@@ -189,7 +176,6 @@ class _NewScheduleState extends State<NewSchedule> {
                   labelText: 'Phone Number',
                 ),
                 keyboardType: TextInputType.phone,
-                onChanged: _handleText,
               ),
               Row(
                 children: [
@@ -207,7 +193,6 @@ class _NewScheduleState extends State<NewSchedule> {
                         labelText: 'Start Date *',
                       ),
                       keyboardType: TextInputType.datetime,
-                      onChanged: _handleText,
                       onTap: () async {
                         final DateTime? picked = await showDatePicker(
                             context: context,
@@ -239,7 +224,6 @@ class _NewScheduleState extends State<NewSchedule> {
                           labelText: 'Start Hour *',
                         ),
                         keyboardType: TextInputType.datetime,
-                        onChanged: _handleText,
                         onTap: () async {
                           final TimeOfDay? picked = await showTimePicker(
                             context: context,
@@ -270,7 +254,6 @@ class _NewScheduleState extends State<NewSchedule> {
                         labelText: 'End Date *',
                       ),
                       keyboardType: TextInputType.datetime,
-                      onChanged: _handleText,
                       onTap: () async {
                         final DateTime? picked = await showDatePicker(
                             context: context,
@@ -308,7 +291,6 @@ class _NewScheduleState extends State<NewSchedule> {
                           labelText: 'End Hour *',
                         ),
                         keyboardType: TextInputType.datetime,
-                        onChanged: _handleText,
                         onTap: () async {
                           final TimeOfDay? picked = await showTimePicker(
                               context: context,
@@ -335,7 +317,6 @@ class _NewScheduleState extends State<NewSchedule> {
                   labelText: 'Description',
                 ),
                 keyboardType: TextInputType.text,
-                onChanged: _handleText,
               ),
               FloatingActionButton.extended(
                 onPressed: () {
@@ -347,24 +328,24 @@ class _NewScheduleState extends State<NewSchedule> {
                     // TODO スケジュールに企業コードを適用
                     db.collection("000-schedules").add({
                       'CarNumber' : _carNumberController.text,
-                      'DriverName' : _driverNameController,
-                      'CompanyName' : _companyNameController,
-                      'Address' : _addressController,
-                      'SiteName' : _siteNameController,
-                      'PhoneNumber' : _phoneNumberController,
+                      'DriverName' : _driverNameController.text,
+                      'CompanyName' : _companyNameController.text,
+                      'Address' : _addressController.text,
+                      'SiteName' : _siteNameController.text,
+                      'PhoneNumber' : _phoneNumberController.text,
                       'start_datetime' : DateTime(
-                        _startdate!.year,
-                        _startdate!.month,
-                        _startdate!.day,
-                        _starttime!.hour,
-                        _starttime!.minute,
+                        _startdate.year,
+                        _startdate.month,
+                        _startdate.day,
+                        _starttime.hour,
+                        _starttime.minute,
                       ),
                       'end_datetime' : DateTime(
-                        _enddate!.year,
-                        _enddate!.month,
-                        _enddate!.day,
-                        _endtime!.hour,
-                        _endtime!.minute,
+                        _enddate.year,
+                        _enddate.month,
+                        _enddate.day,
+                        _endtime.hour,
+                        _endtime.minute,
                       ),
                       'Description' :_descriptionController,
                       'created_user_id' :FirebaseAuth.instance.currentUser!.uid,

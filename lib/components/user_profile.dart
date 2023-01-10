@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../data/MyUser.dart';
+
 class UserProfile extends StatefulWidget {
   const UserProfile({Key? key}) : super(key: key);
 
@@ -11,29 +13,16 @@ class UserProfile extends StatefulWidget {
 
 class _UserProfileState extends State<UserProfile> {
 
-  @override
-  void initState() {
-    super.initState();
-
-    User? user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      print(user.uid);
-      var db = FirebaseFirestore.instance;
-      final docRef = db.collection("users").doc(user.uid);
-      docRef.get().then(
-            (DocumentSnapshot doc) {
-          final data = doc.data() as Map<String, dynamic>;
-          // ...
-        },
-        onError: (e) => print("Error getting document: $e"),
-      );
-    }
-  }
-
-  @override
-    Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return DrawerHeader(
-      child: Text('Drawer Header'),
+      child: Column(
+          children: [
+            Text(MyUser.currentUser!['name']),
+            Text(MyUser.currentUser!['phone']),
+            Text(MyUser.currentUser!['affiliation']),
+            Text("${MyUser.currentUser!['truck']}"),
+          ]
+      ),
       decoration: BoxDecoration(
         color: Colors.blue,
       ),

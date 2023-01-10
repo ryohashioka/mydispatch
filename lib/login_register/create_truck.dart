@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+//TODO create companyを参考にコード修正！
+
 class NewTruck extends StatefulWidget {
   @override
   _NewTruck createState() => _NewTruck();

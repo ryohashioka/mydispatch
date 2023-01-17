@@ -347,7 +347,7 @@ class _NewScheduleState extends State<NewSchedule> {
                         _endtime.hour,
                         _endtime.minute,
                       ),
-                      'Description' :_descriptionController,
+                      'Description' :_descriptionController.text,
                       'created_user_id' :FirebaseAuth.instance.currentUser!.uid,
                     }).then((res) {
                       Navigator.pop(context);

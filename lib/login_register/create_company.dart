@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:mydispatch/login_register/create_outsider.dart';
 
 class NewCompany extends StatefulWidget {
   @override
@@ -116,33 +117,20 @@ class _NewCompanyState extends State<NewCompany> {
     }
 
     try {
-      final credential =
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _email,
-        password: _password,
-      );
+      var db = FirebaseFirestore.instance;
 
-      print(credential);
+      var ds =await db.collection("company").add({
+        "companyname": _companyname,
+        "manager": _manager,
+        "mail":_email,
+        "phone": _phonenumber,
+      });
 
-      if(credential.user != null) {
-        print(credential.user!.uid);
+      String companyCode = ds.id;
 
-        var db = FirebaseFirestore.instance;
+      await Navigator.of(context).push(MaterialPageRoute(builder: (context) => NewOutsider(companyCode: companyCode,)));
+      Navigator.pop(context);
 
-        db
-
-            .collection("company")
-            .doc(credential.user!.uid)
-            .set({
-          "companyname": _companyname,
-          "manager": _manager,
-          "mail":_email,
-          "phone": _phonenumber,
-        })
-            .onError((e, _) => print("Error writing ddocument: $e"));
-      }
-
-      Navigator.of(context).pop();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');

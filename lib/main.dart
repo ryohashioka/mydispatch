@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         routes:  <String, WidgetBuilder>{
           '/home':(BuildContext context) =>  MainPage(),
           '/new_employee': (BuildContext context) => NewEmployee(),
-          '/new_outsider': (BuildContext context) => NewOutsider(),
+          // '/new_outsider': (BuildContext context) => NewOutsider(),
           '/miss_password': (BuildContext context) => MissPassword(),
           '/new_schedule': (BuildContext context) => NewSchedule(),
           '/new_company' : (BuildContext context) => NewCompany(),

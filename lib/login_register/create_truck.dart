@@ -48,6 +48,7 @@ class _NewTruckState extends State<NewTruck> {
                   hintText: '車番を入力してください',
                   labelText: 'Car number *',
                 ),
+                keyboardType: TextInputType.number,
                 //パスワード
                 onSaved: (value) {
                   _carNumber = value!;
@@ -79,6 +80,7 @@ class _NewTruckState extends State<NewTruck> {
                   hintText: '最大積載量を入力してください',
                   labelText: 'max capacity *',
                 ),
+                keyboardType: TextInputType.number,
                 onSaved: (value) {
                   _maxCapacity = value!;
                 },
@@ -94,6 +96,7 @@ class _NewTruckState extends State<NewTruck> {
                   hintText: '車両重量を入力してください',
                   labelText: 'car weight *',
                 ),
+                keyboardType: TextInputType.number,
                 onSaved: (value) {
                   _carWeight = value!;
                 },
@@ -109,6 +112,7 @@ class _NewTruckState extends State<NewTruck> {
                   hintText: '総重量を入力してください',
                   labelText: 'total weight *',
                 ),
+                keyboardType: TextInputType.number,
                 onSaved: (value) {
                   _totalWeight = value!;
                 },
@@ -124,6 +128,7 @@ class _NewTruckState extends State<NewTruck> {
                   hintText: '長さを入力してください',
                   labelText: 'length *',
                 ),
+                keyboardType: TextInputType.number,
                 onSaved: (value) {
                   _length = value!;
                 },
@@ -139,6 +144,7 @@ class _NewTruckState extends State<NewTruck> {
                   hintText: '高さを入力してください',
                   labelText: 'height *',
                 ),
+                keyboardType: TextInputType.number,
                 onSaved: (value) {
                   _height = value!;
                 },
@@ -154,6 +160,7 @@ class _NewTruckState extends State<NewTruck> {
                   hintText: '車幅を入力してください',
                   labelText: 'width *',
                 ),
+                keyboardType: TextInputType.number,
                 onSaved: (value) {
                   _width = value!;
                 },
@@ -169,6 +176,7 @@ class _NewTruckState extends State<NewTruck> {
                   hintText: '車検期限を入力してください',
                   labelText: 'inspection deadline *',
                 ),
+                keyboardType: TextInputType.datetime,
                 onSaved: (value) {
                   _inspectionDeadline = value!;
                 },

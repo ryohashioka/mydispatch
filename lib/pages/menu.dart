@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mydispatch/components/user_profile.dart';
 import 'package:mydispatch/data/MyUser.dart';
 import '/pages/driver_schedule.dart';
+import 'package:mydispatch/login_register/create_truck.dart';
 
 class MenuPage extends StatelessWidget {
   const MenuPage({Key? key}) : super(key: key);
@@ -81,6 +82,12 @@ class MenuPage extends StatelessWidget {
               ),
             ),
             Expanded(
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(
+                      builder: (BuildContext context) => NewTruck()
+                  ));
+                },
               child: Container(
                 width: 600,height: 240,
                 child: Image.asset(
@@ -88,6 +95,7 @@ class MenuPage extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
+             ),
             ),
           ],
         ),

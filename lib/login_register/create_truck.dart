@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-
-//TODO create companyを参考にコード修正！
-
 class NewTruck extends StatefulWidget {
   @override
   _NewTruckState createState() => _NewTruckState();
@@ -177,61 +174,85 @@ class _NewTruckState extends State<NewTruck> {
                 },
                 onChanged: _handleText,
               ),
-              ElevatedButton(
-                  onPressed: () => create(context), child: Text('Register')),
+              FloatingActionButton.extended(
+                onPressed: () {
+                  var state = _formKey.currentState;
+                  if (state != null && state.validate()) {
+                    state.save();
+
+                    var db = FirebaseFirestore.instance;
+                    db.collection("trackinfo").add({
+                      "carnumber": _carNumber,
+                      "type": _type,
+                      "max capasity": _maxCapacity,
+                      "car weight": _carWeight,
+                      "total weight": _totalWeight,
+                      "length": _length,
+                      "height": _height,
+                      "width": _width,
+                      "inspection deadline": _inspectionDeadline,
+                    }).then((res) {
+                      Navigator.pop(context);
+                    });
+                  }
+                },
+                icon: Icon(Icons.add),
+                label: const Text('Register'),
+              ),
             ],
           ),
         ),
       ),
     );
   }
-
-  void create(BuildContext context) async {
-    if (_formKey.currentState != null && _formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-    }
-
-    try {
-      final credential =
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _email,
-        password: _password,
-      );
-
-      print(credential);
-
-      if (credential.user != null) {
-        print(credential.user!.uid);
-
-        var db = FirebaseFirestore.instance;
-
-        db
-
-            .collection("users")
-            .doc()
-            .set({
-          "carnumber": _carNumber,
-          "type": _type,
-          "max capasity": _maxCapacity,
-          "car weight": _carWeight,
-          "total weight": _totalWeight,
-          "length": _length,
-          "height": _height,
-          "width": _width,
-          "inspection deadline": _inspectionDeadline,
-        })
-            .onError((e, _) => print("Error writing ddocument: $e"));
-      }
-
-      Navigator.of(context).pop();
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
 }
+//
+//   void create(BuildContext context) async {
+//     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
+//       _formKey.currentState!.save();
+//     }
+//
+//     try {
+//       final credential =
+//       await FirebaseAuth.instance.createUserWithEmailAndPassword(
+//         email: _email,
+//         password: _password,
+//       );
+//
+//       print(credential);
+//
+//       if (credential.user != null) {
+//         print(credential.user!.uid);
+//
+//         var db = FirebaseFirestore.instance;
+//
+//         db
+//
+//             .collection("users")
+//             .doc()
+//             .set({
+//           "carnumber": _carNumber,
+//           "type": _type,
+//           "max capasity": _maxCapacity,
+//           "car weight": _carWeight,
+//           "total weight": _totalWeight,
+//           "length": _length,
+//           "height": _height,
+//           "width": _width,
+//           "inspection deadline": _inspectionDeadline,
+//         })
+//             .onError((e, _) => print("Error writing ddocument: $e"));
+//       }
+//
+//       Navigator.of(context).pop();
+//     } on FirebaseAuthException catch (e) {
+//       if (e.code == 'weak-password') {
+//         print('The password provided is too weak.');
+//       } else if (e.code == 'email-already-in-use') {
+//         print('The account already exists for that email.');
+//       }
+//     } catch (e) {
+//       print(e);
+//     }
+//   }
+// }

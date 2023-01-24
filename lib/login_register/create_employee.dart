@@ -148,46 +148,46 @@ class _NewEmployeeState extends State<NewEmployee> {
   void create(BuildContext context) async {
     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-    }
-//TODO void createの中に153から180までの文を切り取って移動させる
-    try {
-      final credential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _email,
-        password: _password,
-      );
+      try {
+        final credential =
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _email,
+          password: _password,
+        );
 
-      print(credential);
+        print(credential);
 
-      if(credential.user != null) {
-        print(credential.user!.uid);
+        if(credential.user != null) {
+          print(credential.user!.uid);
 
-        var db = FirebaseFirestore.instance;
+          var db = FirebaseFirestore.instance;
 
-        db
+          db
 
-            .collection("users")
-            .doc(credential.user!.uid)
-            .set({
-              "name": _name,
-              "affiliation": _affiriation,
-              "mail":_email,
-              "truck": _trucknumber,
-              "phone": _phonenumber,
-              "password":_password,
-        })
-        .onError((e, _) => print("Error writing ddocument: $e"));
+              .collection("users")
+              .doc(credential.user!.uid)
+              .set({
+            "name": _name,
+            "affiliation": _affiriation,
+            "mail":_email,
+            "truck": _trucknumber,
+            "phone": _phonenumber,
+            "password":_password,
+          })
+              .onError((e, _) => print("Error writing ddocument: $e"));
+        }
+
+        Navigator.of(context).pop();
       }
-
-      Navigator.of(context).pop();
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+      on FirebaseAuthException catch (e) {
+        if (e.code == 'weak-password') {
+          print('The password provided is too weak.');
+        } else if (e.code == 'email-already-in-use') {
+          print('The account already exists for that email.');
+        }
+      } catch (e) {
+        print(e);
       }
-    } catch (e) {
-      print(e);
     }
   }
 }

@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mydispatch/data/MyUser.dart';
 
+//TODO 20230117 create_employee108〜バリデーターを参考に記入してみる
 class NewOutsider extends StatefulWidget {
 
   final String companyCode;
 
   const NewOutsider({Key? key, required this.companyCode}) : super(key: key);
-
   @override
   _NewOutsiderState createState() => _NewOutsiderState();
 }
@@ -44,7 +44,7 @@ class _NewOutsiderState extends State<NewOutsider> {
           child: Column(
             children: <Widget>[
               Text(widget.companyCode),
-              new TextFormField(
+              TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
                 obscureText: false,
@@ -59,7 +59,7 @@ class _NewOutsiderState extends State<NewOutsider> {
                 },
                 onChanged: _handleText,
               ),
-              new TextFormField(
+               TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
                 obscureText: false,
@@ -74,7 +74,7 @@ class _NewOutsiderState extends State<NewOutsider> {
                 },
                 onChanged: _handleText,
               ),
-              new TextFormField(
+               TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
                 obscureText: false,
@@ -89,7 +89,7 @@ class _NewOutsiderState extends State<NewOutsider> {
                 },
                 onChanged: _handleText,
               ),
-              new TextFormField(
+               TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
                 obscureText: false,
@@ -104,7 +104,7 @@ class _NewOutsiderState extends State<NewOutsider> {
                 },
                 onChanged: _handleText,
               ),
-              new TextFormField(
+               TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
                 obscureText: false,
@@ -120,7 +120,7 @@ class _NewOutsiderState extends State<NewOutsider> {
                 },
                 onChanged: _handleText,
               ),
-              new TextFormField(
+               TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
                 obscureText: false,
@@ -142,7 +142,7 @@ class _NewOutsiderState extends State<NewOutsider> {
                 },
                 onChanged: _handleText,
               ),
-              new TextFormField(
+               TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
                 obscureText: false,
@@ -181,10 +181,43 @@ class _NewOutsiderState extends State<NewOutsider> {
         name: _name, affiliation: _affiriation, position: _position,
         phoneNumber: _phonenumber,
       );
+
+      print(credential);
+
+      if(credential.user != null) {
+        print(credential.user!.uid);
+
+        var db = FirebaseFirestore.instance;
+
+        db
+
+            .collection("users")
+            .doc(credential.user!.uid)
+            .set({
+          "companycode": widget.companyCode,
+          "name": _name,
+          "affiliation": _affiriation,
+          "position": _position,
+          "phone": _phonenumber,
+          "email": _email,
+        })
+            .onError((e, _) => print("Error writing ddocument: $e"));
+      }
+
+      Navigator.of(context).pop();
+      int count = 0;
+      Navigator.popUntil(context, (_) => count++ >= 2);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+      }
+    } catch (e) {
+      print(e);
     }
 
     // ホームヘ戻る
     Navigator.of(context).popUntil((route) => route.isFirst);
   }
 }
-

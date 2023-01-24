@@ -119,7 +119,8 @@ class _NewCompanyState extends State<NewCompany> {
     try {
       var db = FirebaseFirestore.instance;
 
-      var ds = await db.collection("company").add({
+      // TODO: = の後はスペース！
+      var ds =await db.collection("company").add({
         "companyname": _companyname,
         "manager": _manager,
         "mail":_email,
@@ -128,8 +129,10 @@ class _NewCompanyState extends State<NewCompany> {
 
       String companyCode = ds.id;
 
-      // ユーザ登録画面へ！
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) => NewOutsider(companyCode: companyCode,)));
+      await Navigator.of(context).push(MaterialPageRoute(builder: (context) => NewOutsider(companyCode: companyCode,)));
+      // TODO: 以下のコードは不要
+      Navigator.pop(context);
+
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');

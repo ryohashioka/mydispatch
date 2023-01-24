@@ -4,6 +4,8 @@ import 'package:mydispatch/components/user_profile.dart';
 import 'package:mydispatch/data/MyUser.dart';
 import '/pages/driver_schedule.dart';
 import 'package:mydispatch/login_register/create_truck.dart';
+import '/pages/search.dart';
+import '/pages/gps.dart';
 
 class MenuPage extends StatelessWidget {
   const MenuPage({Key? key}) : super(key: key);
@@ -48,6 +50,12 @@ class MenuPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Expanded(
+              child: GestureDetector(
+               onTap: () {
+               Navigator.push(context, MaterialPageRoute(
+                builder: (BuildContext context) => const SearchPage()
+      ));
+      },
               child: Container(
                 width: 600,height: 240,
                 child: Image.asset(
@@ -55,6 +63,7 @@ class MenuPage extends StatelessWidget {
                     fit: BoxFit.cover,
                 ),
               ),
+             ),
             ),
             Expanded(
               child: GestureDetector(
@@ -73,6 +82,12 @@ class MenuPage extends StatelessWidget {
               ),
             ),
             Expanded(
+              child: GestureDetector(
+                onTap: () {
+                 Navigator.push(context, MaterialPageRoute(
+                   builder: (BuildContext context) => const GpsPage()
+                 ));
+                },
               child: Container(
                 width: 600,height: 240,
                 child: Image.asset(
@@ -80,6 +95,7 @@ class MenuPage extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
+             ),
             ),
             Expanded(
               child: GestureDetector(

@@ -41,6 +41,9 @@ class MyApp extends StatelessWidget {
           '/new_schedule': (BuildContext context) => NewSchedule(),
           '/new_company' : (BuildContext context) => NewCompany(),
           '/new_truck' : (BuildContext context) => NewTruck(),
+          '/menu' : (BuildContext context) => MenuPage(),
+
+
        },
       ),
     );

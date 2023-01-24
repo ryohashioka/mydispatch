@@ -50,20 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDeb8mZbDcdrglNfTrNyzofBiXHrZz-3IE',
-    appId: '1:891460718489:android:0e8afc02b788ca6a2ecd08',
-    messagingSenderId: '891460718489',
-    projectId: 'mydispatch-ac127',
-    storageBucket: 'mydispatch-ac127.appspot.com',
+    apiKey: 'AIzaSyAjBLLOYWjtMRChXAgZhwCnQ3e8kcaEyxA',
+    appId: '1:230432414900:android:6cada5a0072fd9c2ca4be1',
+    messagingSenderId: '230432414900',
+    projectId: 'samurai-5745',
+    storageBucket: 'samurai-5745.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDwUO0tNmyO6bjlV1SWAmRUlL4gdg6SZYI',
-    appId: '1:891460718489:ios:a699d0cc3f6f0adb2ecd08',
-    messagingSenderId: '891460718489',
-    projectId: 'mydispatch-ac127',
-    storageBucket: 'mydispatch-ac127.appspot.com',
-    iosClientId: '891460718489-63erqm5qtgmijvmi3shqrv7b4keaj0rf.apps.googleusercontent.com',
+    apiKey: 'AIzaSyD4LM0R_-qMDsZifXJe6elbZMRFcRsBjmA',
+    appId: '1:230432414900:ios:3fbd0c436c659accca4be1',
+    messagingSenderId: '230432414900',
+    projectId: 'samurai-5745',
+    storageBucket: 'samurai-5745.appspot.com',
+    iosClientId: '230432414900-q7o3jel9t1hsqvrqeicn72fci7k30vv5.apps.googleusercontent.com',
     iosBundleId: 'com.example.mydispatch',
   );
 }

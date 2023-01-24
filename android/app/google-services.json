@@ -1,37 +1,37 @@
 {
   "project_info": {
-    "project_number": "891460718489",
-    "project_id": "mydispatch-ac127",
-    "storage_bucket": "mydispatch-ac127.appspot.com"
+    "project_number": "230432414900",
+    "project_id": "samurai-5745",
+    "storage_bucket": "samurai-5745.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:891460718489:android:0e8afc02b788ca6a2ecd08",
+        "mobilesdk_app_id": "1:230432414900:android:6cada5a0072fd9c2ca4be1",
         "android_client_info": {
           "package_name": "com.example.mydispatch"
         }
       },
       "oauth_client": [
         {
-          "client_id": "891460718489-6uufn9epcvsj280qs06edcotmvb0m87d.apps.googleusercontent.com",
+          "client_id": "230432414900-omtnb61n989v5vug89rbhbg43srd6e9d.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDeb8mZbDcdrglNfTrNyzofBiXHrZz-3IE"
+          "current_key": "AIzaSyAjBLLOYWjtMRChXAgZhwCnQ3e8kcaEyxA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "891460718489-6uufn9epcvsj280qs06edcotmvb0m87d.apps.googleusercontent.com",
+              "client_id": "230432414900-omtnb61n989v5vug89rbhbg43srd6e9d.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "891460718489-63erqm5qtgmijvmi3shqrv7b4keaj0rf.apps.googleusercontent.com",
+              "client_id": "230432414900-q7o3jel9t1hsqvrqeicn72fci7k30vv5.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.example.mydispatch"

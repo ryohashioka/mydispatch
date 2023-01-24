@@ -12,16 +12,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  String _email = "taku0813@au.com";
-  String _password = "taku0813";
-
-  String _text = "";
-
-  void _handleText(String e) {
-    setState(() {
-      _text = e;
-    });
-  }
+  String _email = "";
+  String _password = "";
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,6 +22,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
       body: SingleChildScrollView(
         child: Form(
+          key: _formKey,
           child: Column(
             children: <Widget>[
               Container(
@@ -49,6 +42,7 @@ class _LoginPageState extends State<LoginPage> {
                           hintText: 'メールアドレスを入力してください',
                           labelText: 'Email *',
                         ),
+                        keyboardType:  TextInputType.emailAddress,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return "メールアドレスを入力してください";
@@ -58,7 +52,6 @@ class _LoginPageState extends State<LoginPage> {
                         onSaved: (value) {
                           _email = value!;
                         },
-                        onChanged: _handleText,
                       ),
                       Padding(padding: EdgeInsets.all(10.0))
                     ],
@@ -72,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
                       TextFormField(
                         enabled: true,
                         style: TextStyle(color: Colors.black),
-                        obscureText: false,
+                        obscureText: true,
                         maxLines: 1,
                         decoration: const InputDecoration(
                           // icon: Icon(Icons.security_outlined),
@@ -88,7 +81,6 @@ class _LoginPageState extends State<LoginPage> {
                         onSaved: (value) {
                           _password = value!;
                         },
-                        onChanged: _handleText,
                       ),
                       Padding(padding: EdgeInsets.all(10.0))
                     ],
@@ -97,14 +89,13 @@ class _LoginPageState extends State<LoginPage> {
               ),
               ButtonBar(buttonPadding: EdgeInsets.all(30.0), children: [
                 ElevatedButton(
-                    onPressed: () =>
-                        Navigator.of(context).pushNamed('/menu'),
+                    onPressed: () => onPressLoginButton(),
                     child: Text('log in')
                 )
               ]),
               ElevatedButton(
                   onPressed: () =>
-                      Navigator.of(context).pushNamed('/NewEmployee'),
+                      Navigator.of(context).pushNamed('/new_employee'),
                   child: Text('社員向け新規登録')),
               TextButton(onPressed: null, child: Text('パスワードをお忘れの方はこちら')),
             ],
@@ -114,11 +105,14 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void create(BuildContext context) async {
+  ///ログインボタンが押された時の処理
+  void onPressLoginButton() {
     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
       _formKey.currentState!.save();
+      login(_email, _password);
     }
-
+  }
+///ログイン処理
     void login(String email, String password) async {
       try {
         final credential = await FirebaseAuth.instance
@@ -132,4 +126,3 @@ class _LoginPageState extends State<LoginPage> {
       }
     }
   }
-}

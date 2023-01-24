@@ -43,7 +43,9 @@ class _NewOutsiderState extends State<NewOutsider> {
           // padding: const EdgeInsets.all(70.0),
           child: Column(
             children: <Widget>[
+              // TODO: 削除
               Text(widget.companyCode),
+              // TODO: 削除
               TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
@@ -145,7 +147,7 @@ class _NewOutsiderState extends State<NewOutsider> {
                TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
-                obscureText: false,
+                obscureText: true,
                 maxLines: 1,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.password),
@@ -177,42 +179,13 @@ class _NewOutsiderState extends State<NewOutsider> {
 
       try {
 
-        //   // TODO: 権限設定
-        //   await MyUser.createUser(
-        //     email: _email, password: _password, companyCode: widget.companyCode,
-        //     name: _name, affiliation: _affiriation, position: _position,
-        //     phoneNumber: _phonenumber,
-        //   );
-
-        final credential =
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: _email,
-          password: _password,
+        // TODO: 権限設定
+        await MyUser.createUser(
+          email: _email, password: _password, companyCode: widget.companyCode,
+          name: _name, affiliation: _affiriation, position: _position,
+          phoneNumber: _phonenumber,
         );
 
-        print(credential);
-
-        if(credential.user != null) {
-          print(credential.user!.uid);
-
-          var db = FirebaseFirestore.instance;
-
-          db
-
-              .collection("users")
-              .doc(credential.user!.uid)
-              .set({
-            "companycode": widget.companyCode,
-            "name": _name,
-            "affiliation": _affiriation,
-            "position": _position,
-            "phone": _phonenumber,
-            "email": _email,
-          })
-              .onError((e, _) => print("Error writing ddocument: $e"));
-        }
-
-        // Navigator.of(context).pop();
         // int count = 0;
         // Navigator.popUntil(context, (_) => count++ >= 2);
 

@@ -172,51 +172,51 @@ class _NewOutsiderState extends State<NewOutsider> {
     );
   }
   void create(BuildContext context) async {
-    if (_formKey.currentState != null && _formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-
-      // TODO: 権限設定
-      await MyUser.createUser(
-        email: _email, password: _password, companyCode: widget.companyCode,
-        name: _name, affiliation: _affiriation, position: _position,
-        phoneNumber: _phonenumber,
-      );
-
-      // TODO: これいらない。
-      print(credential);
-
-      if(credential.user != null) {
-        print(credential.user!.uid);
-
-        var db = FirebaseFirestore.instance;
-
-        db
-
-            .collection("users")
-            .doc(credential.user!.uid)
-            .set({
-          "companycode": widget.companyCode,
-          "name": _name,
-          "affiliation": _affiriation,
-          "position": _position,
-          "phone": _phonenumber,
-          "email": _email,
-        })
-            .onError((e, _) => print("Error writing ddocument: $e"));
-      }
-
-      Navigator.of(context).pop();
-      int count = 0;
-      Navigator.popUntil(context, (_) => count++ >= 2);
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
-      }
-    } catch (e) {
-      print(e);
-    }
+    // TODO: エラーになっているのでコメントアウト
+    // if (_formKey.currentState != null && _formKey.currentState!.validate()) {
+    //   _formKey.currentState!.save();
+    //
+    //   // TODO: 権限設定
+    //   await MyUser.createUser(
+    //     email: _email, password: _password, companyCode: widget.companyCode,
+    //     name: _name, affiliation: _affiriation, position: _position,
+    //     phoneNumber: _phonenumber,
+    //   );
+    //
+    //   print(credential);
+    //
+    //   if(credential.user != null) {
+    //     print(credential.user!.uid);
+    //
+    //     var db = FirebaseFirestore.instance;
+    //
+    //     db
+    //
+    //         .collection("users")
+    //         .doc(credential.user!.uid)
+    //         .set({
+    //       "companycode": widget.companyCode,
+    //       "name": _name,
+    //       "affiliation": _affiriation,
+    //       "position": _position,
+    //       "phone": _phonenumber,
+    //       "email": _email,
+    //     })
+    //         .onError((e, _) => print("Error writing ddocument: $e"));
+    //   }
+    //
+    //   Navigator.of(context).pop();
+    //   int count = 0;
+    //   Navigator.popUntil(context, (_) => count++ >= 2);
+    // } on FirebaseAuthException catch (e) {
+    //   if (e.code == 'weak-password') {
+    //     print('The password provided is too weak.');
+    //   } else if (e.code == 'email-already-in-use') {
+    //     print('The account already exists for that email.');
+    //   }
+    // } catch (e) {
+    //   print(e);
+    // }
 
     // ホームヘ戻る
     Navigator.of(context).popUntil((route) => route.isFirst);

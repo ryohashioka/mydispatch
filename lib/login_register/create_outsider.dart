@@ -43,7 +43,7 @@ class _NewOutsiderState extends State<NewOutsider> {
           child: Column(
             children: <Widget>[
               Text(widget.companyCode),
-              new TextFormField(
+              TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
                 obscureText: false,
@@ -58,7 +58,7 @@ class _NewOutsiderState extends State<NewOutsider> {
                 },
                 onChanged: _handleText,
               ),
-              new TextFormField(
+               TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
                 obscureText: false,
@@ -73,7 +73,7 @@ class _NewOutsiderState extends State<NewOutsider> {
                 },
                 onChanged: _handleText,
               ),
-              new TextFormField(
+               TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
                 obscureText: false,
@@ -88,7 +88,7 @@ class _NewOutsiderState extends State<NewOutsider> {
                 },
                 onChanged: _handleText,
               ),
-              new TextFormField(
+               TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
                 obscureText: false,
@@ -103,7 +103,7 @@ class _NewOutsiderState extends State<NewOutsider> {
                 },
                 onChanged: _handleText,
               ),
-              new TextFormField(
+               TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
                 obscureText: false,
@@ -119,7 +119,7 @@ class _NewOutsiderState extends State<NewOutsider> {
                 },
                 onChanged: _handleText,
               ),
-              new TextFormField(
+               TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
                 obscureText: false,
@@ -141,7 +141,7 @@ class _NewOutsiderState extends State<NewOutsider> {
                 },
                 onChanged: _handleText,
               ),
-              new TextFormField(
+               TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
                 obscureText: false,
@@ -222,4 +222,3 @@ class _NewOutsiderState extends State<NewOutsider> {
     }
   }
 }
-

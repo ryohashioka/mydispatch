@@ -19,6 +19,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
+    name: 'root',
     options: DefaultFirebaseOptions.currentPlatform,
   );
   // firebaseとflutterでアプリを作るときの定型文↑

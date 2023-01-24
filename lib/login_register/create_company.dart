@@ -15,7 +15,7 @@ class _NewCompanyState extends State<NewCompany> {
   String _manager = "";
   String _phonenumber = "";
   String _email = "";
-  String _password ="";
+  String _password ="samurai";
 
   String _text = '';
   void _handleText(String e) {
@@ -119,6 +119,7 @@ class _NewCompanyState extends State<NewCompany> {
     try {
       var db = FirebaseFirestore.instance;
 
+      // TODO: = の後はスペース！
       var ds =await db.collection("company").add({
         "companyname": _companyname,
         "manager": _manager,
@@ -129,6 +130,7 @@ class _NewCompanyState extends State<NewCompany> {
       String companyCode = ds.id;
 
       await Navigator.of(context).push(MaterialPageRoute(builder: (context) => NewOutsider(companyCode: companyCode,)));
+      // TODO: 以下のコードは不要
       Navigator.pop(context);
 
     } on FirebaseAuthException catch (e) {

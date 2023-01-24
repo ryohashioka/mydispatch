@@ -10,8 +10,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  String _email = "";
-  String _password = "";
+  String _email = "ryo.hashioka@gmail.com";
+  String _password = "samurai";
 
   String _text = "";
 
@@ -83,10 +83,10 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: () =>
                         Navigator.of(context).pushNamed('/new_employee'),
                     child: Text('社員向け新規登録')),
-                ElevatedButton(
-                    onPressed: () =>
-                        Navigator.of(context).pushNamed('/new_outsider'),
-                    child: Text('お客様向け新規登録')),
+                // ElevatedButton(
+                //     onPressed: () =>
+                //         Navigator.of(context).pushNamed('/new_outsider'),
+                //     child: Text('お客様向け新規登録')),
                 TextButton(onPressed: null, child: Text('パスワードをお忘れの方はこちら')),
               ],
             ),

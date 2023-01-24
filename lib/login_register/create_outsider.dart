@@ -1,8 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:mydispatch/data/MyUser.dart';
 
 class NewOutsider extends StatefulWidget {
+
+  final String companyCode;
+
+  const NewOutsider({Key? key, required this.companyCode}) : super(key: key);
+
   @override
   _NewOutsiderState createState() => _NewOutsiderState();
 }
@@ -37,6 +43,7 @@ class _NewOutsiderState extends State<NewOutsider> {
           // padding: const EdgeInsets.all(70.0),
           child: Column(
             children: <Widget>[
+              Text(widget.companyCode),
               new TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
@@ -158,10 +165,6 @@ class _NewOutsiderState extends State<NewOutsider> {
               ),
               ElevatedButton(
                   onPressed: () => create(context), child: Text('Register')),
-              ElevatedButton(
-                  onPressed: () =>
-                      Navigator.of(context).pushNamed('/new_company'),
-                  child: Text('法人新規登録')),
             ],
           ),
         ),
@@ -171,48 +174,17 @@ class _NewOutsiderState extends State<NewOutsider> {
   void create(BuildContext context) async {
     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-    }
 
-    try {
-      final credential =
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _email,
-        password: _password,
+      // TODO: 権限設定
+      await MyUser.createUser(
+        email: _email, password: _password, companyCode: widget.companyCode,
+        name: _name, affiliation: _affiriation, position: _position,
+        phoneNumber: _phonenumber,
       );
-
-      print(credential);
-
-      if(credential.user != null) {
-        print(credential.user!.uid);
-
-        var db = FirebaseFirestore.instance;
-
-        db
-
-            .collection("users")
-            .doc(credential.user!.uid)
-            .set({
-          "company": _company,
-          "name": _name,
-          "affiliation": _affiriation,
-          "position": _position,
-          "phone": _phonenumber,
-          "email": _email,
-          "password": _password,
-        })
-            .onError((e, _) => print("Error writing ddocument: $e"));
-      }
-
-      Navigator.of(context).pop();
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
-      }
-    } catch (e) {
-      print(e);
     }
+
+    // ホームヘ戻る
+    Navigator.of(context).popUntil((route) => route.isFirst);
   }
 }
 

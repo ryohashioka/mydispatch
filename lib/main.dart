@@ -19,6 +19,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
+    name: 'root',
     options: DefaultFirebaseOptions.currentPlatform,
   );
   // firebaseとflutterでアプリを作るときの定型文↑
@@ -35,13 +36,11 @@ class MyApp extends StatelessWidget {
         routes:  <String, WidgetBuilder>{
           '/home':(BuildContext context) =>  MainPage(),
           '/new_employee': (BuildContext context) => NewEmployee(),
-          '/new_outsider': (BuildContext context) => NewOutsider(),
+          // '/new_outsider': (BuildContext context) => NewOutsider(),
           '/miss_password': (BuildContext context) => MissPassword(),
           '/new_schedule': (BuildContext context) => NewSchedule(),
           '/new_company' : (BuildContext context) => NewCompany(),
           '/new_truck' : (BuildContext context) => NewTruck(),
-
-
        },
       ),
     );

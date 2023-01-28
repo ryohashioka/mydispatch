@@ -9,6 +9,7 @@ class NewTruck extends StatefulWidget {
   _NewTruckState createState() => _NewTruckState();
 }
 
+
 class _NewTruckState extends State<NewTruck> {
   final _formKey = GlobalKey<FormState>();
   String _carNumber = "";

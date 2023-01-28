@@ -11,18 +11,9 @@ class NewCompany extends StatefulWidget {
 class _NewCompanyState extends State<NewCompany> {
   final _formKey = GlobalKey<FormState>();
   String _companyname = "";
-  // Bool _is_admin = ;
   String _manager = "";
   String _phonenumber = "";
   String _email = "";
-  String _password ="samurai";
-
-  String _text = '';
-  void _handleText(String e) {
-    setState(() {
-      _text = e;
-    });
-  }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +38,6 @@ class _NewCompanyState extends State<NewCompany> {
                 onSaved: (value) {
                   _companyname = value!;
                 },
-                onChanged: _handleText,
               ),
               TextFormField(
                 enabled: true,
@@ -62,7 +52,6 @@ class _NewCompanyState extends State<NewCompany> {
                 onSaved: (value) {
                   _manager = value!;
                 },
-                onChanged: _handleText,
               ),
               TextFormField(
                 enabled: true,
@@ -78,7 +67,6 @@ class _NewCompanyState extends State<NewCompany> {
                 onSaved: (value) {
                   _phonenumber = value!;
                 },
-                onChanged: _handleText,
               ),
               TextFormField(
                 enabled: true,
@@ -100,7 +88,6 @@ class _NewCompanyState extends State<NewCompany> {
                 onSaved: (value) {
                   _email = value!;
                 },
-                onChanged: _handleText,
               ),
               ElevatedButton(
                   onPressed: () => create(context), child: Text('Register')),
@@ -123,13 +110,14 @@ class _NewCompanyState extends State<NewCompany> {
       var ds = await db.collection("company").add({
         "companyname": _companyname,
         "manager": _manager,
-        "mail":_email,
+        "mail": _email,
         "phone": _phonenumber,
       });
 
       String companyCode = ds.id;
 
-      await Navigator.of(context).push(MaterialPageRoute(builder: (context) => NewOutsider(companyCode: companyCode,)));
+      await Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => NewOutsider(companyCode: companyCode,)));
       // TODO: 以下のコードは不要
       // Navigator.pop(context);
 
@@ -144,5 +132,6 @@ class _NewCompanyState extends State<NewCompany> {
     }
   }
 }
+
 
 

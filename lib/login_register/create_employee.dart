@@ -15,12 +15,6 @@ class _NewEmployeeState extends State<NewEmployee> {
   String _affiriation = "";
   String _phonenumber = "";
   String _trucknumber = "";
-  String _text = '';
-  void _handleText(String e) {
-    setState(() {
-      _text = e;
-    });
-  }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +39,6 @@ class _NewEmployeeState extends State<NewEmployee> {
                 onSaved: (value) {
                   _name = value!;
                 },
-          onChanged: _handleText,
               ),
               TextFormField(
                 enabled: true,
@@ -60,7 +53,6 @@ class _NewEmployeeState extends State<NewEmployee> {
                 onSaved: (value) {
                   _affiriation = value!;
                 },
-                onChanged: _handleText,
               ),
               TextFormField(
                 enabled: true,
@@ -75,7 +67,6 @@ class _NewEmployeeState extends State<NewEmployee> {
                 onSaved: (value) {
                   _trucknumber = value!;
                 },
-                onChanged: _handleText,
               ),
               TextFormField(
                 enabled: true,
@@ -91,7 +82,6 @@ class _NewEmployeeState extends State<NewEmployee> {
                 onSaved: (value) {
                   _phonenumber = value!;
                 },
-                onChanged: _handleText,
               ),
               TextFormField(
                 enabled: true,
@@ -113,7 +103,6 @@ class _NewEmployeeState extends State<NewEmployee> {
                 onSaved: (value) {
                   _email = value!;
                 },
-                onChanged: _handleText,
               ),
               TextFormField(
                 enabled: true,
@@ -134,7 +123,6 @@ class _NewEmployeeState extends State<NewEmployee> {
                 onSaved: (value) {
                   _password = value!;
                 },
-                onChanged: _handleText,
               ),
               ElevatedButton(
                   onPressed: () => create(context), child: Text('Register')),

@@ -29,27 +29,34 @@ class _MainPageState extends State<MainPage> {
         .listen((User? user) async {
       if (user == null) {
         print('User is currently signed out!');
-        MyUser.currentUser = null;
+        MyUser.destroy();
+
+        setState(() {
+          this.user = user;
+        });
       } else {
         print('User is signed in!');
-        // TODO 新規登録時エラーになるかも要検証
-        var db = FirebaseFirestore.instance;
-        final docRef = db.collection("users").doc(user.uid);
 
         try {
-          DocumentSnapshot doc = await docRef.get();
-          MyUser.currentUser = doc.data() as Map<String, dynamic>;
+          await MyUser.setupCurrentUser(userId: user.uid);
+          await MyUser.setupCurrentCompany(companyCode: MyUser.currentUser!['company_code']);
+
+          // ユーザ情報や法人情報が取得できない場合は異常終了（サインアウト）
+          if (MyUser.currentUser == null || MyUser.currentCompany == null) {
+            throw Exception("Failed to get user | company.");
+          }
+
+          setState(() {
+            this.user = user;
+          });
         } catch (e) {
           // TODO エラー処理
           print("認証情報が取得できなかったよ");
-          MyUser.currentUser = null;
-          FirebaseAuth.instance.signOut();
+
+          MyUser.destroy();
+          await FirebaseAuth.instance.signOut();
         }
       }
-      // TODO if文の中に書いたほうがいい？エラー時にデータがおかしくなる??
-      setState(() {
-        this.user = user;
-      });
     });
   }
 

@@ -6,6 +6,7 @@ import '../firebase_options.dart';
 
 class MyUser {
   static Map<String, dynamic>? currentUser;
+  // TODO: 20230131_ログイン時にユーザ情報と共に企業情報も取得する。
 
   static bool isAdmin() {
     return MyUser.currentUser != null && MyUser.currentUser!['role'] == 0;
@@ -25,12 +26,14 @@ class MyUser {
       options: DefaultFirebaseOptions.currentPlatform,
     );
 
+    // TODO: 削除
     print(app);
 
     final credential = await FirebaseAuth.instanceFor(app: app).createUserWithEmailAndPassword(
       email: email, password: password
     );
 
+    // TODO: 削除！（認証情報をログに出力されるとセキュリティリスク高）
     print(credential);
 
     if(credential.user != null) {

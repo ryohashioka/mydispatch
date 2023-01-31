@@ -42,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
                           hintText: 'メールアドレスを入力してください',
                           labelText: 'Email *',
                         ),
-                        keyboardType: TextInputType.emailAddress,
+                        keyboardType:  TextInputType.emailAddress,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return "メールアドレスを入力してください";
@@ -89,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               ButtonBar(buttonPadding: EdgeInsets.all(30.0), children: [
                 ElevatedButton(
-                    onPressed: () =>onPressLoginButton(),
+                    onPressed: () => onPressLoginButton(),
                     child: Text('log in')
                 )
               ]),
@@ -106,26 +106,26 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  /// ログインボタンが押された時の処理
+  ///ログインボタンが押された時の処理
   void onPressLoginButton() {
     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-
       login(_email, _password);
     }
   }
-
-  /// ログイン処理
-  void login(String email, String password) async {
-    try {
-      final credential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        print('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
+  // TODO: インデント
+///ログイン処理
+    void login(String email, String password) async {
+      try {
+        final credential = await FirebaseAuth.instance
+            .signInWithEmailAndPassword(email: email, password: password);
+      } on FirebaseAuthException catch (e) {
+        // TODO: 認証失敗時のエラー処理（ユーザにメッセージを表示する）
+        if (e.code == 'user-not-found') {
+          print('No user found for that email.');
+        } else if (e.code == 'wrong-password') {
+          print('Wrong password provided for that user.');
+        }
       }
     }
   }
-}

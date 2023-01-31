@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:intl/intl.dart';
 
 class NewTruck extends StatefulWidget {
   @override
   _NewTruckState createState() => _NewTruckState();
 }
+
 
 class _NewTruckState extends State<NewTruck> {
   final _formKey = GlobalKey<FormState>();
@@ -19,13 +22,9 @@ class _NewTruckState extends State<NewTruck> {
   String _width = "";
   String _inspectionDeadline = "";
 
-  String _text = '';
+  late DateTime _inspection;
 
-  void _handleText(String e) {
-    setState(() {
-      _text = e;
-    });
-  }
+  final TextEditingController _inspectionController = TextEditingController();
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +52,6 @@ class _NewTruckState extends State<NewTruck> {
                 onSaved: (value) {
                   _carNumber = value!;
                 },
-                onChanged: _handleText,
               ),
               TextFormField(
                 enabled: true,
@@ -68,7 +66,6 @@ class _NewTruckState extends State<NewTruck> {
                 onSaved: (value) {
                   _type = value!;
                 },
-                onChanged: _handleText,
               ),
               TextFormField(
                 enabled: true,
@@ -84,7 +81,6 @@ class _NewTruckState extends State<NewTruck> {
                 onSaved: (value) {
                   _maxCapacity = value!;
                 },
-                onChanged: _handleText,
               ),
               TextFormField(
                 enabled: true,
@@ -100,7 +96,6 @@ class _NewTruckState extends State<NewTruck> {
                 onSaved: (value) {
                   _carWeight = value!;
                 },
-                onChanged: _handleText,
               ),
               TextFormField(
                 enabled: true,
@@ -116,7 +111,6 @@ class _NewTruckState extends State<NewTruck> {
                 onSaved: (value) {
                   _totalWeight = value!;
                 },
-                onChanged: _handleText,
               ),
               TextFormField(
                 enabled: true,
@@ -132,7 +126,6 @@ class _NewTruckState extends State<NewTruck> {
                 onSaved: (value) {
                   _length = value!;
                 },
-                onChanged: _handleText,
               ),
               TextFormField(
                 enabled: true,
@@ -148,7 +141,6 @@ class _NewTruckState extends State<NewTruck> {
                 onSaved: (value) {
                   _height = value!;
                 },
-                onChanged: _handleText,
               ),
               TextFormField(
                 enabled: true,
@@ -164,7 +156,6 @@ class _NewTruckState extends State<NewTruck> {
                 onSaved: (value) {
                   _width = value!;
                 },
-                onChanged: _handleText,
               ),
               TextFormField(
                 enabled: true,
@@ -177,10 +168,18 @@ class _NewTruckState extends State<NewTruck> {
                   labelText: 'inspection deadline *',
                 ),
                 keyboardType: TextInputType.datetime,
+                onTap: () async {
+                  final DateTime? picked = await showDatePicker(
+                      context: context,
+                      initialDate: _inspection,
+                      firstDate: DateTime(2016),
+                      lastDate: DateTime.now().add(
+                          Duration(days: 360))
+                  );
+                },
                 onSaved: (value) {
                   _inspectionDeadline = value!;
                 },
-                onChanged: _handleText,
               ),
               FloatingActionButton.extended(
                 onPressed: () {

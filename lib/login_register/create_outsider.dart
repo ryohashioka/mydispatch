@@ -17,18 +17,10 @@ class _NewOutsiderState extends State<NewOutsider> {
   final _formKey = GlobalKey<FormState>();
   String _email = "";
   String _password = "";
-  String _company = "";
   String _name = "";
   String _affiriation = "";
   String _position = "";
   String _phonenumber = "";
-
-  String _text = "";
-  void _handleText(String e) {
-    setState(() {
-      _text = e;
-    });
-  }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,24 +35,6 @@ class _NewOutsiderState extends State<NewOutsider> {
           // padding: const EdgeInsets.all(70.0),
           child: Column(
             children: <Widget>[
-              // TODO: 削除
-              Text(widget.companyCode),
-              // TODO: 削除
-              TextFormField(
-                enabled: true,
-                style: TextStyle(color: Colors.black),
-                obscureText: false,
-                maxLines: 1,
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.work_outline_outlined),
-                  hintText: '会社名を入力してください',
-                  labelText: 'CompanyName *',
-                ),
-                onSaved: (value) {
-                  _company = value!;
-                },
-                onChanged: _handleText,
-              ),
                TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
@@ -74,7 +48,6 @@ class _NewOutsiderState extends State<NewOutsider> {
                 onSaved: (value) {
                   _name = value!;
                 },
-                onChanged: _handleText,
               ),
                TextFormField(
                 enabled: true,
@@ -89,7 +62,6 @@ class _NewOutsiderState extends State<NewOutsider> {
                 onSaved: (value) {
                   _affiriation = value!;
                 },
-                onChanged: _handleText,
               ),
                TextFormField(
                 enabled: true,
@@ -104,7 +76,6 @@ class _NewOutsiderState extends State<NewOutsider> {
                 onSaved: (value) {
                   _position = value!;
                 },
-                onChanged: _handleText,
               ),
                TextFormField(
                 enabled: true,
@@ -120,7 +91,6 @@ class _NewOutsiderState extends State<NewOutsider> {
                 onSaved: (value) {
                   _phonenumber = value!;
                 },
-                onChanged: _handleText,
               ),
                TextFormField(
                 enabled: true,
@@ -142,7 +112,6 @@ class _NewOutsiderState extends State<NewOutsider> {
                 onSaved: (value) {
                   _email = value!;
                 },
-                onChanged: _handleText,
               ),
                TextFormField(
                 enabled: true,
@@ -163,7 +132,6 @@ class _NewOutsiderState extends State<NewOutsider> {
                 onSaved: (value) {
                   _password = value!;
                 },
-                onChanged: _handleText,
               ),
               ElevatedButton(
                   onPressed: () => create(context), child: Text('Register')),
@@ -179,7 +147,7 @@ class _NewOutsiderState extends State<NewOutsider> {
 
       try {
 
-        // TODO: 権限設定
+        //   // TODO: 権限設定
         await MyUser.createUser(
           email: _email, password: _password, companyCode: widget.companyCode,
           name: _name, affiliation: _affiriation, position: _position,
@@ -200,8 +168,6 @@ class _NewOutsiderState extends State<NewOutsider> {
       } catch (e) {
         print(e);
       }
-
     }
-
   }
 }

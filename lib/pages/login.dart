@@ -93,6 +93,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: Text('log in')
                 )
               ]),
+              // TODO: ログイン後の画面に移動
               ElevatedButton(
                   onPressed: () =>
                       Navigator.of(context).pushNamed('/new_employee'),
@@ -112,12 +113,14 @@ class _LoginPageState extends State<LoginPage> {
       login(_email, _password);
     }
   }
+  // TODO: インデント
 ///ログイン処理
     void login(String email, String password) async {
       try {
         final credential = await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: email, password: password);
       } on FirebaseAuthException catch (e) {
+        // TODO: 認証失敗時のエラー処理（ユーザにメッセージを表示する）
         if (e.code == 'user-not-found') {
           print('No user found for that email.');
         } else if (e.code == 'wrong-password') {

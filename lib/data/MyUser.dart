@@ -6,13 +6,50 @@ import '../firebase_options.dart';
 
 class MyUser {
   static Map<String, dynamic>? currentUser;
-  // TODO: 20230131_ログイン時にユーザ情報と共に企業情報も取得する。
+  static Map<String, dynamic>? currentCompany;
 
-  static bool isAdmin() {
-    return MyUser.currentUser != null && MyUser.currentUser!['role'] == 0;
+  static void destroy() {
+    MyUser.currentUser = null;
+    MyUser.currentCompany = null;
   }
 
-  // TODO: createUser！
+  // TODO: 権限処理など認証ユーザの情報が必須な時、currentUser が null だとログアウトしてもいいかも。
+
+  // NOTE: 権限メモ
+  //   - 管理法人 x 管理ユーザ : 法人登録可能
+  //   - 管理法人 x ドライバー : 通常機能のみ
+  //   - 一般法人 x 管理ユーザ : 法人内ユーザ登録が可能
+  //   - 一般法人 x ドライバー : 通常機能のみ
+  /// 認証ユーザが管理法人で管理ユーザの場合 true
+  static bool isAdmin() {
+    return MyUser.currentUser != null && MyUser.currentUser!['role'] == 0
+        && MyUser.currentCompany != null && MyUser.currentCompany!['is_admin'];
+  }
+
+  /// 認証ユーザが一般法人で管理ユーザの場合 true
+  static bool isManager() {
+    return MyUser.currentUser != null && MyUser.currentUser!['role'] == 0
+        && MyUser.currentCompany != null && !MyUser.currentCompany!['is_admin'];
+  }
+
+  /// 認証ユーザがドライバー権限の場合、true
+  static bool isDriver() {
+    return MyUser.currentUser != null && MyUser.currentUser!['role'] == 1;
+  }
+
+  /// カンパニーコードを取得する
+  static String getCompanyCode() {
+    if (MyUser.currentUser == null) {
+      FirebaseAuth.instance.signOut();
+      throw Exception("Not authenticated");
+    } else {
+      if (MyUser.currentUser!['company_code'] == null) {
+        throw Exception("Not found company code!");
+      }
+      return MyUser.currentUser!['company_code'];
+    }
+  }
+
   static Future<void> createUser({
     required String email, required String password,
     required String companyCode, required String name,
@@ -51,4 +88,21 @@ class MyUser {
       });
     }
   }
+
+  /// currentUser の情報を FireStore から取得して設定する
+  static Future<void> setupCurrentUser({
+    required String userId
+  }) async {
+    var res = await FirebaseFirestore.instance.collection('users').doc(userId).get();
+    MyUser.currentUser = res.data();
+  }
+
+  /// currentCompany の情報を FireStore から取得して設定する
+  static Future<void> setupCurrentCompany({
+    required String companyCode
+  }) async {
+    var res = await FirebaseFirestore.instance.collection('company').doc(companyCode).get();
+    MyUser.currentCompany = res.data();
+  }
+
 }

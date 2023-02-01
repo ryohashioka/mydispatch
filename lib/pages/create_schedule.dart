@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:mydispatch/data/MyUser.dart';
 
 class NewSchedule extends StatefulWidget {
 
@@ -57,7 +58,7 @@ class _NewScheduleState extends State<NewSchedule> {
 
     if(widget.id != null) {
       print(widget.id);
-      FirebaseFirestore.instance.collection('000-schedules').doc(widget.id).get().then((DocumentSnapshot doc) {
+      FirebaseFirestore.instance.collection("${MyUser.getCompanyCode()}-schedules").doc(widget.id).get().then((DocumentSnapshot doc) {
         final data = doc.data() as Map<String,dynamic>;
         final startDt = data['start_datetime'].toDate();
         _setStartDt(startDt);
@@ -90,7 +91,7 @@ class _NewScheduleState extends State<NewSchedule> {
             icon: const Icon(Icons.delete_outline_outlined),
             onPressed: () {
               FirebaseFirestore.instance
-                  .collection('000-schedules')
+                  .collection("${MyUser.getCompanyCode()}-schedules")
                   .doc(widget.id)
                   .delete();
               Navigator.pop(context);
@@ -326,8 +327,7 @@ class _NewScheduleState extends State<NewSchedule> {
                     state.save();
 
                     var db = FirebaseFirestore.instance;
-                    // TODO スケジュールに企業コードを適用
-                    db.collection("000-schedules").add({
+                    db.collection("${MyUser.getCompanyCode()}-schedules").add({
                       'CarNumber' : _carNumberController.text,
                       'DriverName' : _driverNameController.text,
                       'CompanyName' : _companyNameController.text,

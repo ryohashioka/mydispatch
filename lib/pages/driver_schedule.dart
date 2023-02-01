@@ -5,6 +5,7 @@ import 'dart:math' as math;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mydispatch/pages/create_schedule.dart';
 
+import '../data/MyUser.dart';
 
 class DriverSchedule extends StatelessWidget {
   const DriverSchedule({Key? key}) : super(key: key);
@@ -19,7 +20,7 @@ class DriverSchedule extends StatelessWidget {
   void getSchedules(BuildContext context) {
     resetEvents(context);
     //ここに処理を書く
-    FirebaseFirestore.instance.collection('000-schedules').get().then((res) {
+    FirebaseFirestore.instance.collection("${MyUser.getCompanyCode()}-schedules").get().then((res) {
       final events = res.docs.map((doc) {
         final data = doc.data();
         final startDt = data['start_datetime'].toDate();
@@ -59,7 +60,7 @@ class DriverSchedule extends StatelessWidget {
           // print(events);
           // print(date);
           //   String? docID = events[0].event as String?;
-          //   FirebaseFirestore.instance.collection('000-schedules').doc(docID).delete();
+          //   FirebaseFirestore.instance.collection("${MyUser.getCompanyCode()}-schedules").doc(docID).delete();
           //   getSchedules(context);
             },
           ),

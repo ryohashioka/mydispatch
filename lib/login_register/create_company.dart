@@ -106,7 +106,7 @@ class _NewCompanyState extends State<NewCompany> {
     try {
       var db = FirebaseFirestore.instance;
 
-      // TODO: 20230131_管理会社区分
+      // TODO: is_admin を登録（チェックボックス）
       var ds = await db.collection("company").add({
         "companyname": _companyname,
         "manager": _manager,

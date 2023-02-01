@@ -31,16 +31,17 @@ class MenuPage extends StatelessWidget {
                   trailing: Icon(Icons.arrow_forward),
                 ),
               ),
-            GestureDetector(
-              onTap: () async {
-                Navigator.pushNamed(context, '/new_truck');
-              },
-              child:  const ListTile(
-                leading: Icon(Icons.drive_eta_outlined),
-                title: Text("トラック登録"),
-                trailing: Icon(Icons.arrow_forward),
+            if(MyUser.isAdmin() || MyUser.isManager())
+              GestureDetector(
+                onTap: () async {
+                  Navigator.pushNamed(context, '/new_truck');
+                },
+                child:  const ListTile(
+                  leading: Icon(Icons.drive_eta_outlined),
+                  title: Text("トラック登録"),
+                  trailing: Icon(Icons.arrow_forward),
+                ),
               ),
-            ),
             GestureDetector(
               onTap: () async {
                 await FirebaseAuth.instance.signOut();

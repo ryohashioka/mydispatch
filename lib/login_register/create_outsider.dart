@@ -92,7 +92,7 @@ class _NewOutsiderState extends State<NewOutsider> {
                   _phonenumber = value!;
                 },
               ),
-              // TODO: 20230131_ドライバー or 管理者の選択（ラジオボタン？）
+              // TODO: ドライバー or 管理者の選択（ラジオボタン？）
                TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
@@ -148,7 +148,7 @@ class _NewOutsiderState extends State<NewOutsider> {
 
       try {
 
-        // TODO: 20230131_権限設定
+        // TODO: 権限設定
         await MyUser.createUser(
           email: _email, password: _password, companyCode: widget.companyCode,
           name: _name, affiliation: _affiriation, position: _position,

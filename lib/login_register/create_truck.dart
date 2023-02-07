@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
 
+import '../data/MyUser.dart';
+
 class NewTruck extends StatefulWidget {
   @override
   _NewTruckState createState() => _NewTruckState();
@@ -15,12 +17,13 @@ class _NewTruckState extends State<NewTruck> {
   String _carNumber = "";
   String _type = "";
   String _truckAffiliation = "";
-  String _maxCapacity = "";
-  String _carWeight = "";
-  String _totalWeight = "";
-  String _length = "";
-  String _height = "";
-  String _width = "";
+  int _maxCapacity = 0; // l
+  int _carWeight = 0; // g
+  int _totalWeight = 0; // g
+  int _length = 0; // mm
+  int _height = 0; // mm
+  int _width = 0; // mm
+  // TODO: 車検は日付に変更
   String _inspectionDeadline = "";
 
   late DateTime _inspection;
@@ -82,6 +85,7 @@ class _NewTruckState extends State<NewTruck> {
                   _truckAffiliation = value!;
                 },
               ),
+              // TODO: 単位表記
               TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
@@ -93,10 +97,15 @@ class _NewTruckState extends State<NewTruck> {
                   labelText: 'max capacity *',
                 ),
                 keyboardType: TextInputType.number,
+                validator: (val) {
+                  // TODO: 数値のみを許可するように正規表現を記述
+                  return null;
+                },
                 onSaved: (value) {
-                  _maxCapacity = value!;
+                  _maxCapacity = int.parse(value!);
                 },
               ),
+              // TODO: 単位表記
               TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
@@ -108,10 +117,15 @@ class _NewTruckState extends State<NewTruck> {
                   labelText: 'car weight *',
                 ),
                 keyboardType: TextInputType.number,
+                validator: (val) {
+                  // TODO: 数値のみを許可するように正規表現を記述
+                  return null;
+                },
                 onSaved: (value) {
-                  _carWeight = value!;
+                  _carWeight = int.parse(value!);
                 },
               ),
+              // TODO: 単位表記
               TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
@@ -123,10 +137,15 @@ class _NewTruckState extends State<NewTruck> {
                   labelText: 'total weight *',
                 ),
                 keyboardType: TextInputType.number,
+                validator: (val) {
+                  // TODO: 数値のみを許可するように正規表現を記述
+                  return null;
+                },
                 onSaved: (value) {
-                  _totalWeight = value!;
+                  _totalWeight = int.parse(value!);
                 },
               ),
+              // TODO: 単位表記
               TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
@@ -138,10 +157,15 @@ class _NewTruckState extends State<NewTruck> {
                   labelText: 'length *',
                 ),
                 keyboardType: TextInputType.number,
+                validator: (val) {
+                  // TODO: 数値のみを許可するように正規表現を記述
+                  return null;
+                },
                 onSaved: (value) {
-                  _length = value!;
+                  _length = int.parse(value!);
                 },
               ),
+              // TODO: 単位表記
               TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
@@ -153,10 +177,15 @@ class _NewTruckState extends State<NewTruck> {
                   labelText: 'height *',
                 ),
                 keyboardType: TextInputType.number,
+                validator: (val) {
+                  // TODO: 数値のみを許可するように正規表現を記述
+                  return null;
+                },
                 onSaved: (value) {
-                  _height = value!;
+                  _height = int.parse(value!);
                 },
               ),
+              // TODO: 単位表記
               TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
@@ -169,7 +198,8 @@ class _NewTruckState extends State<NewTruck> {
                 ),
                 keyboardType: TextInputType.number,
                 onSaved: (value) {
-                  _width = value!;
+                  // TODO: 数値のみを許可するように正規表現を記述
+                  _width = int.parse(value!);
                 },
               ),
               TextFormField(
@@ -203,23 +233,23 @@ class _NewTruckState extends State<NewTruck> {
                     state.save();
 
                     var db = FirebaseFirestore.instance;
-                    db.collection("trackinfo").add({
-                      "carnumber": _carNumber,
+                    db.collection("${MyUser.getCompanyCode()}-tracks").add({
+                      "car_number": _carNumber,
                       "type": _type,
-                      "truck affiliation": _truckAffiliation,
-                      "max capasity": _maxCapacity,
-                      "car weight": _carWeight,
-                      "total weight": _totalWeight,
+                      "truck_affiliation": _truckAffiliation,
+                      "max_capacity": _maxCapacity,
+                      "car_weight": _carWeight,
+                      "total_weight": _totalWeight,
                       "length": _length,
                       "height": _height,
                       "width": _width,
-                      "inspection deadline": _inspectionDeadline,
+                      "inspection_deadline": _inspectionDeadline,
                     }).then((res) {
                       Navigator.pop(context);
                     });
                   }
                 },
-                icon: Icon(Icons.add),
+                icon: const Icon(Icons.add),
                 label: const Text('Register'),
               ),
             ],

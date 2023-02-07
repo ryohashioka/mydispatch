@@ -13,7 +13,7 @@ class _TruckInfoState extends State<TruckInfo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('GPS'),
+        title: const Text('Truck Info'),
       ),
       body: SingleChildScrollView(
         child: Container(

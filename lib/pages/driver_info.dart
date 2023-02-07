@@ -13,7 +13,7 @@ class _DriverInfoState extends State<DriverInfo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('GPS'),
+        title: const Text('Driver Info'),
       ),
       body: SingleChildScrollView(
         child: Container(

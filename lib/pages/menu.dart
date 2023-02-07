@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mydispatch/components/user_profile.dart';
 import 'package:mydispatch/data/MyUser.dart';
+import 'package:mydispatch/pages/info.dart';
+import 'package:mydispatch/pages/truck_info.dart';
 import '/pages/driver_schedule.dart';
 import 'package:mydispatch/login_register/create_truck.dart';
 import '/pages/search.dart';
@@ -111,7 +113,7 @@ class MenuPage extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(
-                      builder: (BuildContext context) => NewTruck()
+                      builder: (BuildContext context) => InfoPage()
                   ));
                 },
                 child: Container(

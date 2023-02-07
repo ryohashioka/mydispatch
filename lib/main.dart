@@ -3,12 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:mydispatch/login_register/create_company.dart';
 import 'package:mydispatch/login_register/create_truck.dart';
 import 'package:mydispatch/pages/create_schedule.dart';
+import 'package:mydispatch/pages/info.dart';
 import 'login_register/home.dart';
 import 'login_register/create_employee.dart';
 import 'login_register/create_outsider.dart';
 import 'login_register/miss_password.dart';
-import 'pages/menu.dart';
-// import 'login_register/create_employee.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
@@ -36,13 +35,10 @@ class MyApp extends StatelessWidget {
         routes:  <String, WidgetBuilder>{
           '/home':(BuildContext context) =>  MainPage(),
           '/new_employee': (BuildContext context) => NewEmployee(),
-          // '/new_outsider': (BuildContext context) => NewOutsider(),
           '/miss_password': (BuildContext context) => MissPassword(),
           '/new_schedule': (BuildContext context) => NewSchedule(),
           '/new_company' : (BuildContext context) => NewCompany(),
           '/new_truck' : (BuildContext context) => NewTruck(),
-
-
        },
       ),
     );

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:intl/intl.dart';
+import '../data/MyUser.dart';
+
 
 class NewTruck extends StatefulWidget {
   @override
@@ -15,12 +14,12 @@ class _NewTruckState extends State<NewTruck> {
   String _carNumber = "";
   String _type = "";
   String _truckAffiliation = "";
-  String _maxCapacity = "";
-  String _carWeight = "";
-  String _totalWeight = "";
-  String _length = "";
-  String _height = "";
-  String _width = "";
+  int _maxCapacity = 0;
+  int _carWeight = 0;
+  int _totalWeight = 0;
+  int _length = 0;
+  int _height = 0;
+  int _width = 0;
   String _inspectionDeadline = "";
 
   late DateTime _inspection;
@@ -30,7 +29,7 @@ class _NewTruckState extends State<NewTruck> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Create New Truck'),
+        title: const Text('Create New Truck'),
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -40,7 +39,7 @@ class _NewTruckState extends State<NewTruck> {
             children: <Widget>[
               TextFormField(
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
@@ -56,13 +55,13 @@ class _NewTruckState extends State<NewTruck> {
               ),
               TextFormField(
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.type_specimen_outlined),
                   hintText: '種類を入力してください',
-                  labelText: 'type *',
+                  labelText: 'type',
                 ),
                 onSaved: (value) {
                   _type = value!;
@@ -70,7 +69,7 @@ class _NewTruckState extends State<NewTruck> {
               ),
               TextFormField(
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
@@ -84,7 +83,7 @@ class _NewTruckState extends State<NewTruck> {
               ),
               TextFormField(
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
@@ -94,7 +93,7 @@ class _NewTruckState extends State<NewTruck> {
                 ),
                 keyboardType: TextInputType.number,
                 onSaved: (value) {
-                  _maxCapacity = value!;
+                  _maxCapacity = int.parse(value!);
                 },
               ),
               TextFormField(
@@ -109,12 +108,12 @@ class _NewTruckState extends State<NewTruck> {
                 ),
                 keyboardType: TextInputType.number,
                 onSaved: (value) {
-                  _carWeight = value!;
+                  _carWeight = int.parse(value!);
                 },
               ),
               TextFormField(
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
@@ -124,12 +123,12 @@ class _NewTruckState extends State<NewTruck> {
                 ),
                 keyboardType: TextInputType.number,
                 onSaved: (value) {
-                  _totalWeight = value!;
+                  _totalWeight = int.parse(value!);
                 },
               ),
               TextFormField(
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
@@ -139,12 +138,12 @@ class _NewTruckState extends State<NewTruck> {
                 ),
                 keyboardType: TextInputType.number,
                 onSaved: (value) {
-                  _length = value!;
+                  _length = int.parse(value!);
                 },
               ),
               TextFormField(
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
@@ -154,12 +153,12 @@ class _NewTruckState extends State<NewTruck> {
                 ),
                 keyboardType: TextInputType.number,
                 onSaved: (value) {
-                  _height = value!;
+                  _height = int.parse(value!);
                 },
               ),
               TextFormField(
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
@@ -169,12 +168,12 @@ class _NewTruckState extends State<NewTruck> {
                 ),
                 keyboardType: TextInputType.number,
                 onSaved: (value) {
-                  _width = value!;
+                  _width = int.parse(value!);
                 },
               ),
               TextFormField(
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style:  const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
@@ -203,23 +202,23 @@ class _NewTruckState extends State<NewTruck> {
                     state.save();
 
                     var db = FirebaseFirestore.instance;
-                    db.collection("trackinfo").add({
-                      "carnumber": _carNumber,
+                    db.collection("${MyUser.getCompanyCode()}-trucks").add({
+                      "car_number": _carNumber,
                       "type": _type,
-                      "truck affiliation": _truckAffiliation,
-                      "max capasity": _maxCapacity,
-                      "car weight": _carWeight,
-                      "total weight": _totalWeight,
+                      "truck_affiliation": _truckAffiliation,
+                      "max_capacity": _maxCapacity,
+                      "car_weight": _carWeight,
+                      "total_weight": _totalWeight,
                       "length": _length,
                       "height": _height,
                       "width": _width,
-                      "inspection deadline": _inspectionDeadline,
+                      "inspection_deadline": _inspectionDeadline,
                     }).then((res) {
                       Navigator.pop(context);
                     });
                   }
                 },
-                icon: Icon(Icons.add),
+                icon: const Icon(Icons.add),
                 label: const Text('Register'),
               ),
             ],

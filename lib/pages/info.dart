@@ -21,7 +21,7 @@ class InfoPage extends StatelessWidget {
             if(MyUser.isAdmin())
               GestureDetector(
                 onTap: () async {
-                  Navigator.pushNamed(context, '/home');
+                  Navigator.of(context).popUntil((route) => route.isFirst);
                 },
                 child:  const ListTile(
                   leading: Icon(Icons.home),

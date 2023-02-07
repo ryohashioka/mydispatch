@@ -87,18 +87,33 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-              ButtonBar(buttonPadding: EdgeInsets.all(30.0), children: [
+              ButtonBar(buttonPadding: EdgeInsets.all(30),
+                  children: [
                 ElevatedButton(
                     onPressed: () => onPressLoginButton(),
-                    child: Text('log in')
-                )
+                    child: Text('log in'),
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white, backgroundColor: Colors.blue,
+                    ),
+                ),
               ]),
               // TODO: ログイン後の画面に移動
               ElevatedButton(
                   onPressed: () =>
                       Navigator.of(context).pushNamed('/new_employee'),
-                  child: Text('社員向け新規登録')),
-              TextButton(onPressed: null, child: Text('パスワードをお忘れの方はこちら')),
+                  child: Text('社員向け新規登録'),
+                  style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white, backgroundColor: Colors.blue,
+                ),
+              ),
+              ElevatedButton(
+                  onPressed: () =>
+                      Navigator.of(context).pushNamed('/miss_password'),
+                  child: Text('パスワードをお忘れの方はこちら'),
+                  style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.black, backgroundColor: Colors.white,
+                ),
+              ),
             ],
           ),
         ),

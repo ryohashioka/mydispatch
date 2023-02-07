@@ -14,6 +14,7 @@ class _NewTruckState extends State<NewTruck> {
   final _formKey = GlobalKey<FormState>();
   String _carNumber = "";
   String _type = "";
+  String _truckAffiliation = "";
   String _maxCapacity = "";
   String _carWeight = "";
   String _totalWeight = "";
@@ -65,6 +66,20 @@ class _NewTruckState extends State<NewTruck> {
                 ),
                 onSaved: (value) {
                   _type = value!;
+                },
+              ),
+              TextFormField(
+                enabled: true,
+                style: TextStyle(color: Colors.black),
+                obscureText: false,
+                maxLines: 1,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.factory_outlined),
+                  hintText: '担当営業所を入力してください',
+                  labelText: 'truck Affiliation *',
+                ),
+                onSaved: (value) {
+                  _truckAffiliation = value!;
                 },
               ),
               TextFormField(
@@ -191,6 +206,7 @@ class _NewTruckState extends State<NewTruck> {
                     db.collection("trackinfo").add({
                       "carnumber": _carNumber,
                       "type": _type,
+                      "truck affiliation": _truckAffiliation,
                       "max capasity": _maxCapacity,
                       "car weight": _carWeight,
                       "total weight": _totalWeight,

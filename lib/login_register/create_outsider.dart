@@ -152,7 +152,7 @@ class _NewOutsiderState extends State<NewOutsider> {
         await MyUser.createUser(
           email: _email, password: _password, companyCode: widget.companyCode,
           name: _name, affiliation: _affiriation, position: _position,
-          phoneNumber: _phonenumber,
+          phoneNumber: _phonenumber, role: 0,
         );
 
         // int count = 0;

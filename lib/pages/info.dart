@@ -14,34 +14,6 @@ class InfoPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('メニュー'),
       ),
-      drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-            const UserProfile(),
-            if(MyUser.isAdmin())
-              GestureDetector(
-                onTap: () async {
-                  Navigator.of(context).popUntil((route) => route.isFirst);
-                },
-                child:  const ListTile(
-                  leading: Icon(Icons.home),
-                  title: Text("Home"),
-                  trailing: Icon(Icons.arrow_back),
-                ),
-              ),
-            GestureDetector(
-              onTap: () async {
-                await FirebaseAuth.instance.signOut();
-              },
-              child:  const ListTile(
-                leading: Icon(Icons.logout),
-                title: Text("Logout"),
-                trailing: Icon(Icons.logout),
-              ),
-            ),
-          ],
-        ),
-      ),
       body: SingleChildScrollView(
       child: Form(
       child: Column(

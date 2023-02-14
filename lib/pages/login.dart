@@ -97,15 +97,6 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                 ),
               ]),
-              // TODO: ログイン後の画面に移動
-              ElevatedButton(
-                  onPressed: () =>
-                      Navigator.of(context).pushNamed('/new_employee'),
-                  child: Text('社員向け新規登録'),
-                  style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white, backgroundColor: Colors.blue,
-                ),
-              ),
               ElevatedButton(
                   onPressed: () =>
                       Navigator.of(context).pushNamed('/miss_password'),

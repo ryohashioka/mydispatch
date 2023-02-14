@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mydispatch/data/MyUser.dart';
 
 //TODO 20230117 create_employee108〜バリデーターを参考に記入してみる
+/// 管理者ユーザの作成画面
 class NewOutsider extends StatefulWidget {
 
   final String companyCode;
@@ -147,12 +148,10 @@ class _NewOutsiderState extends State<NewOutsider> {
       _formKey.currentState!.save();
 
       try {
-
-        // TODO: 権限設定
         await MyUser.createUser(
           email: _email, password: _password, companyCode: widget.companyCode,
           name: _name, affiliation: _affiriation, position: _position,
-          phoneNumber: _phonenumber,
+          phoneNumber: _phonenumber, role: 0,
         );
 
         // int count = 0;

@@ -63,15 +63,9 @@ class MyUser {
       options: DefaultFirebaseOptions.currentPlatform,
     );
 
-    // TODO: 削除
-    print(app);
-
     final credential = await FirebaseAuth.instanceFor(app: app).createUserWithEmailAndPassword(
       email: email, password: password
     );
-
-    // TODO: 削除！（認証情報をログに出力されるとセキュリティリスク高）
-    print(credential);
 
     if(credential.user != null) {
       var db = FirebaseFirestore.instance;

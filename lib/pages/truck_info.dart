@@ -54,9 +54,6 @@ class _TruckInfoState extends State<TruckInfo> {
             return Text("トラック情報を取得できませんでした");
           }
           if (snapshot.hasData) {
-            for (var doc in snapshot.data!.docs) {
-              print(doc.data());
-            }
             return ListView.builder(
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (BuildContext context, int index) {

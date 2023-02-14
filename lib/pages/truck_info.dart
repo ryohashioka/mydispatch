@@ -14,7 +14,6 @@ class TruckInfo extends StatefulWidget {
 }
 class _TruckInfoState extends State<TruckInfo> {
 
-
   Widget _truckItemWidget({
     required String id,
     required String carNumber,

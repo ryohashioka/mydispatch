@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:mydispatch/data/MyUser.dart';
 
 import '../data/MyUser.dart';
 
@@ -12,7 +14,7 @@ class TruckInfo extends StatefulWidget {
 }
 class _TruckInfoState extends State<TruckInfo> {
 
-  Widget _trackItemWidget({
+  Widget _truckItemWidget({
     required String id,
     required String carNumber,
     required String carType
@@ -43,40 +45,42 @@ class _TruckInfoState extends State<TruckInfo> {
         title: const Text('Truck Info'),
       ),
       body: FutureBuilder(
-        future: FirebaseFirestore.instance.collection("${MyUser.getCompanyCode()}-tracks").get(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-          if(snapshot.hasError) {
+        future: FirebaseFirestore.instance.collection(
+            "${MyUser.getCompanyCode()}-trucks").get(),
+        builder: (BuildContext context,
+            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+          if (snapshot.hasError) {
             // TODO: トラック情報取得エラー処理
-            return const Text("トラック情報が取得できませんでした。");
+            return Text("トラック情報を取得できませんでした");
           }
-          if(snapshot.hasData) {
-            for(var doc in snapshot.data!.docs) {
+          if (snapshot.hasData) {
+            for (var doc in snapshot.data!.docs) {
               print(doc.data());
             }
             return ListView.builder(
-              itemCount: snapshot.data!.docs.length,
-              itemBuilder: (BuildContext context, int index) {
-                var data = snapshot.data!.docs[index];
-                return _trackItemWidget(
-                  id: data.id,
-                  carNumber: data['carnumber'],
-                  carType: data['type']
-                );
-              }
+                itemCount: snapshot.data!.docs.length,
+                itemBuilder: (BuildContext context, int index) {
+                  var data = snapshot.data!.docs[index];
+                  return _truckItemWidget(
+                      id: data.id,
+                      carNumber: data['carnumber'],
+                      carType: data['type']
+                  );
+                }
             );
           }
           return const Text("loading...");
-        }
+        },
       ),
-      // body: SingleChildScrollView(
-      //   child: Container(
-      //     color: Colors.white,
-      //     width: 300.0,
-      //     height: 300.0,
-      //     child: Text("test"),
-      //     padding: const EdgeInsets.all(50.0),
+      //   body: SingleChildScrollView(
+      //     child: Container(
+      //       color: Colors.white,
+      //       width: 300.0,
+      //       height: 300.0,
+      //       child: Text("test"),
+      //       padding: const EdgeInsets.all(50.0),
+      //     ),
       //   ),
-      // ),
     );
   }
 }

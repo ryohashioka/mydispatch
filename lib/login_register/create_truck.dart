@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:intl/intl.dart';
+import '../data/MyUser.dart';
+
 
 import '../data/MyUser.dart';
 
@@ -33,7 +32,7 @@ class _NewTruckState extends State<NewTruck> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Create New Truck'),
+        title: const Text('Create New Truck'),
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -43,7 +42,7 @@ class _NewTruckState extends State<NewTruck> {
             children: <Widget>[
               TextFormField(
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
@@ -59,13 +58,13 @@ class _NewTruckState extends State<NewTruck> {
               ),
               TextFormField(
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.type_specimen_outlined),
                   hintText: '種類を入力してください',
-                  labelText: 'type *',
+                  labelText: 'type',
                 ),
                 onSaved: (value) {
                   _type = value!;
@@ -73,7 +72,7 @@ class _NewTruckState extends State<NewTruck> {
               ),
               TextFormField(
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
@@ -88,7 +87,7 @@ class _NewTruckState extends State<NewTruck> {
               // TODO: 単位表記
               TextFormField(
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
@@ -128,7 +127,7 @@ class _NewTruckState extends State<NewTruck> {
               // TODO: 単位表記
               TextFormField(
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
@@ -148,7 +147,7 @@ class _NewTruckState extends State<NewTruck> {
               // TODO: 単位表記
               TextFormField(
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
@@ -168,7 +167,7 @@ class _NewTruckState extends State<NewTruck> {
               // TODO: 単位表記
               TextFormField(
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
@@ -188,7 +187,7 @@ class _NewTruckState extends State<NewTruck> {
               // TODO: 単位表記
               TextFormField(
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
@@ -204,7 +203,7 @@ class _NewTruckState extends State<NewTruck> {
               ),
               TextFormField(
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style:  const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
@@ -233,7 +232,7 @@ class _NewTruckState extends State<NewTruck> {
                     state.save();
 
                     var db = FirebaseFirestore.instance;
-                    db.collection("${MyUser.getCompanyCode()}-tracks").add({
+                    db.collection("${MyUser.getCompanyCode()}-trucks").add({
                       "car_number": _carNumber,
                       "type": _type,
                       "truck_affiliation": _truckAffiliation,

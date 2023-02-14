@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../data/MyUser.dart';
 
 
+import '../data/MyUser.dart';
+
 class NewTruck extends StatefulWidget {
   @override
   _NewTruckState createState() => _NewTruckState();
@@ -14,12 +16,13 @@ class _NewTruckState extends State<NewTruck> {
   String _carNumber = "";
   String _type = "";
   String _truckAffiliation = "";
-  int _maxCapacity = 0;
-  int _carWeight = 0;
-  int _totalWeight = 0;
-  int _length = 0;
-  int _height = 0;
-  int _width = 0;
+  int _maxCapacity = 0; // l
+  int _carWeight = 0; // g
+  int _totalWeight = 0; // g
+  int _length = 0; // mm
+  int _height = 0; // mm
+  int _width = 0; // mm
+  // TODO: 車検は日付に変更
   String _inspectionDeadline = "";
 
   late DateTime _inspection;
@@ -81,6 +84,7 @@ class _NewTruckState extends State<NewTruck> {
                   _truckAffiliation = value!;
                 },
               ),
+              // TODO: 単位表記
               TextFormField(
                 enabled: true,
                 style: const TextStyle(color: Colors.black),
@@ -92,10 +96,15 @@ class _NewTruckState extends State<NewTruck> {
                   labelText: 'max capacity *',
                 ),
                 keyboardType: TextInputType.number,
+                validator: (val) {
+                  // TODO: 数値のみを許可するように正規表現を記述
+                  return null;
+                },
                 onSaved: (value) {
                   _maxCapacity = int.parse(value!);
                 },
               ),
+              // TODO: 単位表記
               TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
@@ -107,10 +116,15 @@ class _NewTruckState extends State<NewTruck> {
                   labelText: 'car weight *',
                 ),
                 keyboardType: TextInputType.number,
+                validator: (val) {
+                  // TODO: 数値のみを許可するように正規表現を記述
+                  return null;
+                },
                 onSaved: (value) {
                   _carWeight = int.parse(value!);
                 },
               ),
+              // TODO: 単位表記
               TextFormField(
                 enabled: true,
                 style: const TextStyle(color: Colors.black),
@@ -122,10 +136,15 @@ class _NewTruckState extends State<NewTruck> {
                   labelText: 'total weight *',
                 ),
                 keyboardType: TextInputType.number,
+                validator: (val) {
+                  // TODO: 数値のみを許可するように正規表現を記述
+                  return null;
+                },
                 onSaved: (value) {
                   _totalWeight = int.parse(value!);
                 },
               ),
+              // TODO: 単位表記
               TextFormField(
                 enabled: true,
                 style: const TextStyle(color: Colors.black),
@@ -137,10 +156,15 @@ class _NewTruckState extends State<NewTruck> {
                   labelText: 'length *',
                 ),
                 keyboardType: TextInputType.number,
+                validator: (val) {
+                  // TODO: 数値のみを許可するように正規表現を記述
+                  return null;
+                },
                 onSaved: (value) {
                   _length = int.parse(value!);
                 },
               ),
+              // TODO: 単位表記
               TextFormField(
                 enabled: true,
                 style: const TextStyle(color: Colors.black),
@@ -152,10 +176,15 @@ class _NewTruckState extends State<NewTruck> {
                   labelText: 'height *',
                 ),
                 keyboardType: TextInputType.number,
+                validator: (val) {
+                  // TODO: 数値のみを許可するように正規表現を記述
+                  return null;
+                },
                 onSaved: (value) {
                   _height = int.parse(value!);
                 },
               ),
+              // TODO: 単位表記
               TextFormField(
                 enabled: true,
                 style: const TextStyle(color: Colors.black),
@@ -168,6 +197,7 @@ class _NewTruckState extends State<NewTruck> {
                 ),
                 keyboardType: TextInputType.number,
                 onSaved: (value) {
+                  // TODO: 数値のみを許可するように正規表現を記述
                   _width = int.parse(value!);
                 },
               ),

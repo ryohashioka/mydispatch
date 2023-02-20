@@ -4,7 +4,6 @@ import "package:intl/intl.dart";
 import 'dart:math' as math;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mydispatch/pages/create_schedule.dart';
-
 import '../data/MyUser.dart';
 
 class DriverSchedule extends StatelessWidget {

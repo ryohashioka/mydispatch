@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mydispatch/data/MyUser.dart';
-
-import '../data/MyUser.dart';
+import 'package:mydispatch/pages/truck_detail.dart';
 
 
 class TruckInfo extends StatefulWidget {
@@ -29,6 +27,9 @@ class _TruckInfoState extends State<TruckInfo> {
           Text(carType),
           ElevatedButton(
             onPressed: () {
+              Navigator.push(context, MaterialPageRoute(
+                  builder: (BuildContext context) => TruckDetail()
+              ));
               print("トラックの詳細画面へ ($id)");
             },
             child: const Text("詳細を見る"),
@@ -69,15 +70,6 @@ class _TruckInfoState extends State<TruckInfo> {
           return const Text("loading...");
         },
       ),
-      //   body: SingleChildScrollView(
-      //     child: Container(
-      //       color: Colors.white,
-      //       width: 300.0,
-      //       height: 300.0,
-      //       child: Text("test"),
-      //       padding: const EdgeInsets.all(50.0),
-      //     ),
-      //   ),
     );
   }
 }

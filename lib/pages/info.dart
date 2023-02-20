@@ -1,7 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:mydispatch/components/user_profile.dart';
-import 'package:mydispatch/data/MyUser.dart';
 import 'package:mydispatch/pages/driver_info.dart';
 import 'package:mydispatch/pages/truck_info.dart';
 

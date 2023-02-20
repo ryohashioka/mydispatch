@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../data/MyUser.dart';
 
-
-import '../data/MyUser.dart';
-
 class NewTruck extends StatefulWidget {
   @override
   _NewTruckState createState() => _NewTruckState();

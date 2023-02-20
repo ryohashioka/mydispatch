@@ -4,10 +4,8 @@ import 'package:mydispatch/components/user_profile.dart';
 import 'package:mydispatch/data/MyUser.dart';
 import 'package:mydispatch/login_register/create_employee.dart';
 import 'package:mydispatch/pages/info.dart';
-import 'package:mydispatch/pages/truck_info.dart';
 import '../login_register/create_outsider.dart';
 import '/pages/driver_schedule.dart';
-import 'package:mydispatch/login_register/create_truck.dart';
 import '/pages/search.dart';
 import '/pages/gps.dart';
 

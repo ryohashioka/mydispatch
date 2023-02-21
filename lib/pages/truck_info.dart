@@ -28,7 +28,7 @@ class _TruckInfoState extends State<TruckInfo> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (BuildContext context) => TruckDetail()));
+                      builder: (BuildContext context) => TruckDetail(id: id,)));
               print("トラックの詳細画面へ ($id)");
             },
             child: const Text("詳細を見る"),
@@ -61,7 +61,7 @@ class _TruckInfoState extends State<TruckInfo> {
                   var data = snapshot.data!.docs[index];
                   return _truckItemWidget(
                       id: data.id,
-                      carNumber: data['carnumber'],
+                      carNumber: data['car_number'],
                       carType: data['type']);
                 });
           }

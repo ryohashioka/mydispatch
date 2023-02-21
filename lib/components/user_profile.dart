@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 import '../data/MyUser.dart';
 
 class UserProfile extends StatefulWidget {
@@ -11,17 +10,14 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
-
   Widget build(BuildContext context) {
     return DrawerHeader(
-      child: Column(
-          children: [
-            Text(MyUser.currentUser!['name']),
-            Text(MyUser.currentUser!['phone']),
-            Text(MyUser.currentUser!['affiliation']),
-            Text("${MyUser.currentUser!['truck']}"),
-          ]
-      ),
+      child: Column(children: [
+        Text(MyUser.currentUser!['name']),
+        Text(MyUser.currentUser!['phone']),
+        Text(MyUser.currentUser!['affiliation']),
+        Text("${MyUser.currentUser!['truck']}"),
+      ]),
       decoration: BoxDecoration(
         color: Colors.blue,
       ),

@@ -11,7 +11,7 @@ class DriverSchedule extends StatelessWidget {
 
   void resetEvents(BuildContext context) {
     final controller = CalendarControllerProvider.of(context).controller;
-    for(var event in controller.events) {
+    for (var event in controller.events) {
       controller.remove(event);
     }
   }
@@ -19,7 +19,10 @@ class DriverSchedule extends StatelessWidget {
   void getSchedules(BuildContext context) {
     resetEvents(context);
     //ここに処理を書く
-    FirebaseFirestore.instance.collection("${MyUser.getCompanyCode()}-schedules").get().then((res) {
+    FirebaseFirestore.instance
+        .collection("${MyUser.getCompanyCode()}-schedules")
+        .get()
+        .then((res) {
       final events = res.docs.map((doc) {
         final data = doc.data();
         final startDt = data['start_datetime'].toDate();
@@ -28,7 +31,8 @@ class DriverSchedule extends StatelessWidget {
           date: startDt,
           startTime: startDt,
           endTime: endDt,
-          title: "${data['SiteName']}/ ${data['CompanyName']}様/ ${data['DriverName']}",
+          title:
+              "${data['SiteName']}/ ${data['CompanyName']}様/ ${data['DriverName']}",
           event: doc.id,
         );
       }).toList();
@@ -53,26 +57,23 @@ class DriverSchedule extends StatelessWidget {
         },
         onEventTap: (events, date) async {
           String? docID = events[0].event as String?;
-          await Navigator.of(context).push(MaterialPageRoute(builder: (context) => NewSchedule(id: docID))
-          );
+          await Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => NewSchedule(id: docID)));
           getSchedules(context);
           // print(events);
           // print(date);
           //   String? docID = events[0].event as String?;
           //   FirebaseFirestore.instance.collection("${MyUser.getCompanyCode()}-schedules").doc(docID).delete();
           //   getSchedules(context);
-            },
-          ),
-          floatingActionButton: FloatingActionButton(
-          onPressed: ()
-           async {
-            await Navigator.of(context).pushNamed('/new_schedule');
-            getSchedules(context);
-          },
-          child: Icon(Icons.calendar_today_outlined),
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          await Navigator.of(context).pushNamed('/new_schedule');
+          getSchedules(context);
+        },
+        child: Icon(Icons.calendar_today_outlined),
       ),
     );
   }
 }
-
-

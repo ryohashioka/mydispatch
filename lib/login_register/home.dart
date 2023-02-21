@@ -5,23 +5,20 @@ import 'package:mydispatch/pages/login.dart';
 import 'package:mydispatch/pages/menu.dart';
 
 class MainPage extends StatefulWidget {
- const MainPage({Key? key}) : super(key: key);
+  const MainPage({Key? key}) : super(key: key);
 
- @override
+  @override
   State<StatefulWidget> createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
-
   User? user;
 
   @override
   void initState() {
     super.initState();
 
-    FirebaseAuth.instance
-        .authStateChanges()
-        .listen((User? user) async {
+    FirebaseAuth.instance.authStateChanges().listen((User? user) async {
       if (user == null) {
         print('User is currently signed out!');
         MyUser.destroy();
@@ -34,7 +31,8 @@ class _MainPageState extends State<MainPage> {
 
         try {
           await MyUser.setupCurrentUser(userId: user.uid);
-          await MyUser.setupCurrentCompany(companyCode: MyUser.currentUser!['company_code']);
+          await MyUser.setupCurrentCompany(
+              companyCode: MyUser.currentUser!['company_code']);
 
           // ユーザ情報や法人情報が取得できない場合は異常終了（サインアウト）
           if (MyUser.currentUser == null || MyUser.currentCompany == null) {
@@ -61,6 +59,6 @@ class _MainPageState extends State<MainPage> {
       return const MenuPage();
     }
     return LoginPage();
-  //  TODO ↑修正前はreturn const だったがこれでいいのか・・・（constを消したらエラー消えた）
+    //  TODO ↑修正前はreturn const だったがこれでいいのか・・・（constを消したらエラー消えた）
   }
 }

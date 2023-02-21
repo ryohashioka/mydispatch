@@ -117,7 +117,9 @@ class _NewCompanyState extends State<NewCompany> {
       String companyCode = ds.id;
 
       await Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => NewOutsider(companyCode: companyCode,)));
+          builder: (context) => NewOutsider(
+                companyCode: companyCode,
+              )));
       // TODO: 以下のコードは不要
       // Navigator.pop(context);
 
@@ -132,6 +134,3 @@ class _NewCompanyState extends State<NewCompany> {
     }
   }
 }
-
-
-

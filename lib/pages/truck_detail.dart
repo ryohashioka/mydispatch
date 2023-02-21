@@ -6,15 +6,14 @@ import 'package:mydispatch/pages/truck_detail.dart';
 
 import '../data/MyUser.dart';
 
-
 class TruckDetail extends StatefulWidget {
   const TruckDetail({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _TruckDetailState();
 }
-class _TruckDetailState extends State<TruckDetail> {
 
+class _TruckDetailState extends State<TruckDetail> {
   Widget _truckDetailWidget({
     required String id,
     required String carNumber,
@@ -51,8 +50,9 @@ class _TruckDetailState extends State<TruckDetail> {
         title: const Text('Truck Detail'),
       ),
       body: FutureBuilder(
-        future: FirebaseFirestore.instance.collection(
-            "${MyUser.getCompanyCode()}-trucks").get(),
+        future: FirebaseFirestore.instance
+            .collection("${MyUser.getCompanyCode()}-trucks")
+            .get(),
         builder: (BuildContext context,
             AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
           if (snapshot.hasData) {
@@ -72,8 +72,7 @@ class _TruckDetailState extends State<TruckDetail> {
                     truckAffiliation: data['truckaffiliation'],
                     totalWeight: data['totalweight'],
                   );
-                }
-            );
+                });
           }
         },
       ),

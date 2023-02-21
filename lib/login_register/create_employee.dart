@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../data/MyUser.dart';
 
+import '../data/MyUser.dart';
+
 class NewEmployee extends StatefulWidget {
   final String companyCode;
 
@@ -155,12 +157,13 @@ class _NewEmployeeState extends State<NewEmployee> {
   void create(BuildContext context) async {
     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
       _formKey.currentState!.save();
+
       try {
         // TODO: 権限設定
         await MyUser.createUser(
           email: _email,
           password: _password,
-          companyCode: MyUser.getCompanyCode(),
+          companyCode: widget.companyCode,
           name: _name,
           affiliation: _affiriation,
           position: _position,

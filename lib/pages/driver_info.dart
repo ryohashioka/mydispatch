@@ -31,6 +31,30 @@ class _DriverInfoState extends State<DriverInfo> {
     );
   }
 
+  Widget _driverItemWidget({
+    required String id,
+    required String name,
+    required String affiliation
+  }) {
+    return Container(
+      decoration: const BoxDecoration(
+          border: Border(bottom: BorderSide(width: 1, color: Color(0xFF090A0A)))
+      ),
+      child: Column(
+        children: [
+          Text(name),
+          Text(affiliation),
+          ElevatedButton(
+            onPressed: () {
+              print("TODO: ドライバー詳細画面へ遷移 ($id)");
+            },
+            child: const Text("詳細を見る"),
+          )
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +65,7 @@ class _DriverInfoState extends State<DriverInfo> {
         future: FirebaseFirestore.instance
             .collection('users')
             .where('company_code', isEqualTo: MyUser.getCompanyCode())
-            .where('role', isEqualTo: 0)
+            .where('role', isEqualTo: 1)
             .get(),
         builder: (BuildContext context,
             AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {

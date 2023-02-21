@@ -33,6 +33,31 @@ class MenuPage extends StatelessWidget {
                   trailing: Icon(Icons.arrow_forward),
                 ),
               ),
+            // 一般法人の管理者は自分の会社の管理者を作成できる
+            if(MyUser.isManager())
+              GestureDetector(
+                onTap: () async {
+                  await Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => NewOutsider(companyCode: MyUser.getCompanyCode(),)));
+                },
+                child:  const ListTile(
+                  leading: Icon(Icons.factory),
+                  title: Text("管理者登録"),
+                  trailing: Icon(Icons.arrow_forward),
+                ),
+              ),
+            if(MyUser.isAdmin() || MyUser.isManager())
+              GestureDetector(
+                onTap: () async {
+                  await Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => NewEmployee(companyCode: MyUser.getCompanyCode(),)));
+                },
+                child:  const ListTile(
+                  leading: Icon(Icons.face_outlined),
+                  title: Text("ドライバー登録"),
+                  trailing: Icon(Icons.arrow_forward),
+                ),
+              ),
             if(MyUser.isAdmin() || MyUser.isManager())
               GestureDetector(
                 onTap: () async {

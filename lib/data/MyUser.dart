@@ -22,14 +22,18 @@ class MyUser {
   //   - 一般法人 x ドライバー : 通常機能のみ
   /// 認証ユーザが管理法人で管理ユーザの場合 true
   static bool isAdmin() {
-    return MyUser.currentUser != null && MyUser.currentUser!['role'] == 0
-        && MyUser.currentCompany != null && MyUser.currentCompany!['is_admin'];
+    return MyUser.currentUser != null &&
+        MyUser.currentUser!['role'] == 0 &&
+        MyUser.currentCompany != null &&
+        MyUser.currentCompany!['is_admin'];
   }
 
   /// 認証ユーザが一般法人で管理ユーザの場合 true
   static bool isManager() {
-    return MyUser.currentUser != null && MyUser.currentUser!['role'] == 0
-        && MyUser.currentCompany != null && !MyUser.currentCompany!['is_admin'];
+    return MyUser.currentUser != null &&
+        MyUser.currentUser!['role'] == 0 &&
+        MyUser.currentCompany != null &&
+        !MyUser.currentCompany!['is_admin'];
   }
 
   /// 認証ユーザがドライバー権限の場合、true
@@ -51,10 +55,15 @@ class MyUser {
   }
 
   static Future<void> createUser({
-    required String email, required String password,
-    required String companyCode, required String name,
-    required String affiliation, required String position,
-    required String phoneNumber, String truckNumber = "", int role = 1,
+    required String email,
+    required String password,
+    required String companyCode,
+    required String name,
+    required String affiliation,
+    required String position,
+    required String phoneNumber,
+    String truckNumber = "",
+    int role = 1,
   }) async {
     // Firebase Auth
     // Firestore User Collection
@@ -63,11 +72,10 @@ class MyUser {
       options: DefaultFirebaseOptions.currentPlatform,
     );
 
-    final credential = await FirebaseAuth.instanceFor(app: app).createUserWithEmailAndPassword(
-      email: email, password: password
-    );
+    final credential = await FirebaseAuth.instanceFor(app: app)
+        .createUserWithEmailAndPassword(email: email, password: password);
 
-    if(credential.user != null) {
+    if (credential.user != null) {
       var db = FirebaseFirestore.instance;
 
       await db.collection("users").doc(credential.user!.uid).set({
@@ -84,19 +92,18 @@ class MyUser {
   }
 
   /// currentUser の情報を FireStore から取得して設定する
-  static Future<void> setupCurrentUser({
-    required String userId
-  }) async {
-    var res = await FirebaseFirestore.instance.collection('users').doc(userId).get();
+  static Future<void> setupCurrentUser({required String userId}) async {
+    var res =
+        await FirebaseFirestore.instance.collection('users').doc(userId).get();
     MyUser.currentUser = res.data();
   }
 
   /// currentCompany の情報を FireStore から取得して設定する
-  static Future<void> setupCurrentCompany({
-    required String companyCode
-  }) async {
-    var res = await FirebaseFirestore.instance.collection('company').doc(companyCode).get();
+  static Future<void> setupCurrentCompany({required String companyCode}) async {
+    var res = await FirebaseFirestore.instance
+        .collection('company')
+        .doc(companyCode)
+        .get();
     MyUser.currentCompany = res.data();
   }
-
 }

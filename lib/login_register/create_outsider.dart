@@ -1,15 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mydispatch/data/MyUser.dart';
 
 //TODO 20230117 create_employee108〜バリデーターを参考に記入してみる
 /// 管理者ユーザの作成画面
 class NewOutsider extends StatefulWidget {
-
   final String companyCode;
 
   const NewOutsider({Key? key, required this.companyCode}) : super(key: key);
+
   @override
   _NewOutsiderState createState() => _NewOutsiderState();
 }
@@ -36,7 +35,7 @@ class _NewOutsiderState extends State<NewOutsider> {
           // padding: const EdgeInsets.all(70.0),
           child: Column(
             children: <Widget>[
-               TextFormField(
+              TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
                 obscureText: false,
@@ -50,7 +49,7 @@ class _NewOutsiderState extends State<NewOutsider> {
                   _name = value!;
                 },
               ),
-               TextFormField(
+              TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
                 obscureText: false,
@@ -64,7 +63,7 @@ class _NewOutsiderState extends State<NewOutsider> {
                   _affiriation = value!;
                 },
               ),
-               TextFormField(
+              TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
                 obscureText: false,
@@ -78,7 +77,7 @@ class _NewOutsiderState extends State<NewOutsider> {
                   _position = value!;
                 },
               ),
-               TextFormField(
+              TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
                 obscureText: false,
@@ -94,7 +93,7 @@ class _NewOutsiderState extends State<NewOutsider> {
                 },
               ),
               // TODO: ドライバー or 管理者の選択（ラジオボタン？）
-               TextFormField(
+              TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
                 obscureText: false,
@@ -115,7 +114,7 @@ class _NewOutsiderState extends State<NewOutsider> {
                   _email = value!;
                 },
               ),
-               TextFormField(
+              TextFormField(
                 enabled: true,
                 style: TextStyle(color: Colors.black),
                 obscureText: true,
@@ -143,15 +142,21 @@ class _NewOutsiderState extends State<NewOutsider> {
       ),
     );
   }
+
   void create(BuildContext context) async {
     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
       try {
         await MyUser.createUser(
-          email: _email, password: _password, companyCode: widget.companyCode,
-          name: _name, affiliation: _affiriation, position: _position,
-          phoneNumber: _phonenumber, role: 0,
+          email: _email,
+          password: _password,
+          companyCode: widget.companyCode,
+          name: _name,
+          affiliation: _affiriation,
+          position: _position,
+          phoneNumber: _phonenumber,
+          role: 0,
         );
 
         // int count = 0;

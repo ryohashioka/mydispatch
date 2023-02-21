@@ -1,11 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import '../data/MyUser.dart';
 
 import '../data/MyUser.dart';
 
 class NewEmployee extends StatefulWidget {
-
   final String companyCode;
 
   const NewEmployee({Key? key, required this.companyCode}) : super(key: key);
@@ -19,6 +18,7 @@ class _NewEmployeeState extends State<NewEmployee> {
   String _email = "";
   String _password = "";
   String _name = "";
+  String _position = "";
   String _affiriation = "";
   String _phonenumber = "";
   String _trucknumber = "";
@@ -26,7 +26,7 @@ class _NewEmployeeState extends State<NewEmployee> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Create New Users'),
+        title: Text('Create New Drivers'),
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -59,6 +59,20 @@ class _NewEmployeeState extends State<NewEmployee> {
                 ),
                 onSaved: (value) {
                   _affiriation = value!;
+                },
+              ),
+              TextFormField(
+                enabled: true,
+                style: TextStyle(color: Colors.black),
+                obscureText: false,
+                maxLines: 1,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.factory),
+                  hintText: '役職を入力してください',
+                  labelText: 'Position *',
+                ),
+                onSaved: (value) {
+                  _position = value!;
                 },
               ),
               TextFormField(
@@ -145,11 +159,14 @@ class _NewEmployeeState extends State<NewEmployee> {
       _formKey.currentState!.save();
 
       try {
-        // TODO: ポジションの入力フォーム追加
-        String _position = "一般";
+        // TODO: 権限設定
         await MyUser.createUser(
-          email: _email, password: _password, companyCode: widget.companyCode,
-          name: _name, affiliation: _affiriation, position: _position,
+          email: _email,
+          password: _password,
+          companyCode: widget.companyCode,
+          name: _name,
+          affiliation: _affiriation,
+          position: _position,
           phoneNumber: _phonenumber,
         );
 
@@ -170,4 +187,3 @@ class _NewEmployeeState extends State<NewEmployee> {
     }
   }
 }
-

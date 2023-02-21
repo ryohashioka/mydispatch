@@ -6,7 +6,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mydispatch/data/MyUser.dart';
 
 class NewSchedule extends StatefulWidget {
-
   final String? id;
 
   const NewSchedule({Key? key, this.id}) : super(key: key);
@@ -56,10 +55,14 @@ class _NewScheduleState extends State<NewSchedule> {
     _setStartDt(DateTime.now());
     _setEndDt(DateTime.now());
 
-    if(widget.id != null) {
+    if (widget.id != null) {
       print(widget.id);
-      FirebaseFirestore.instance.collection("${MyUser.getCompanyCode()}-schedules").doc(widget.id).get().then((DocumentSnapshot doc) {
-        final data = doc.data() as Map<String,dynamic>;
+      FirebaseFirestore.instance
+          .collection("${MyUser.getCompanyCode()}-schedules")
+          .doc(widget.id)
+          .get()
+          .then((DocumentSnapshot doc) {
+        final data = doc.data() as Map<String, dynamic>;
         final startDt = data['start_datetime'].toDate();
         _setStartDt(startDt);
         final endDt = data['end_datetime'].toDate();
@@ -71,13 +74,11 @@ class _NewScheduleState extends State<NewSchedule> {
         _siteNameController.text = data['SiteName'];
         _phoneNumberController.text = data['PhoneNumber'];
         _descriptionController.text = data['Description'];
-
       });
     }
 
     super.initState();
   }
-
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,17 +87,17 @@ class _NewScheduleState extends State<NewSchedule> {
           widget.id == null ? 'Create New Schedule' : 'Edit Schedule',
         ),
         actions: [
-          if(widget.id != null)
-          IconButton(
-            icon: const Icon(Icons.delete_outline_outlined),
-            onPressed: () {
-              FirebaseFirestore.instance
-                  .collection("${MyUser.getCompanyCode()}-schedules")
-                  .doc(widget.id)
-                  .delete();
-              Navigator.pop(context);
-            },
-          )
+          if (widget.id != null)
+            IconButton(
+              icon: const Icon(Icons.delete_outline_outlined),
+              onPressed: () {
+                FirebaseFirestore.instance
+                    .collection("${MyUser.getCompanyCode()}-schedules")
+                    .doc(widget.id)
+                    .delete();
+                Navigator.pop(context);
+              },
+            )
         ],
       ),
       body: SingleChildScrollView(
@@ -181,40 +182,38 @@ class _NewScheduleState extends State<NewSchedule> {
               ),
               Row(
                 children: [
-                  Flexible(child:
-                  TextFormField(
-                      controller: _startDateController,
-                      readOnly: true,
-                      // enabled: true,
-                      style: TextStyle(color: Colors.black),
-                      obscureText: false,
-                      maxLines: 1,
-                      decoration: const InputDecoration(
-                        icon: Icon(Icons.date_range),
-                        hintText: '開始日付を入力してください',
-                        labelText: 'Start Date *',
-                      ),
-                      keyboardType: TextInputType.datetime,
-                      onTap: () async {
-                        final DateTime? picked = await showDatePicker(
-                            context: context,
-                            initialDate: _startdate,
-                            firstDate: new DateTime(2016),
-                            lastDate: new DateTime.now().add(
-                                new Duration(days: 360))
-                        );
-                        if (picked != null) {
-                          _startDateController.text = _outputFormat.format(picked);
-                          _startdate =picked;
-                         }
-                        }
-                  ),
+                  Flexible(
+                    child: TextFormField(
+                        controller: _startDateController,
+                        readOnly: true,
+                        // enabled: true,
+                        style: TextStyle(color: Colors.black),
+                        obscureText: false,
+                        maxLines: 1,
+                        decoration: const InputDecoration(
+                          icon: Icon(Icons.date_range),
+                          hintText: '開始日付を入力してください',
+                          labelText: 'Start Date *',
+                        ),
+                        keyboardType: TextInputType.datetime,
+                        onTap: () async {
+                          final DateTime? picked = await showDatePicker(
+                              context: context,
+                              initialDate: _startdate,
+                              firstDate: new DateTime(2016),
+                              lastDate: new DateTime.now()
+                                  .add(new Duration(days: 360)));
+                          if (picked != null) {
+                            _startDateController.text =
+                                _outputFormat.format(picked);
+                            _startdate = picked;
+                          }
+                        }),
                   ),
                   Container(
                     width: 100,
                     padding: EdgeInsets.only(left: 10),
-                    child:
-                    TextFormField(
+                    child: TextFormField(
                         controller: _startTimeController,
                         readOnly: true,
                         // enabled: true,
@@ -232,18 +231,18 @@ class _NewScheduleState extends State<NewSchedule> {
                             initialTime: _starttime,
                           );
                           if (picked != null) {
-                            _startTimeController.text = "${picked.hour}:${picked.minute}";
-                            _starttime=picked;
+                            _startTimeController.text =
+                                "${picked.hour}:${picked.minute}";
+                            _starttime = picked;
                           }
-                        }
-                    ),
+                        }),
                   )
                 ],
               ),
               Row(
                 children: [
-                  Flexible(child:
-                  TextFormField(
+                  Flexible(
+                    child: TextFormField(
                       controller: _endDateController,
                       readOnly: true,
                       // enabled: true,
@@ -261,27 +260,25 @@ class _NewScheduleState extends State<NewSchedule> {
                             context: context,
                             initialDate: _enddate,
                             firstDate: DateTime(2016),
-                            lastDate: DateTime.now().add(
-                                Duration(days: 360))
-                        );
+                            lastDate: DateTime.now().add(Duration(days: 360)));
                         if (picked != null) {
-                          _endDateController.text = _outputFormat.format(picked);
-                          _enddate =picked;
+                          _endDateController.text =
+                              _outputFormat.format(picked);
+                          _enddate = picked;
                         }
                       },
-                      validator: (value){
-                        if(value == null || value.isEmpty){
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
                           return "必須項目です！";
                         }
                         return null;
-                        },
+                      },
                     ),
                   ),
                   Container(
                     width: 100,
                     padding: EdgeInsets.only(left: 10),
-                    child:
-                    TextFormField(
+                    child: TextFormField(
                         controller: _endTimeController,
                         readOnly: true,
                         // enabled: true,
@@ -295,15 +292,15 @@ class _NewScheduleState extends State<NewSchedule> {
                         keyboardType: TextInputType.datetime,
                         onTap: () async {
                           final TimeOfDay? picked = await showTimePicker(
-                              context: context,
-                              initialTime: _endtime,
+                            context: context,
+                            initialTime: _endtime,
                           );
                           if (picked != null) {
-                            _endTimeController.text = "${picked.hour}:${picked.minute}";
-                            _endtime =picked;
+                            _endTimeController.text =
+                                "${picked.hour}:${picked.minute}";
+                            _endtime = picked;
                           }
-                        }
-                    ),
+                        }),
                   )
                 ],
               ),
@@ -323,40 +320,40 @@ class _NewScheduleState extends State<NewSchedule> {
               FloatingActionButton.extended(
                 onPressed: () {
                   var state = _formKey.currentState;
-                  if(state != null && state.validate()){
+                  if (state != null && state.validate()) {
                     state.save();
 
                     var db = FirebaseFirestore.instance;
                     db.collection("${MyUser.getCompanyCode()}-schedules").add({
-                      'CarNumber' : _carNumberController.text,
-                      'DriverName' : _driverNameController.text,
-                      'CompanyName' : _companyNameController.text,
-                      'Address' : _addressController.text,
-                      'SiteName' : _siteNameController.text,
-                      'PhoneNumber' : _phoneNumberController.text,
-                      'start_datetime' : DateTime(
+                      'CarNumber': _carNumberController.text,
+                      'DriverName': _driverNameController.text,
+                      'CompanyName': _companyNameController.text,
+                      'Address': _addressController.text,
+                      'SiteName': _siteNameController.text,
+                      'PhoneNumber': _phoneNumberController.text,
+                      'start_datetime': DateTime(
                         _startdate.year,
                         _startdate.month,
                         _startdate.day,
                         _starttime.hour,
                         _starttime.minute,
                       ),
-                      'end_datetime' : DateTime(
+                      'end_datetime': DateTime(
                         _enddate.year,
                         _enddate.month,
                         _enddate.day,
                         _endtime.hour,
                         _endtime.minute,
                       ),
-                      'Description' :_descriptionController.text,
-                      'created_user_id' :FirebaseAuth.instance.currentUser!.uid,
+                      'Description': _descriptionController.text,
+                      'created_user_id': FirebaseAuth.instance.currentUser!.uid,
                     }).then((res) {
                       Navigator.pop(context);
                     });
                   }
                 },
-                  icon:Icon(Icons.add),
-                  label:const Text('Register'),
+                icon: Icon(Icons.add),
+                label: const Text('Register'),
               ),
             ],
           ),
@@ -375,4 +372,3 @@ class _NewScheduleState extends State<NewSchedule> {
 //                     } else {
 //                       // 新規
 //                     }
-

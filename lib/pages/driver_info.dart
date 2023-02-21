@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:mydispatch/data/MyUser.dart';
-
+import '../data/MyUser.dart';
 
 class DriverInfo extends StatefulWidget {
   const DriverInfo({Key? key}) : super(key: key);
@@ -9,7 +8,28 @@ class DriverInfo extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _DriverInfoState();
 }
+
 class _DriverInfoState extends State<DriverInfo> {
+  Widget _driverItemWidget(
+      {required String id, required String name, required String affiliation}) {
+    return Container(
+      decoration: const BoxDecoration(
+          border:
+              Border(bottom: BorderSide(width: 1, color: Color(0xFF090A0A)))),
+      child: Column(
+        children: [
+          Text(name),
+          Text(affiliation),
+          ElevatedButton(
+            onPressed: () {
+              print("ドライバー詳細画面へ ($id)");
+            },
+            child: const Text("詳細を見る"),
+          )
+        ],
+      ),
+    );
+  }
 
   Widget _driverItemWidget({
     required String id,
@@ -47,22 +67,21 @@ class _DriverInfoState extends State<DriverInfo> {
             .where('company_code', isEqualTo: MyUser.getCompanyCode())
             .where('role', isEqualTo: 1)
             .get(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-          if(snapshot.hasData) {
+        builder: (BuildContext context,
+            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+          if (snapshot.hasData) {
             return ListView.builder(
-              itemCount: snapshot.data!.docs.length,
-              itemBuilder: (BuildContext context, int index) {
-                var data = snapshot.data!.docs[index];
-                return _driverItemWidget(
-                    id: data.id,
-                    name: data['name'],
-                    affiliation: data['affiliation']
-                );
-              }
-            );
+                itemCount: snapshot.data!.docs.length,
+                itemBuilder: (BuildContext context, int index) {
+                  var data = snapshot.data!.docs[index];
+                  return _driverItemWidget(
+                      id: data.id,
+                      name: data['name'],
+                      affiliation: data['affiliation']);
+                });
+            return Text("ここにデータを表示します");
           }
-          // TODO: ローディング Widget
-          return const Text('loading');
+          return const Text('loading...');
         },
       ),
     );

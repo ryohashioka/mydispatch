@@ -1,14 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:mydispatch/pages/menu.dart';
-import '/pages/menu.dart';
 
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
 }
-
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
@@ -42,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
                           hintText: 'メールアドレスを入力してください',
                           labelText: 'Email *',
                         ),
-                        keyboardType:  TextInputType.emailAddress,
+                        keyboardType: TextInputType.emailAddress,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return "メールアドレスを入力してください";
@@ -87,22 +83,24 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-              ButtonBar(buttonPadding: EdgeInsets.all(30),
-                  children: [
+              ButtonBar(buttonPadding: EdgeInsets.all(30), children: [
                 ElevatedButton(
-                    onPressed: () => onPressLoginButton(),
-                    child: Text('log in'),
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white, backgroundColor: Colors.blue,
-                    ),
+                  onPressed: () => onPressLoginButton(),
+                  child: Text('log in'),
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.blue,
+                  ),
                 ),
               ]),
+              // TODO: ログイン後の画面に移動
               ElevatedButton(
-                  onPressed: () =>
-                      Navigator.of(context).pushNamed('/miss_password'),
-                  child: Text('パスワードをお忘れの方はこちら'),
-                  style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.black, backgroundColor: Colors.white,
+                onPressed: () =>
+                    Navigator.of(context).pushNamed('/miss_password'),
+                child: Text('パスワードをお忘れの方はこちら'),
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.black,
+                  backgroundColor: Colors.white,
                 ),
               ),
             ],
@@ -119,19 +117,20 @@ class _LoginPageState extends State<LoginPage> {
       login(_email, _password);
     }
   }
+
   // TODO: インデント
-///ログイン処理
-    void login(String email, String password) async {
-      try {
-        final credential = await FirebaseAuth.instance
-            .signInWithEmailAndPassword(email: email, password: password);
-      } on FirebaseAuthException catch (e) {
-        // TODO: 認証失敗時のエラー処理（ユーザにメッセージを表示する）
-        if (e.code == 'user-not-found') {
-          print('No user found for that email.');
-        } else if (e.code == 'wrong-password') {
-          print('Wrong password provided for that user.');
-        }
+  ///ログイン処理
+  void login(String email, String password) async {
+    try {
+      final credential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+    } on FirebaseAuthException catch (e) {
+      // TODO: 認証失敗時のエラー処理（ユーザにメッセージを表示する）
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
       }
     }
   }
+}

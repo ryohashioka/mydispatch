@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -15,10 +14,11 @@ class SearchPage extends StatelessWidget {
         child: Form(
           child: Column(
             children: <Widget>[
-              Container(constraints: BoxConstraints(
-                minHeight: 56.0,
-                maxWidth: 300.0,
-              ),
+              Container(
+                constraints: BoxConstraints(
+                  minHeight: 56.0,
+                  maxWidth: 300.0,
+                ),
                 padding: const EdgeInsets.only(
                     left: 16, right: 16, top: 2, bottom: 2),
                 decoration: BoxDecoration(

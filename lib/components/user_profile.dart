@@ -1,6 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../data/MyUser.dart';
 
@@ -12,17 +10,14 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
-
   Widget build(BuildContext context) {
     return DrawerHeader(
-      child: Column(
-          children: [
-            Text(MyUser.currentUser!['name']),
-            Text(MyUser.currentUser!['phone']),
-            Text(MyUser.currentUser!['affiliation']),
-            Text("${MyUser.currentUser!['truck']}"),
-          ]
-      ),
+      child: Column(children: [
+        Text(MyUser.currentUser!['name']),
+        Text(MyUser.currentUser!['phone']),
+        Text(MyUser.currentUser!['affiliation']),
+        Text("${MyUser.currentUser!['truck']}"),
+      ]),
       decoration: BoxDecoration(
         color: Colors.blue,
       ),

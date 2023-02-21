@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:mydispatch/login_register/create_company.dart';
 import 'package:mydispatch/login_register/create_truck.dart';
 import 'package:mydispatch/pages/create_schedule.dart';
-import 'package:mydispatch/pages/info.dart';
 import 'login_register/home.dart';
 import 'login_register/miss_password.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:calendar_view/calendar_view.dart';
 
 Future<void> main() async {

@@ -1,10 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mydispatch/data/MyUser.dart';
-import 'package:mydispatch/pages/truck_detail.dart';
-
-import '../data/MyUser.dart';
 
 class TruckDetail extends StatefulWidget {
   const TruckDetail({Key? key, required this.id}) : super(key: key);
@@ -39,6 +35,11 @@ class _TruckDetailState extends State<TruckDetail> {
           Text('高さ:' + height + 'cm'),
           Text('幅:' + width + 'cm'),
           Text('車検期限' + truckAffiliation),
+          ElevatedButton(
+            onPressed: () {
+            },
+            child: const Text("登録スケジュール"),
+          )
         ],
       ),
     );

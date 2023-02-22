@@ -31,6 +31,11 @@ class _DriverDetailState extends State<DriverDetail> {
           Text('電話番号:' + phone),
           Text('役職:' + affiliation),
           Text('車番' + truck),
+          ElevatedButton(
+            onPressed: () {
+            },
+            child: const Text("登録スケジュール"),
+          )
         ],
       ),
     );
@@ -43,10 +48,8 @@ class _DriverDetailState extends State<DriverDetail> {
         title: const Text('Driver Detail'),
       ),
       body: FutureBuilder(
-        future: FirebaseFirestore.instance
-            .collection("${MyUser.getCompanyCode()}-users")
-            .doc(widget.id)
-            .get(),
+        future:
+            FirebaseFirestore.instance.collection("users").doc(widget.id).get(),
         builder: (BuildContext context,
             AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot) {
           if (snapshot.hasData) {

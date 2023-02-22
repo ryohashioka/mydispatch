@@ -26,7 +26,9 @@ class _DriverInfoState extends State<DriverInfo> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (BuildContext context) => DriverDetail(id: id,)));
+                      builder: (BuildContext context) => DriverDetail(
+                            id: id,
+                          )));
               print("ドライバーの詳細画面へ ($id)");
             },
             child: const Text("詳細を見る"),

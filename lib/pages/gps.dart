@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 
 class GpsPage extends StatelessWidget {
@@ -9,16 +10,11 @@ class GpsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('GPS'),
+        title: const Text('GPS ＊実装中＊'),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          color: Colors.white,
-          width: 300.0,
-          height: 300.0,
-          child: Text("test"),
-          padding: const EdgeInsets.all(50.0),
-        ),
+      body: WebViewWidget(
+        controller: WebViewController()
+          ..loadRequest(Uri.parse("https://www.nishikawa-shokoh.co.jp/")),
       ),
     );
   }

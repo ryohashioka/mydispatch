@@ -103,7 +103,7 @@ class _NewTruckState extends State<NewTruck> {
               // TODO: 単位表記
               TextFormField(
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
@@ -213,7 +213,7 @@ class _NewTruckState extends State<NewTruck> {
                       context: context,
                       initialDate: _inspection,
                       firstDate: DateTime(2016),
-                      lastDate: DateTime.now().add(Duration(days: 360)));
+                      lastDate: DateTime.now().add(const Duration(days: 360)));
                 },
                 onSaved: (value) {
                   _inspectionDeadline = value!;

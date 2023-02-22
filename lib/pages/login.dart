@@ -11,10 +11,11 @@ class _LoginPageState extends State<LoginPage> {
   String _email = "";
   String _password = "";
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home'),
+        title: const Text('Home'),
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -30,13 +31,14 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       TextFormField(
                         enabled: true,
-                        style: TextStyle(color: Colors.black),
+                        style: const TextStyle(color: Colors.black),
                         obscureText: false,
                         maxLines: 1,
                         decoration: const InputDecoration(
                           // icon: Icon(Icons.mail_lock_outlined),
-                          hintText: 'メールアドレスを入力してください',
                           labelText: 'Email *',
+                            prefixIcon: Icon(Icons.mail),
+                            border: OutlineInputBorder()
                         ),
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) {
@@ -49,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
                           _email = value!;
                         },
                       ),
-                      Padding(padding: EdgeInsets.all(10.0))
+                      const Padding(padding: EdgeInsets.all(10.0))
                     ],
                   ),
                 ),
@@ -60,13 +62,14 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       TextFormField(
                         enabled: true,
-                        style: TextStyle(color: Colors.black),
+                        style: const TextStyle(color: Colors.black),
                         obscureText: true,
                         maxLines: 1,
                         decoration: const InputDecoration(
                           // icon: Icon(Icons.security_outlined),
-                          hintText: 'パスワードを入力してください',
                           labelText: 'Password *',
+                          prefixIcon: Icon(Icons.password_outlined),
+                          border: OutlineInputBorder()
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -78,29 +81,55 @@ class _LoginPageState extends State<LoginPage> {
                           _password = value!;
                         },
                       ),
-                      Padding(padding: EdgeInsets.all(10.0))
+                      const Padding(padding: EdgeInsets.all(10.0))
                     ],
                   ),
                 ),
               ),
-              ButtonBar(buttonPadding: EdgeInsets.all(30), children: [
-                ElevatedButton(
-                  onPressed: () => onPressLoginButton(),
-                  child: Text('log in'),
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Colors.blueAccent,
+              Container(
+                child: Center(
+                  child: Column(
+                    children: [
+                      ElevatedButton(
+                        onPressed: () => onPressLoginButton(),
+                        child: const Text(
+                          'log in',
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.blueAccent,
+                          alignment: Alignment.center,
+                          minimumSize: const Size(242, 40),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ]),
-              // TODO: ログイン後の画面に移動
-              ElevatedButton(
-                onPressed: () =>
-                    Navigator.of(context).pushNamed('/miss_password'),
-                child: Text('パスワードをお忘れの方はこちら'),
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.black,
-                  backgroundColor: Colors.white,
+              ),
+              Container(
+                child: Center(
+                  child: Column(
+                    children: [
+                      ElevatedButton(
+                        onPressed: () =>
+                            Navigator.of(context).pushNamed('/miss_password'),
+                        child: const Text('パスワードをお忘れの方はこちら'),
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.black,
+                          backgroundColor: Colors.white,
+                          alignment: Alignment.center,
+                          minimumSize: const Size(100, 40),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

@@ -24,13 +24,29 @@ class _DriverDetailState extends State<DriverDetail> {
     required String truck,
   }) {
     return Container(
-      child: Column(
-        children: [
-          Text('氏名:' + name),
-          Text('メールアドレス：' + mail),
-          Text('電話番号:' + phone),
-          Text('役職:' + affiliation),
-          Text('車番' + truck),
+          width: double.infinity,
+          child: ListView(
+            children: <Widget>[
+              ListTile(
+                leading: const Icon(Icons.face_outlined),
+                title: Text(name,style: const TextStyle(fontSize: 20),),
+              ),
+              ListTile(
+                leading: const Icon(Icons.drive_file_rename_outline),
+                title: Text(affiliation,style: const TextStyle(fontSize: 20),),
+              ),
+              ListTile(
+                leading: const Icon(Icons.mail_outline),
+                title: Text(mail,style: const TextStyle(fontSize: 20),),
+              ),
+              ListTile(
+                leading: const Icon(Icons.phone),
+                title: Text(phone,style: const TextStyle(fontSize: 20),),
+              ),
+              ListTile(
+                leading: const Icon(Icons.drive_eta_outlined),
+                title: Text(truck,style: const TextStyle(fontSize: 20),),
+              ),
           ElevatedButton(
             onPressed: () {
             },

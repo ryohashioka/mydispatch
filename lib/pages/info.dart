@@ -27,7 +27,7 @@ class InfoPage extends StatelessWidget {
                     backgroundColor: Colors.blue,
                   ),
                   onPressed: () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => TruckInfo()),
+                    MaterialPageRoute(builder: (context) => const TruckInfo()),
                   ),
                 ),
               ),
@@ -36,13 +36,13 @@ class InfoPage extends StatelessWidget {
               ),
               Container(
                 child: ElevatedButton(
-                  child: Text('Driver Info'),
+                  child: const Text('Driver Info'),
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
                     backgroundColor: Colors.blue,
                   ),
                   onPressed: () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => DriverInfo()),
+                    MaterialPageRoute(builder: (context) => const DriverInfo()),
                   ),
                 ),
               ),

@@ -19,14 +19,14 @@ class _NewEmployeeState extends State<NewEmployee> {
   String _password = "";
   String _name = "";
   String _position = "";
-  String _affiriation = "";
+  String _affiliation = "";
   String _phonenumber = "";
   String _trucknumber = "";
 
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Create New Drivers'),
+        title: const Text('Create New Drivers'),
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -35,7 +35,7 @@ class _NewEmployeeState extends State<NewEmployee> {
             children: <Widget>[
               TextFormField(
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
@@ -49,7 +49,7 @@ class _NewEmployeeState extends State<NewEmployee> {
               ),
               TextFormField(
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
@@ -58,12 +58,12 @@ class _NewEmployeeState extends State<NewEmployee> {
                   labelText: 'Affiliation *',
                 ),
                 onSaved: (value) {
-                  _affiriation = value!;
+                  _affiliation = value!;
                 },
               ),
               TextFormField(
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
@@ -77,7 +77,7 @@ class _NewEmployeeState extends State<NewEmployee> {
               ),
               TextFormField(
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
@@ -91,7 +91,7 @@ class _NewEmployeeState extends State<NewEmployee> {
               ),
               TextFormField(
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
@@ -106,7 +106,7 @@ class _NewEmployeeState extends State<NewEmployee> {
               ),
               TextFormField(
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
@@ -127,7 +127,7 @@ class _NewEmployeeState extends State<NewEmployee> {
               ),
               TextFormField(
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: true,
                 maxLines: 1,
                 decoration: const InputDecoration(
@@ -146,7 +146,7 @@ class _NewEmployeeState extends State<NewEmployee> {
                 },
               ),
               ElevatedButton(
-                  onPressed: () => create(context), child: Text('Register')),
+                  onPressed: () => create(context), child: const Text('Register')),
             ],
           ),
         ),
@@ -165,7 +165,7 @@ class _NewEmployeeState extends State<NewEmployee> {
           password: _password,
           companyCode: widget.companyCode,
           name: _name,
-          affiliation: _affiriation,
+          affiliation: _affiliation,
           position: _position,
           phoneNumber: _phonenumber,
         );

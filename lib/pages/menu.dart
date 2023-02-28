@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mydispatch/components/user_profile.dart';
 import 'package:mydispatch/data/MyUser.dart';
+import 'package:mydispatch/data/ScheduleSearch.dart';
 import 'package:mydispatch/login_register/create_employee.dart';
 import 'package:mydispatch/pages/info.dart';
 import '../login_register/create_outsider.dart';
@@ -131,7 +132,7 @@ class MenuPage extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(
-                      builder: (BuildContext context) => const DriverSchedule()
+                      builder: (BuildContext context) => DriverSchedule(search: ScheduleSearch())
                   ));
                 },
                 child: Container(

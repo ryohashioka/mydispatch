@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mydispatch/data/MyUser.dart';
+import 'package:mydispatch/data/ScheduleSearch.dart';
+import 'package:mydispatch/pages/driver_schedule.dart';
 
 class TruckDetail extends StatefulWidget {
   const TruckDetail({Key? key, required this.id}) : super(key: key);
@@ -65,6 +67,11 @@ class _TruckDetailState extends State<TruckDetail> {
           ),
           ElevatedButton(
             onPressed: () {
+              var search = ScheduleSearch();
+              search.setTruckConditions(truckId: id, carNumber: carNumber, carType: carType);
+              Navigator.push(context, MaterialPageRoute(
+                  builder: (BuildContext context) => DriverSchedule(search: search,))
+              );
             },
             child: const Text("登録スケジュール"),
           )

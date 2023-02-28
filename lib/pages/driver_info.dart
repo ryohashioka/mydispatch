@@ -31,30 +31,6 @@ class _DriverInfoState extends State<DriverInfo> {
     );
   }
 
-  Widget _driverItemWidget({
-    required String id,
-    required String name,
-    required String affiliation
-  }) {
-    return Container(
-      decoration: const BoxDecoration(
-          border: Border(bottom: BorderSide(width: 1, color: Color(0xFF090A0A)))
-      ),
-      child: Column(
-        children: [
-          Text(name),
-          Text(affiliation),
-          ElevatedButton(
-            onPressed: () {
-              print("TODO: ドライバー詳細画面へ遷移 ($id)");
-            },
-            child: const Text("詳細を見る"),
-          )
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

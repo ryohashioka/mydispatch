@@ -35,6 +35,9 @@ class _NewScheduleState extends State<NewSchedule> {
 
   DateFormat _outputFormat = DateFormat('yyyy/MM/dd');
 
+  List<QueryDocumentSnapshot<Map<String, dynamic>>> trucks = [];
+  String selectedTruckId = '';
+
   //startDateとStartTimeの値をセットする文
   void _setStartDt(DateTime dt) {
     _startdate = dt;
@@ -50,8 +53,26 @@ class _NewScheduleState extends State<NewSchedule> {
     _endTimeController.text = "${dt.hour}:${dt.minute}";
   }
 
+  void _getTruck() {
+    FirebaseFirestore.instance
+        .collection("${MyUser.getCompanyCode()}-trucks")
+        .get()
+        .then((QuerySnapshot<Map<String,dynamic>> val) {
+          setState(() {
+            trucks = val.docs;
+          });
+          if(val.docs.isNotEmpty) {
+            setState(() {
+              selectedTruckId = val.docs[0].id;
+            });
+          }
+        })
+    ;
+  }
+
   @override
   void initState() {
+    _getTruck();
     _setStartDt(DateTime.now());
     _setEndDt(DateTime.now());
 
@@ -106,6 +127,21 @@ class _NewScheduleState extends State<NewSchedule> {
           // padding: const EdgeInsets.all(70.0),
           child: Column(
             children: <Widget>[
+              DropdownButtonFormField(
+                items: trucks.map<DropdownMenuItem<String>>(
+                        (truck) => DropdownMenuItem<String>(
+                          value: truck.id,
+                          child: Text(truck.data()['car_number'])
+                        )
+                ).toList(),
+                value: selectedTruckId,
+                onChanged: (val) {
+                  print(val);
+                },
+                onSaved: (val) {
+                  selectedTruckId = val.toString();
+                }
+              ),
               TextFormField(
                 controller: _carNumberController,
                 enabled: true,
@@ -325,6 +361,7 @@ class _NewScheduleState extends State<NewSchedule> {
 
                     var db = FirebaseFirestore.instance;
                     db.collection("${MyUser.getCompanyCode()}-schedules").add({
+                      'truck_id': selectedTruckId,
                       'CarNumber': _carNumberController.text,
                       'DriverName': _driverNameController.text,
                       'CompanyName': _companyNameController.text,

@@ -7,7 +7,9 @@ import 'package:mydispatch/pages/truck_detail.dart';
 import '../data/MyUser.dart';
 
 class TruckDetail extends StatefulWidget {
-  const TruckDetail({Key? key}) : super(key: key);
+  const TruckDetail({Key? key, required this.id}) : super(key: key);
+
+  final String id;
 
   @override
   State<StatefulWidget> createState() => _TruckDetailState();
@@ -52,28 +54,31 @@ class _TruckDetailState extends State<TruckDetail> {
       body: FutureBuilder(
         future: FirebaseFirestore.instance
             .collection("${MyUser.getCompanyCode()}-trucks")
+            .doc(widget.id)
             .get(),
         builder: (BuildContext context,
-            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+            AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot) {
           if (snapshot.hasData) {
-            return ListView.builder(
-                itemCount: snapshot.data!.docs.length,
-                itemBuilder: (BuildContext context, int index) {
-                  var data = snapshot.data!.docs[index];
-                  return _truckDetailWidget(
-                    id: data.id,
-                    carNumber: data['carnumber'],
-                    carType: data['type'],
-                    maxCapacity: data['maxcapacity'],
-                    carWeight: data['carweight'],
-                    length: data['length'],
-                    height: data['height'],
-                    width: data['width'],
-                    truckAffiliation: data['truckaffiliation'],
-                    totalWeight: data['totalweight'],
-                  );
-                });
+            DocumentSnapshot<Map<String, dynamic>> doc = snapshot.data!;
+            if(doc.exists) {
+              Map<String, dynamic> data = doc.data()!;
+              return _truckDetailWidget(
+                id: doc.id,
+                carNumber: data['car_number'],
+                carType: data['type'],
+                maxCapacity: data['max_capacity'].toString(),
+                carWeight: data['car_weight'].toString(),
+                length: data['length'].toString(),
+                height: data['height'].toString(),
+                width: data['width'].toString(),
+                truckAffiliation: data['truck_affiliation'],
+                totalWeight: data['total_weight'].toString(),
+              );
+            } else {
+              return const Text('トラック情報が見つかりませんでした。');
+            }
           }
+          return const Text('Loading...');
         },
       ),
     );

@@ -49,7 +49,7 @@ class DriverSchedule extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Schedule"),
+        title: const Text("Schedule"),
       ),
       body: DayView(
         dateStringBuilder: (DateTime date, {DateTime? secondaryDate}) {
@@ -72,7 +72,7 @@ class DriverSchedule extends StatelessWidget {
           await Navigator.of(context).pushNamed('/new_schedule');
           getSchedules(context);
         },
-        child: Icon(Icons.calendar_today_outlined),
+        child: const Icon(Icons.calendar_today_outlined),
       ),
     );
   }

@@ -28,7 +28,7 @@ class _TruckInfoState extends State<TruckInfo> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (BuildContext context) => TruckDetail(id: id)));
+                      builder: (BuildContext context) => TruckDetail(id: id,)));
               print("トラックの詳細画面へ ($id)");
             },
             child: const Text("詳細を見る"),

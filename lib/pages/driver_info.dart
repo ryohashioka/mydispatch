@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../data/MyUser.dart';
+import 'driver_detail.dart';
 
 class DriverInfo extends StatefulWidget {
   const DriverInfo({Key? key}) : super(key: key);
@@ -22,7 +23,14 @@ class _DriverInfoState extends State<DriverInfo> {
           Text(affiliation),
           ElevatedButton(
             onPressed: () {
-              print("ドライバー詳細画面へ ($id)");
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => DriverDetail(
+                            id: id,
+                          )));
+              // TODO: コメント削除
+              print("ドライバーの詳細画面へ ($id)");
             },
             child: const Text("詳細を見る"),
           )

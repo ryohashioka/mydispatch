@@ -18,14 +18,15 @@ class _NewOutsiderState extends State<NewOutsider> {
   String _email = "";
   String _password = "";
   String _name = "";
-  String _affiriation = "";
+  String _affiliation = "";
   String _position = "";
   String _phonenumber = "";
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Create New Users',
         ),
       ),
@@ -37,7 +38,7 @@ class _NewOutsiderState extends State<NewOutsider> {
             children: <Widget>[
               TextFormField(
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
@@ -51,7 +52,7 @@ class _NewOutsiderState extends State<NewOutsider> {
               ),
               TextFormField(
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
@@ -60,12 +61,12 @@ class _NewOutsiderState extends State<NewOutsider> {
                   labelText: 'Affiliation *',
                 ),
                 onSaved: (value) {
-                  _affiriation = value!;
+                  _affiliation = value!;
                 },
               ),
               TextFormField(
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
@@ -79,7 +80,7 @@ class _NewOutsiderState extends State<NewOutsider> {
               ),
               TextFormField(
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
@@ -95,7 +96,7 @@ class _NewOutsiderState extends State<NewOutsider> {
               // TODO: ドライバー or 管理者の選択（ラジオボタン？）
               TextFormField(
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
@@ -116,7 +117,7 @@ class _NewOutsiderState extends State<NewOutsider> {
               ),
               TextFormField(
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: true,
                 maxLines: 1,
                 decoration: const InputDecoration(
@@ -135,7 +136,7 @@ class _NewOutsiderState extends State<NewOutsider> {
                 },
               ),
               ElevatedButton(
-                  onPressed: () => create(context), child: Text('Register')),
+                  onPressed: () => create(context), child: const Text('Register')),
             ],
           ),
         ),
@@ -153,7 +154,7 @@ class _NewOutsiderState extends State<NewOutsider> {
           password: _password,
           companyCode: widget.companyCode,
           name: _name,
-          affiliation: _affiriation,
+          affiliation: _affiliation,
           position: _position,
           phoneNumber: _phonenumber,
           role: 0,

@@ -101,6 +101,7 @@ class _NewScheduleState extends State<NewSchedule> {
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -128,24 +129,23 @@ class _NewScheduleState extends State<NewSchedule> {
           child: Column(
             children: <Widget>[
               DropdownButtonFormField(
-                items: trucks.map<DropdownMenuItem<String>>(
-                        (truck) => DropdownMenuItem<String>(
-                          value: truck.id,
-                          child: Text(truck.data()['car_number'])
-                        )
-                ).toList(),
-                value: selectedTruckId,
-                onChanged: (val) {
-                  print(val);
-                },
-                onSaved: (val) {
-                  selectedTruckId = val.toString();
-                }
-              ),
+                  items: trucks
+                      .map<DropdownMenuItem<String>>((truck) =>
+                          DropdownMenuItem<String>(
+                              value: truck.id,
+                              child: Text(truck.data()['car_number'])))
+                      .toList(),
+                  value: selectedTruckId,
+                  onChanged: (val) {
+                    print(val);
+                  },
+                  onSaved: (val) {
+                    selectedTruckId = val.toString();
+                  }),
               TextFormField(
                 controller: _carNumberController,
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
@@ -158,7 +158,7 @@ class _NewScheduleState extends State<NewSchedule> {
               TextFormField(
                 controller: _driverNameController,
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
@@ -170,7 +170,7 @@ class _NewScheduleState extends State<NewSchedule> {
               TextFormField(
                 controller: _companyNameController,
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
@@ -182,7 +182,7 @@ class _NewScheduleState extends State<NewSchedule> {
               TextFormField(
                 controller: _addressController,
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
@@ -194,7 +194,7 @@ class _NewScheduleState extends State<NewSchedule> {
               TextFormField(
                 controller: _siteNameController,
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
@@ -206,7 +206,7 @@ class _NewScheduleState extends State<NewSchedule> {
               TextFormField(
                 controller: _phoneNumberController,
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
@@ -223,7 +223,7 @@ class _NewScheduleState extends State<NewSchedule> {
                         controller: _startDateController,
                         readOnly: true,
                         // enabled: true,
-                        style: TextStyle(color: Colors.black),
+                        style: const TextStyle(color: Colors.black),
                         obscureText: false,
                         maxLines: 1,
                         decoration: const InputDecoration(
@@ -236,9 +236,9 @@ class _NewScheduleState extends State<NewSchedule> {
                           final DateTime? picked = await showDatePicker(
                               context: context,
                               initialDate: _startdate,
-                              firstDate: new DateTime(2016),
-                              lastDate: new DateTime.now()
-                                  .add(new Duration(days: 360)));
+                              firstDate: DateTime(2016),
+                              lastDate: DateTime.now()
+                                  .add(const Duration(days: 360)));
                           if (picked != null) {
                             _startDateController.text =
                                 _outputFormat.format(picked);
@@ -248,12 +248,12 @@ class _NewScheduleState extends State<NewSchedule> {
                   ),
                   Container(
                     width: 100,
-                    padding: EdgeInsets.only(left: 10),
+                    padding: const EdgeInsets.only(left: 10),
                     child: TextFormField(
                         controller: _startTimeController,
                         readOnly: true,
                         // enabled: true,
-                        style: TextStyle(color: Colors.black),
+                        style: const TextStyle(color: Colors.black),
                         obscureText: false,
                         maxLines: 1,
                         decoration: const InputDecoration(
@@ -282,7 +282,7 @@ class _NewScheduleState extends State<NewSchedule> {
                       controller: _endDateController,
                       readOnly: true,
                       // enabled: true,
-                      style: TextStyle(color: Colors.black),
+                      style: const TextStyle(color: Colors.black),
                       obscureText: false,
                       maxLines: 1,
                       decoration: const InputDecoration(
@@ -296,7 +296,7 @@ class _NewScheduleState extends State<NewSchedule> {
                             context: context,
                             initialDate: _enddate,
                             firstDate: DateTime(2016),
-                            lastDate: DateTime.now().add(Duration(days: 360)));
+                            lastDate: DateTime.now().add(const Duration(days: 360)));
                         if (picked != null) {
                           _endDateController.text =
                               _outputFormat.format(picked);
@@ -313,12 +313,12 @@ class _NewScheduleState extends State<NewSchedule> {
                   ),
                   Container(
                     width: 100,
-                    padding: EdgeInsets.only(left: 10),
+                    padding: const EdgeInsets.only(left: 10),
                     child: TextFormField(
                         controller: _endTimeController,
                         readOnly: true,
                         // enabled: true,
-                        style: TextStyle(color: Colors.black),
+                        style: const TextStyle(color: Colors.black),
                         obscureText: false,
                         maxLines: 1,
                         decoration: const InputDecoration(
@@ -343,7 +343,7 @@ class _NewScheduleState extends State<NewSchedule> {
               TextFormField(
                 controller: _descriptionController,
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
@@ -389,7 +389,7 @@ class _NewScheduleState extends State<NewSchedule> {
                     });
                   }
                 },
-                icon: Icon(Icons.add),
+                icon: const Icon(Icons.add),
                 label: const Text('Register'),
               ),
             ],

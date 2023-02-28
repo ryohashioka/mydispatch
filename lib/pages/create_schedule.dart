@@ -57,16 +57,17 @@ class _NewScheduleState extends State<NewSchedule> {
     FirebaseFirestore.instance
         .collection("${MyUser.getCompanyCode()}-trucks")
         .get()
-        .then((QuerySnapshot<Map<String, dynamic>> val) {
-      setState(() {
-        trucks = val.docs;
-      });
-      if (val.docs.isNotEmpty) {
-        setState(() {
-          selectedTruckId = val.docs[0].id;
-        });
-      }
-    });
+        .then((QuerySnapshot<Map<String,dynamic>> val) {
+          setState(() {
+            trucks = val.docs;
+          });
+          if(val.docs.isNotEmpty) {
+            setState(() {
+              selectedTruckId = val.docs[0].id;
+            });
+          }
+        })
+    ;
   }
 
   @override

@@ -29,6 +29,7 @@ class _DriverInfoState extends State<DriverInfo> {
                       builder: (BuildContext context) => DriverDetail(
                             id: id,
                           )));
+              // TODO: コメント削除
               print("ドライバーの詳細画面へ ($id)");
             },
             child: const Text("詳細を見る"),

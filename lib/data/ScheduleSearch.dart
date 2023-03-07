@@ -25,6 +25,12 @@ class ScheduleSearch {
   // required String affiliation, //役職
   //
   // }
+  /// ドライバーの検索条件を設定する。
+  void setDriverConditions() {}
+
+  /// 検索処理を実行して結果を返却する。
+  /// FIXME: データ登録件数が多くなると、取得に時間がかかるため、表示に不要なデータは取得しないような仕組みが必要
+  /// 例えば、今日の日付から前後１ヶ月だけを取得して、残りは日付を変更したときに順次取得する、とか。
 
   Future<QuerySnapshot<Map<String, dynamic>>> exec() {
     late dynamic query;

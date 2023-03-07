@@ -4,6 +4,7 @@ import 'package:mydispatch/components/user_profile.dart';
 import 'package:mydispatch/data/MyUser.dart';
 import 'package:mydispatch/data/ScheduleSearch.dart';
 import 'package:mydispatch/login_register/create_employee.dart';
+import 'package:mydispatch/pages/dispatch_menu.dart';
 import 'package:mydispatch/pages/info.dart';
 import '../login_register/create_outsider.dart';
 import '/pages/driver_schedule.dart';
@@ -116,7 +117,7 @@ class MenuPage extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(
-                      builder: (BuildContext context) => const SearchPage()
+                      builder: (BuildContext context) =>  const DispatchMenu()
                   ));
                 },
                 child: Container(

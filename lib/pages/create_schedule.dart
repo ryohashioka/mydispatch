@@ -122,7 +122,7 @@ class _NewScheduleState extends State<NewSchedule> {
             )
         ],
       ),
-      //*ドライバーの名前を選択したいが混乱、取り急ぎ上のコード貼り付けただけ*//
+      //*TODO: ドライバーの名前を選択したいが混乱、取り急ぎ上のコード貼り付けただけ*//
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,

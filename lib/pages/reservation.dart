@@ -59,27 +59,29 @@ class _ReservationState extends State<Reservation> {
     super.dispose();
   }
 
+  /// Firestore からスケジュールデータを取得する。
   void _getSchedules() async {
-    var querySnapshot = await  ScheduleSearch().exec();
+    var querySnapshot = await ScheduleSearch().exec();
     Map<DateTime, List<_ReservationEvent>> eventMap = {};
     for (var doc in querySnapshot.docs) {
       var data = doc.data();
-      var startDatetime = data['start_datetime'].toDate();
-      if(eventMap.containsKey(startDatetime)){
-        eventMap[startDatetime]!.add(_ReservationEvent(data['carNumber']));
-      } else {
-        eventMap[startDatetime] = [_ReservationEvent(data['carNumber'])];
+      // 日跨ぎのデータを考慮し、start と end の差分を取得して連続追加
+      DateTime startDatetime = data['start_datetime'].toDate();
+      DateTime endDatetime = data['end_datetime'].toDate();
+      int dayOfDiff = endDatetime.difference(startDatetime).inDays; // 日付の差分（end - start）
+      for (int i=0; i<=dayOfDiff.abs(); i++) {
+        // end の方が古ければ引き算
+        DateTime dt = dayOfDiff > 0 ? startDatetime.add(Duration(days: i)) : startDatetime.subtract(Duration(days: i));
+        // NOTE: ハッシュ値が year + month + day なので DateTime のまま追加できる！
+        if (kEvents.containsKey(dt)) {
+          kEvents[dt]!.add(_ReservationEvent(data['CarNumber']));
+        } else {
+          kEvents[dt] = [_ReservationEvent(data['CarNumber'])];
+        }
       }
 
-      setState(() {
-        kEvents = LinkedHashMap<DateTime, List<_ReservationEvent>>(
-          equals: isSameDay,
-        hashCode: getHashCode,
-        )..addAll(eventMap);
-      });
-
-      print(data['start_datetime'].toDate());
-      print(data['end_datetime'].toDate());
+      _selectedEvents.value = _getEventsForDay(_selectedDay!);
+      setState(() {});
     }
   }
 
@@ -97,6 +99,8 @@ class _ReservationState extends State<Reservation> {
       body: Column(
         children: [
           TableCalendar(
+            // TODO: カレンダーの日本語化
+            // TODO: locale: 'ja_JP',
             firstDay: kFirstDay,
             lastDay: kLastDay,
             focusedDay: _focusedDay,
@@ -120,6 +124,7 @@ class _ReservationState extends State<Reservation> {
                 _selectedEvents.value = _getEventsForDay(selectedDay);
               }
             },
+            // TODO: フォーマット切り替え無効
             onFormatChanged: (format) {
               if (_calendarFormat != format) {
                 // Call `setState()` when updating calendar format

@@ -19,10 +19,11 @@ class ScheduleSearch {
     this.carNumber = carNumber;
     this.carType = carType;
   }
+
   //ドライバーの検索条件の設定//
   void setDriverConditions({
-  required String driverId, //uid
-  required String driverName, //名前
+    required String driverId, //uid
+    required String driverName, //名前
   }) {
     this.driverId = driverId;
     this.driverName = driverName;
@@ -33,28 +34,15 @@ class ScheduleSearch {
   /// 例えば、今日の日付から前後１ヶ月だけを取得して、残りは日付を変更したときに順次取得する、とか。
 
   Future<QuerySnapshot<Map<String, dynamic>>> exec() {
-    late dynamic query;
+    dynamic query = FirebaseFirestore.instance
+        .collection("${MyUser.getCompanyCode()}-schedules");
 
     if (truckId != null) {
-      query = FirebaseFirestore.instance
-          .collection("${MyUser.getCompanyCode()}-schedules")
-          .where('truck_id', isEqualTo: truckId);
-    } else {
-      query = FirebaseFirestore.instance
-          .collection("${MyUser.getCompanyCode()}-schedules");
+      query = query.where('truck_id', isEqualTo: truckId);
     }
-
-    // TODO: trackId が null ではなく driverId が null の時の query 変数の中身は？
     if (driverId != null) {
-      query = FirebaseFirestore.instance
-          .collection("${MyUser.getCompanyCode()}-schedules")
-          .where('DriverName', isEqualTo: driverName);
-    } else {
-      query = FirebaseFirestore.instance
-          .collection("${MyUser.getCompanyCode()}-schedules");
+      query = query.where('DriverName', isEqualTo: driverName);
     }
-
     return query.get();
   }
 }
-

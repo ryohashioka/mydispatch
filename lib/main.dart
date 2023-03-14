@@ -7,6 +7,7 @@ import 'login_register/miss_password.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:calendar_view/calendar_view.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,7 +17,7 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   // firebaseとflutterでアプリを作るときの定型文↑
-  runApp(MyApp());
+  initializeDateFormatting('ja').then((_) =>runApp(MyApp()));
 }
 
 class MyApp extends StatelessWidget {

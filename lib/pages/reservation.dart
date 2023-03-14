@@ -30,7 +30,6 @@ class Reservation extends StatefulWidget {
 
 class _ReservationState extends State<Reservation> {
   late final ValueNotifier<List<_ReservationEvent>> _selectedEvents;
-  CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
 
@@ -38,10 +37,17 @@ class _ReservationState extends State<Reservation> {
     equals: isSameDay,
     hashCode: getHashCode,
   )..addAll({
-    DateTime.now(): [const _ReservationEvent('Event1'), const _ReservationEvent('Event2')],
-    DateTime.now().add(const Duration(days:2)): [const _ReservationEvent('Event3')],
-    DateTime.now().add(const Duration(hours:2)): [const _ReservationEvent('Event4')],
-  });
+      DateTime.now(): [
+        const _ReservationEvent('Event1'),
+        const _ReservationEvent('Event2')
+      ],
+      DateTime.now().add(const Duration(days: 2)): [
+        const _ReservationEvent('Event3')
+      ],
+      DateTime.now().add(const Duration(hours: 2)): [
+        const _ReservationEvent('Event4')
+      ],
+    });
 
   @override
   void initState() {
@@ -68,10 +74,13 @@ class _ReservationState extends State<Reservation> {
       // 日跨ぎのデータを考慮し、start と end の差分を取得して連続追加
       DateTime startDatetime = data['start_datetime'].toDate();
       DateTime endDatetime = data['end_datetime'].toDate();
-      int dayOfDiff = endDatetime.difference(startDatetime).inDays; // 日付の差分（end - start）
-      for (int i=0; i<=dayOfDiff.abs(); i++) {
+      int dayOfDiff =
+          endDatetime.difference(startDatetime).inDays; // 日付の差分（end - start）
+      for (int i = 0; i <= dayOfDiff.abs(); i++) {
         // end の方が古ければ引き算
-        DateTime dt = dayOfDiff > 0 ? startDatetime.add(Duration(days: i)) : startDatetime.subtract(Duration(days: i));
+        DateTime dt = dayOfDiff > 0
+            ? startDatetime.add(Duration(days: i))
+            : startDatetime.subtract(Duration(days: i));
         // NOTE: ハッシュ値が year + month + day なので DateTime のまま追加できる！
         if (kEvents.containsKey(dt)) {
           kEvents[dt]!.add(_ReservationEvent(data['CarNumber']));
@@ -100,11 +109,12 @@ class _ReservationState extends State<Reservation> {
         children: [
           TableCalendar(
             // TODO: カレンダーの日本語化
-            // TODO: locale: 'ja_JP',
+            locale: 'ja_JP',
+            daysOfWeekHeight: 24,
             firstDay: kFirstDay,
             lastDay: kLastDay,
             focusedDay: _focusedDay,
-            calendarFormat: _calendarFormat,
+            eventLoader: _getEventsForDay,
             selectedDayPredicate: (day) {
               // Use `selectedDayPredicate` to determine which day is currently selected.
               // If this returns true, then `day` will be marked as selected.
@@ -124,15 +134,10 @@ class _ReservationState extends State<Reservation> {
                 _selectedEvents.value = _getEventsForDay(selectedDay);
               }
             },
-            // TODO: フォーマット切り替え無効
-            onFormatChanged: (format) {
-              if (_calendarFormat != format) {
-                // Call `setState()` when updating calendar format
-                setState(() {
-                  _calendarFormat = format;
-                });
-              }
-            },
+            headerStyle: const HeaderStyle(
+              formatButtonVisible: false,
+              titleCentered: true,
+            ),
             onPageChanged: (focusedDay) {
               // No need to call `setState()` here
               _focusedDay = focusedDay;

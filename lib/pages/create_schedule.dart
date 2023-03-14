@@ -122,6 +122,7 @@ class _NewScheduleState extends State<NewSchedule> {
             )
         ],
       ),
+      //*ドライバーの名前を選択したいが混乱、取り急ぎ上のコード貼り付けただけ*//
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,
@@ -129,11 +130,27 @@ class _NewScheduleState extends State<NewSchedule> {
           child: Column(
             children: <Widget>[
               DropdownButtonFormField(
+                decoration: const InputDecoration(labelText: 'Car Number*'),
                   items: trucks
                       .map<DropdownMenuItem<String>>((truck) =>
                           DropdownMenuItem<String>(
                               value: truck.id,
                               child: Text(truck.data()['car_number'])))
+                      .toList(),
+                  value: selectedTruckId,
+                  onChanged: (val) {
+                    print(val);
+                  },
+                  onSaved: (val) {
+                    selectedTruckId = val.toString();
+                  }),
+              DropdownButtonFormField(
+                  decoration: const InputDecoration(labelText: 'Driver Name*'),
+                  items: trucks
+                      .map<DropdownMenuItem<String>>((truck) =>
+                      DropdownMenuItem<String>(
+                          value: truck.id,
+                          child: Text(truck.data()['car_number'])))
                       .toList(),
                   value: selectedTruckId,
                   onChanged: (val) {

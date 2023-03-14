@@ -6,6 +6,8 @@ class ScheduleSearch {
   String? truckId;
   String? carNumber;
   String? carType;
+  String? driverId;
+  String? driverName;
 
   //トラックの検索条件の設定//
   void setTruckConditions({
@@ -17,16 +19,14 @@ class ScheduleSearch {
     this.carNumber = carNumber;
     this.carType = carType;
   }
-
-  //2023/2/28宿題ドライバーの検索条件を設定する
-  // void setDriverConditions() {
-  // required String driverId, //uid
-  // required String name, //名前
-  // required String affiliation, //役職
-  //
-  // }
-  /// ドライバーの検索条件を設定する。
-  void setDriverConditions() {}
+  //ドライバーの検索条件の設定//
+  void setDriverConditions({
+  required String driverId, //uid
+  required String driverName, //名前
+  }) {
+    this.driverId = driverId;
+    this.driverName = driverName;
+  }
 
   /// 検索処理を実行して結果を返却する。
   /// FIXME: データ登録件数が多くなると、取得に時間がかかるため、表示に不要なデータは取得しないような仕組みが必要
@@ -44,6 +44,16 @@ class ScheduleSearch {
           .collection("${MyUser.getCompanyCode()}-schedules");
     }
 
+    if (driverId != null) {
+      query = FirebaseFirestore.instance
+          .collection("${MyUser.getCompanyCode()}-schedules")
+          .where('DriverName', isEqualTo: driverName);
+    } else {
+      query = FirebaseFirestore.instance
+          .collection("${MyUser.getCompanyCode()}-schedules");
+    }
+
     return query.get();
   }
 }
+

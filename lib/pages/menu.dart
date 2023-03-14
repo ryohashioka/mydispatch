@@ -117,8 +117,7 @@ class MenuPage extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(
-                    // builder: (BuildContext context) => const SearchPage()
-                    builder: (BuildContext context) => const DispatchMenu()
+                      builder: (BuildContext context) =>  const DispatchMenu()
                   ));
                 },
                 child: Container(

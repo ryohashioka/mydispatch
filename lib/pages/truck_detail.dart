@@ -27,56 +27,97 @@ class _TruckDetailState extends State<TruckDetail> {
   }) {
     return Container(
       alignment: Alignment.center,
-      child: Column(
-        children: [
-          ListTile(
-            leading: const Icon(Icons.numbers),
-            title: Text('No.' + carNumber,style: const TextStyle(fontSize: 20),),
-          ),
-          ListTile(
-            leading: const Icon(Icons.type_specimen),
-            title: Text(carType,style: const TextStyle(fontSize: 20),),
-          ),
-          ListTile(
-            leading: const Icon(Icons.shopping_bag),
-            title: Text('最大積載量:' + maxCapacity + 'kg',style: const TextStyle(fontSize: 20),),
-          ),
-          ListTile(
-            leading: const Icon(Icons.monitor_weight),
-            title: Text('車両重量:' + carWeight + 'kg',style: const TextStyle(fontSize: 20),),
-          ),
-          ListTile(
-            leading: const Icon(Icons.drive_eta_outlined),
-            title: Text('総重量:' + totalWeight + 'kg',style: const TextStyle(fontSize: 20),),
-          ),
-          ListTile(
-            leading: const Icon(Icons.border_bottom_outlined),
-            title: Text('全長:' + length + 'cm',style: const TextStyle(fontSize: 20),),
-          ),
-          ListTile(
-            leading: const Icon(Icons.height_outlined),
-            title: Text('高さ:' + height + 'cm',style: const TextStyle(fontSize: 20),),
-          ),
-          ListTile(
-            leading: const Icon(Icons.width_full_outlined),
-            title: Text('車幅:' + width + 'cm',style: const TextStyle(fontSize: 20),),
-          ),
-          ListTile(
-            leading: const Icon(Icons.schedule_outlined),
-            title: Text('車検期限:' + truckAffiliation,style: const TextStyle(fontSize: 20),),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              var search = ScheduleSearch();
-              search.setTruckConditions(truckId: id, carNumber: carNumber, carType: carType);
-              Navigator.push(context, MaterialPageRoute(
-                  builder: (BuildContext context) => DriverSchedule(search: search,))
-              );
-            },
-            child: const Text("登録スケジュール"),
-          )
-        ],
-
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            ListTile(
+              leading: const Icon(Icons.numbers),
+              title: Text(
+                carNumber,
+                style: const TextStyle(fontSize: 20),
+              ),
+              subtitle: const Text('truck number'),
+            ),
+            ListTile(
+              leading: const Icon(Icons.type_specimen),
+              title: Text(
+                carType,
+                style: const TextStyle(fontSize: 20),
+              ),
+              subtitle: const Text('type'),
+            ),
+            ListTile(
+              leading: const Icon(Icons.shopping_bag),
+              title: Text(
+                maxCapacity + 'kg',
+                style: const TextStyle(fontSize: 20),
+              ),
+              subtitle: const Text('最大積載量'),
+            ),
+            ListTile(
+              leading: const Icon(Icons.monitor_weight),
+              title: Text(
+                carWeight + 'kg',
+                style: const TextStyle(fontSize: 20),
+              ),
+              subtitle: const Text('車両重量'),
+            ),
+            ListTile(
+              leading: const Icon(Icons.drive_eta_outlined),
+              title: Text(
+                totalWeight + 'kg',
+                style: const TextStyle(fontSize: 20),
+              ),
+              subtitle: const Text('総重量'),
+            ),
+            ListTile(
+              leading: const Icon(Icons.border_bottom_outlined),
+              title: Text(
+                length + 'cm',
+                style: const TextStyle(fontSize: 20),
+              ),
+              subtitle: const Text('全長'),
+            ),
+            ListTile(
+              leading: const Icon(Icons.height_outlined),
+              title: Text(
+                height + 'cm',
+                style: const TextStyle(fontSize: 20),
+              ),
+              subtitle: const Text('高さ'),
+            ),
+            ListTile(
+              leading: const Icon(Icons.width_full_outlined),
+              title: Text(
+                width + 'cm',
+                style: const TextStyle(fontSize: 20),
+              ),
+              subtitle: const Text('車幅'),
+            ),
+            ListTile(
+              leading: const Icon(Icons.schedule_outlined),
+              title: Text(
+                truckAffiliation,
+                style: const TextStyle(fontSize: 20),
+              ),
+              subtitle: const Text('車検期限'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                var search = ScheduleSearch();
+                search.setTruckConditions(
+                    truckId: id, carNumber: carNumber, carType: carType);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => DriverSchedule(
+                              search: search,
+                            )));
+              },
+              child: const Text("登録スケジュール"),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -114,7 +155,7 @@ class _TruckDetailState extends State<TruckDetail> {
               return const Text('トラック情報が見つかりませんでした');
             }
           }
-          return Text('loading...');
+          return const Text('loading...');
         },
       ),
     );

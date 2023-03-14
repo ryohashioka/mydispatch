@@ -5,6 +5,8 @@ import 'package:mydispatch/data/MyUser.dart';
 import 'package:mydispatch/pages/truck_detail.dart';
 
 import '../data/MyUser.dart';
+import '../data/ScheduleSearch.dart';
+import 'driver_schedule.dart';
 
 class DriverDetail extends StatefulWidget {
   const DriverDetail({Key? key, required this.id}) : super(key: key);
@@ -30,28 +32,38 @@ class _DriverDetailState extends State<DriverDetail> {
               ListTile(
                 leading: const Icon(Icons.face_outlined),
                 title: Text(name,style: const TextStyle(fontSize: 20),),
+                subtitle: const Text('name'),
               ),
               ListTile(
                 leading: const Icon(Icons.drive_file_rename_outline),
                 title: Text(affiliation,style: const TextStyle(fontSize: 20),),
+                subtitle: const Text('affiliation'),
               ),
               ListTile(
                 leading: const Icon(Icons.mail_outline),
                 title: Text(mail,style: const TextStyle(fontSize: 20),),
+                subtitle: const Text('mail'),
               ),
               ListTile(
                 leading: const Icon(Icons.phone),
                 title: Text(phone,style: const TextStyle(fontSize: 20),),
+                subtitle: const Text('phone'),
               ),
               ListTile(
                 leading: const Icon(Icons.drive_eta_outlined),
                 title: Text(truck,style: const TextStyle(fontSize: 20),),
+                subtitle: const Text('truck number'),
               ),
-          ElevatedButton(
-            onPressed: () {
-            },
-            child: const Text("登録スケジュール"),
-          )
+              ElevatedButton(
+                onPressed: () {
+                  var search = ScheduleSearch();
+                  search.setDriverConditions(driverId: id, driverName: name);
+                  Navigator.push(context, MaterialPageRoute(
+                      builder: (BuildContext context) => DriverSchedule(search: search,))
+                  );
+                },
+                child: const Text("登録スケジュール"),
+              )
         ],
       ),
     );

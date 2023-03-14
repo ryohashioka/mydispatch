@@ -44,6 +44,7 @@ class ScheduleSearch {
           .collection("${MyUser.getCompanyCode()}-schedules");
     }
 
+    // TODO: trackId が null ではなく driverId が null の時の query 変数の中身は？
     if (driverId != null) {
       query = FirebaseFirestore.instance
           .collection("${MyUser.getCompanyCode()}-schedules")

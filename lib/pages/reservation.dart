@@ -30,7 +30,6 @@ class Reservation extends StatefulWidget {
 
 class _ReservationState extends State<Reservation> {
   late final ValueNotifier<List<_ReservationEvent>> _selectedEvents;
-  CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
 
@@ -95,16 +94,17 @@ class _ReservationState extends State<Reservation> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Reservation'),
+        // TODO: 再読み込みボタン
       ),
       body: Column(
         children: [
           TableCalendar(
-            // TODO: カレンダーの日本語化
-            // TODO: locale: 'ja_JP',
+            locale: 'ja_JP',
+            daysOfWeekHeight: 18,
             firstDay: kFirstDay,
             lastDay: kLastDay,
             focusedDay: _focusedDay,
-            calendarFormat: _calendarFormat,
+            eventLoader: _getEventsForDay,
             selectedDayPredicate: (day) {
               // Use `selectedDayPredicate` to determine which day is currently selected.
               // If this returns true, then `day` will be marked as selected.
@@ -124,15 +124,10 @@ class _ReservationState extends State<Reservation> {
                 _selectedEvents.value = _getEventsForDay(selectedDay);
               }
             },
-            // TODO: フォーマット切り替え無効
-            onFormatChanged: (format) {
-              if (_calendarFormat != format) {
-                // Call `setState()` when updating calendar format
-                setState(() {
-                  _calendarFormat = format;
-                });
-              }
-            },
+            headerStyle: const HeaderStyle(
+              formatButtonVisible: false,
+              titleCentered: true,
+            ),
             onPageChanged: (focusedDay) {
               // No need to call `setState()` here
               _focusedDay = focusedDay;

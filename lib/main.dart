@@ -17,9 +17,7 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   // firebaseとflutterでアプリを作るときの定型文↑
-  await initializeDateFormatting('ja');
-
-  runApp(MyApp());
+  initializeDateFormatting('ja').then((_) =>runApp(MyApp()));
 }
 
 class MyApp extends StatelessWidget {

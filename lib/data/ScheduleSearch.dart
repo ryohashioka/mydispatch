@@ -19,10 +19,11 @@ class ScheduleSearch {
     this.carNumber = carNumber;
     this.carType = carType;
   }
+
   //ドライバーの検索条件の設定//
   void setDriverConditions({
-  required String driverId, //uid
-  required String driverName, //名前
+    required String driverId, //uid
+    required String driverName, //名前
   }) {
     this.driverId = driverId;
     this.driverName = driverName;
@@ -43,8 +44,6 @@ class ScheduleSearch {
       // TODO: driverID でスケジュールを検索する
       query = query.where('DriverName', isEqualTo: driverName);
     }
-
     return query.get();
   }
 }
-

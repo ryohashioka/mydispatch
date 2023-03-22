@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mydispatch/pages/empty_truck.dart';
 import 'package:mydispatch/pages/reservation.dart';
 
 class DispatchMenu extends StatelessWidget {
-  const DispatchMenu({Key? key}) : super (key: key);
+  const DispatchMenu({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,16 +15,18 @@ class DispatchMenu extends StatelessWidget {
         children: [
           ElevatedButton(
               onPressed: () {
-                print("todo:空きトラック検索画面へ遷移");
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (BuildContext context) {
+                  return const EmptyTruck();
+                }));
               },
               child: Text('空きトラック検索')),
           ElevatedButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return  const Reservation();
-                  }
-                ));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (BuildContext context) {
+                  return const Reservation();
+                }));
               },
               child: Text('予約確認')),
         ],

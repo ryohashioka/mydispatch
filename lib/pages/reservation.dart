@@ -104,11 +104,11 @@ class _ReservationState extends State<Reservation> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Reservation'),
+        // TODO: 再読み込みボタン
       ),
       body: Column(
         children: [
           TableCalendar(
-            // TODO: カレンダーの日本語化
             locale: 'ja_JP',
             daysOfWeekHeight: 24,
             firstDay: kFirstDay,

@@ -35,11 +35,10 @@ class _LoginPageState extends State<LoginPage> {
                         obscureText: false,
                         maxLines: 1,
                         decoration: const InputDecoration(
-                          // icon: Icon(Icons.mail_lock_outlined),
-                          labelText: 'Email *',
+                            // icon: Icon(Icons.mail_lock_outlined),
+                            labelText: 'Email *',
                             prefixIcon: Icon(Icons.mail),
-                            border: OutlineInputBorder()
-                        ),
+                            border: OutlineInputBorder()),
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -66,11 +65,10 @@ class _LoginPageState extends State<LoginPage> {
                         obscureText: true,
                         maxLines: 1,
                         decoration: const InputDecoration(
-                          // icon: Icon(Icons.security_outlined),
-                          labelText: 'Password *',
-                          prefixIcon: Icon(Icons.password_outlined),
-                          border: OutlineInputBorder()
-                        ),
+                            // icon: Icon(Icons.security_outlined),
+                            labelText: 'Password *',
+                            prefixIcon: Icon(Icons.password_outlined),
+                            border: OutlineInputBorder()),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return "パスワードを入力してください";
@@ -115,8 +113,17 @@ class _LoginPageState extends State<LoginPage> {
                   child: Column(
                     children: [
                       ElevatedButton(
-                        onPressed: () =>
-                            Navigator.of(context).pushNamed('/miss_password'),
+                        onPressed: () async {
+                          var result = await Navigator.of(context)
+                              .pushNamed('/miss_password');
+                          if (result != null) {
+                            const snackBar = SnackBar(
+                              content: Text('メールを送信しました'),
+                            );
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          }
+                        },
                         child: const Text('パスワードをお忘れの方はこちら'),
                         style: ElevatedButton.styleFrom(
                           foregroundColor: Colors.black,

@@ -115,8 +115,16 @@ class _LoginPageState extends State<LoginPage> {
                   child: Column(
                     children: [
                       ElevatedButton(
-                        onPressed: () =>
-                            Navigator.of(context).pushNamed('/miss_password'),
+                        onPressed: () async {
+                          var result = await Navigator.of(context).pushNamed('/miss_password');
+                          if (result != null) {
+                            const snackBar = SnackBar(
+                              content: Text('メールを送信しました。'),
+                            );
+
+                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          }
+                        },
                         child: const Text('パスワードをお忘れの方はこちら'),
                         style: ElevatedButton.styleFrom(
                           foregroundColor: Colors.black,

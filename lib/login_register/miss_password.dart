@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class MissPassword extends StatefulWidget {
@@ -23,29 +24,42 @@ class _MissPassword extends State<MissPassword> {
       body:SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Text(
-              "$_text",
-              style: TextStyle(
-                  color: Colors.blueAccent,
-                  fontSize: 30.0,
-                  fontWeight: FontWeight.w500
-              ),
-            ),
-            TextField(
+            TextFormField(
               enabled: true,
               style: TextStyle(color: Colors.black),
               obscureText: false,
               maxLines:1 ,
+              keyboardType: TextInputType.emailAddress,
               decoration: const InputDecoration(
                 icon: Icon(Icons.email),
                 hintText: '登録したメールアドレスを入力してください。パスワードを送信します。',
                 labelText: 'email *',
               ),
               onChanged: _handleText,
+              // TODO: バリデータ（ユーザ登録などを参照）
             ),
             ButtonBar(
                 buttonPadding: EdgeInsets.all(30.0),
-                children:[ElevatedButton(onPressed: null, child: Text('Send'))]),
+                children:[
+                  ElevatedButton(
+                    onPressed: () {
+                      FirebaseAuth.instance.sendPasswordResetEmail(email: _text).then(
+                        (value) => Navigator.pop(context, _text),
+                        onError: (e) {
+                          const snackBar = SnackBar(
+                            content: Text(
+                              'メール送信できませんでした。',
+                              style: TextStyle(color: Colors.redAccent),
+                            ),
+                          );
+
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        }
+                      );
+                    },
+                    child: Text('Send')
+                  )
+                ]),
           ],
         ),
       ),

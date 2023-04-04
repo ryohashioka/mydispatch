@@ -18,7 +18,7 @@ class _NewCompanyState extends State<NewCompany> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Create New Company'),
+        title: const Text('Create New Company'),
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -27,13 +27,12 @@ class _NewCompanyState extends State<NewCompany> {
             children: <Widget>[
               TextFormField(
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.face),
-                  hintText: '会社名を入力してください',
-                  labelText: 'Company Name *',
+                  labelText: '法人名 *',
                 ),
                 onSaved: (value) {
                   _companyname = value!;
@@ -46,8 +45,7 @@ class _NewCompanyState extends State<NewCompany> {
                 maxLines: 1,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.factory),
-                  hintText: '担当者名を入力してください',
-                  labelText: 'Manager *',
+                  labelText: '担当者 *',
                 ),
                 onSaved: (value) {
                   _manager = value!;
@@ -60,23 +58,27 @@ class _NewCompanyState extends State<NewCompany> {
                 maxLines: 1,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.phone),
-                  hintText: '電話番号を入力してください(ハイフンなし)',
-                  labelText: 'Phone *',
+                  labelText: '電話番号 *',
                 ),
                 keyboardType: TextInputType.phone,
                 onSaved: (value) {
-                  _phonenumber = value!;
+                  _phonenumber = value!.replaceAll(RegExp(r'-'), '');
+                },
+                validator: (value) {
+                  if (value!.contains('-')) {
+                    return "ハイフンは不要です！";
+                  }
+                  return null;
                 },
               ),
               TextFormField(
                 enabled: true,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 obscureText: false,
                 maxLines: 1,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.email),
-                  hintText: 'メールアドレスを入力してください',
-                  labelText: 'email *',
+                  labelText: 'メールアドレス *',
                 ),
                 keyboardType: TextInputType.emailAddress,
                 validator: (value) {
@@ -90,7 +92,7 @@ class _NewCompanyState extends State<NewCompany> {
                 },
               ),
               ElevatedButton(
-                  onPressed: () => create(context), child: Text('Register')),
+                  onPressed: () => create(context), child: const Text('Register')),
             ],
           ),
         ),

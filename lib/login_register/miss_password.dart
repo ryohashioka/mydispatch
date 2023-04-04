@@ -19,7 +19,7 @@ class _MissPassword extends State<MissPassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Missing Password'),
+        title: const Text('パスワード再発行画面'),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -35,7 +35,7 @@ class _MissPassword extends State<MissPassword> {
               keyboardType: TextInputType.emailAddress,
               decoration: const InputDecoration(
                 icon: Icon(Icons.email),
-                hintText: '登録したメールアドレスを入力してください。パスワードを送信します。',
+                hintText: '登録したメールアドレスを入力してください。',
                 labelText: 'email *',
               ),
               onChanged: _handleText,

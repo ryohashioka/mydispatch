@@ -43,8 +43,7 @@ class _NewOutsiderState extends State<NewOutsider> {
                 maxLines: 1,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.face),
-                  hintText: '名前を入力してください',
-                  labelText: 'Name *',
+                  labelText: '氏名 *',
                 ),
                 onSaved: (value) {
                   _name = value!;
@@ -57,8 +56,7 @@ class _NewOutsiderState extends State<NewOutsider> {
                 maxLines: 1,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.factory),
-                  hintText: '所属を入力してください',
-                  labelText: 'Affiliation *',
+                  labelText: '所属 *',
                 ),
                 onSaved: (value) {
                   _affiliation = value!;
@@ -71,8 +69,7 @@ class _NewOutsiderState extends State<NewOutsider> {
                 maxLines: 1,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.drive_file_rename_outline),
-                  hintText: '役職を入力してください',
-                  labelText: 'Position *',
+                  labelText: '役職 *',
                 ),
                 onSaved: (value) {
                   _position = value!;
@@ -85,12 +82,17 @@ class _NewOutsiderState extends State<NewOutsider> {
                 maxLines: 1,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.phone),
-                  hintText: '電話番号を入力してください（ハイフンなし）',
-                  labelText: 'Phone *',
+                  labelText: '電話番号 *',
                 ),
                 keyboardType: TextInputType.phone,
                 onSaved: (value) {
-                  _phonenumber = value!;
+                  _phonenumber = value!.replaceAll(RegExp(r'-'), '');
+                },
+                validator: (value) {
+                  if (value!.contains('-')) {
+                    return "ハイフンは不要です！";
+                  }
+                  return null;
                 },
               ),
               // TODO: ドライバー or 管理者の選択（ラジオボタン？）
@@ -101,8 +103,7 @@ class _NewOutsiderState extends State<NewOutsider> {
                 maxLines: 1,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.email),
-                  hintText: 'メールアドレスを入力してください',
-                  labelText: 'email *',
+                  labelText: 'メールアドレス *',
                 ),
                 keyboardType: TextInputType.emailAddress,
                 validator: (value) {
@@ -122,8 +123,7 @@ class _NewOutsiderState extends State<NewOutsider> {
                 maxLines: 1,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.password),
-                  hintText: 'パスワードを入力してください',
-                  labelText: 'password *',
+                  labelText: 'パスワード *',
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {

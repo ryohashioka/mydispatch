@@ -120,12 +120,29 @@ class MenuPage extends StatelessWidget {
                       builder: (BuildContext context) =>  const DispatchMenu()
                   ));
                 },
-                child: Container(
-                  width: 600,height: 240,
-                  child: Image.asset(
-                    'assets/images/menu1_search.jpg',
-                    fit: BoxFit.cover,
-                  ),
+                child: Stack(
+                  children: [
+                    SizedBox(
+                      width: 600,
+                      height: 240,
+                      child: Image.asset(
+                        'assets/images/menu1_search.jpg',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    const Positioned(
+                      top: 20,
+                      left: 20,
+                      child: Text(
+                        'スケジュール確認・検索',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -136,12 +153,29 @@ class MenuPage extends StatelessWidget {
                       builder: (BuildContext context) => DriverSchedule(search: ScheduleSearch())
                   ));
                 },
-                child: Container(
-                  width: 600,height: 240,
-                  child: Image.asset(
-                    'assets/images/menu2_schedule.jpg',
-                    fit: BoxFit.cover,
-                  ),
+                child: Stack(
+                  children: [
+                    SizedBox(
+                      width: 600,
+                      height: 240,
+                      child: Image.asset(
+                        'assets/images/menu2_schedule.jpg',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    const Positioned(
+                      top: 20,
+                      left: 20,
+                      child: Text(
+                        'スケジュール登録',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -152,12 +186,29 @@ class MenuPage extends StatelessWidget {
                       builder: (BuildContext context) => const GpsPage()
                   ));
                 },
-                child: Container(
-                  width: 600,height: 240,
-                  child: Image.asset(
-                    'assets/images/menu3_gps.jpg',
-                    fit: BoxFit.cover,
-                  ),
+                child: Stack(
+                  children: [
+                    SizedBox(
+                      width: 600,
+                      height: 240,
+                      child: Image.asset(
+                        'assets/images/menu3_gps.jpg',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    const Positioned(
+                      top: 20,
+                      left: 20,
+                      child: Text(
+                        'GPSサーチ＊実装中＊',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -168,12 +219,29 @@ class MenuPage extends StatelessWidget {
                       builder: (BuildContext context) => InfoPage()
                   ));
                 },
-                child: Container(
-                  width: 600,height: 240,
-                  child: Image.asset(
-                    'assets/images/menu4_info.jpg',
-                    fit: BoxFit.cover,
-                  ),
+                child: Stack(
+                  children: [
+                    SizedBox(
+                      width: 600,
+                      height: 240,
+                      child: Image.asset(
+                        'assets/images/menu4_info.jpg',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    const Positioned(
+                      top: 20,
+                      left: 20,
+                      child: Text(
+                        'ドライバー・トラック情報',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),

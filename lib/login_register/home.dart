@@ -59,6 +59,5 @@ class _MainPageState extends State<MainPage> {
       return const MenuPage();
     }
     return LoginPage();
-    //  TODO ↑修正前はreturn const だったがこれでいいのか・・・（constを消したらエラー消えた）
   }
 }

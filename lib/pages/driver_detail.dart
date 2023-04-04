@@ -32,27 +32,27 @@ class _DriverDetailState extends State<DriverDetail> {
               ListTile(
                 leading: const Icon(Icons.face_outlined),
                 title: Text(name,style: const TextStyle(fontSize: 20),),
-                subtitle: const Text('name'),
+                subtitle: const Text('氏名'),
               ),
               ListTile(
                 leading: const Icon(Icons.drive_file_rename_outline),
                 title: Text(affiliation,style: const TextStyle(fontSize: 20),),
-                subtitle: const Text('affiliation'),
+                subtitle: const Text('所属'),
               ),
               ListTile(
                 leading: const Icon(Icons.mail_outline),
                 title: Text(mail,style: const TextStyle(fontSize: 20),),
-                subtitle: const Text('mail'),
+                subtitle: const Text('メールアドレス'),
               ),
               ListTile(
                 leading: const Icon(Icons.phone),
                 title: Text(phone,style: const TextStyle(fontSize: 20),),
-                subtitle: const Text('phone'),
+                subtitle: const Text('電話番号'),
               ),
               ListTile(
                 leading: const Icon(Icons.drive_eta_outlined),
                 title: Text(truck,style: const TextStyle(fontSize: 20),),
-                subtitle: const Text('truck number'),
+                subtitle: const Text('車番'),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -73,7 +73,7 @@ class _DriverDetailState extends State<DriverDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Driver Detail'),
+        title: const Text('ドライバー詳細'),
       ),
       body: FutureBuilder(
         future:

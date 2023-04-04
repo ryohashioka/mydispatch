@@ -43,7 +43,7 @@ class _DriverInfoState extends State<DriverInfo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Driver Info'),
+        title: const Text('ドライバー詳細'),
       ),
       body: FutureBuilder(
         future: FirebaseFirestore.instance

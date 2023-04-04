@@ -24,9 +24,6 @@ class _MissPassword extends State<MissPassword> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Text(
-              "$_text",
-            ),
             TextFormField(
               enabled: true,
               style: const TextStyle(color: Colors.black),
@@ -39,6 +36,7 @@ class _MissPassword extends State<MissPassword> {
                 labelText: 'email *',
               ),
               onChanged: _handleText,
+              // TODO: バリデータ（ユーザ登録などを参照）
             ),
             ButtonBar(buttonPadding: const EdgeInsets.all(60.0), children: [
               ElevatedButton(

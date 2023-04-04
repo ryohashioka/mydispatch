@@ -66,6 +66,7 @@ class _EmptyTruckState extends State<EmptyTruck> {
     for (var doc in querySnapshot.docs) {
       var data = doc.data();
       if (!data.containsKey('truck_id')) {
+        // truck_id が入っていない時は無視する。
         continue;
       }
       // 日跨ぎのデータを考慮し、start と end の差分を取得して連続追加
@@ -91,6 +92,7 @@ class _EmptyTruckState extends State<EmptyTruck> {
     }
   }
 
+  /// Firestore から全てのトラックを取得する。
   void _getTrucks() async {
     var qs = await FirebaseFirestore.instance
         .collection("${MyUser.getCompanyCode()}-trucks")
@@ -179,6 +181,8 @@ class _EmptyTruckState extends State<EmptyTruck> {
                         ),
                       );
                     } else {
+                      // 存在しない時
+                      // TODO: UI
                       return Text("error");
                     }
                   },

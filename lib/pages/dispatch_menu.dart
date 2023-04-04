@@ -15,10 +15,11 @@ class DispatchMenu extends StatelessWidget {
         children: [
           ElevatedButton(
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (BuildContext context) {
-                  return const EmptyTruck();
-                }));
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      return  const EmptyTruck();
+                    }
+                ));
               },
               child: Text('空きトラック検索')),
           ElevatedButton(

@@ -110,7 +110,7 @@ class _EmptyTruckState extends State<EmptyTruck> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('EmptyTruck'),
+        title: const Text('空車情報'),
         // TODO: 再読み込みボタン
       ),
       body: Column(

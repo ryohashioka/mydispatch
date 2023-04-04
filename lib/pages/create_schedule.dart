@@ -106,7 +106,7 @@ class _NewScheduleState extends State<NewSchedule> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.id == null ? 'Create New Schedule' : 'Edit Schedule',
+          widget.id == null ? '新規スケジュール作成' : '登録スケジュール編集',
         ),
         actions: [
           if (widget.id != null)
@@ -373,7 +373,7 @@ class _NewScheduleState extends State<NewSchedule> {
                   }
                 },
                 icon: const Icon(Icons.add),
-                label: const Text('Register'),
+                label: const Text('登録'),
               ),
             ],
           ),

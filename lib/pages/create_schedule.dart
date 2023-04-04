@@ -130,7 +130,7 @@ class _NewScheduleState extends State<NewSchedule> {
           child: Column(
             children: <Widget>[
               DropdownButtonFormField(
-                decoration: const InputDecoration(labelText: 'Car Number*'),
+                decoration: const InputDecoration(labelText: '車番 *'),
                   items: trucks
                       .map<DropdownMenuItem<String>>((truck) =>
                           DropdownMenuItem<String>(
@@ -145,7 +145,7 @@ class _NewScheduleState extends State<NewSchedule> {
                     selectedTruckId = val.toString();
                   }),
               DropdownButtonFormField(
-                  decoration: const InputDecoration(labelText: 'Driver Name*'),
+                  decoration: const InputDecoration(labelText: '氏名　*'),
                   items: trucks
                       .map<DropdownMenuItem<String>>((truck) =>
                       DropdownMenuItem<String>(
@@ -160,31 +160,6 @@ class _NewScheduleState extends State<NewSchedule> {
                     selectedTruckId = val.toString();
                   }),
               TextFormField(
-                controller: _carNumberController,
-                enabled: true,
-                style: const TextStyle(color: Colors.black),
-                obscureText: false,
-                maxLines: 1,
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.local_shipping_outlined),
-                  hintText: '車番を入力してください',
-                  labelText: 'Car Number *',
-                ),
-                keyboardType: TextInputType.number,
-              ),
-              TextFormField(
-                controller: _driverNameController,
-                enabled: true,
-                style: const TextStyle(color: Colors.black),
-                obscureText: false,
-                maxLines: 1,
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.person),
-                  hintText: 'ドライバーを選択してください',
-                  labelText: 'Driver Name *',
-                ),
-              ),
-              TextFormField(
                 controller: _companyNameController,
                 enabled: true,
                 style: const TextStyle(color: Colors.black),
@@ -192,8 +167,7 @@ class _NewScheduleState extends State<NewSchedule> {
                 maxLines: 1,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.factory_outlined),
-                  hintText: '取引先を入力してください',
-                  labelText: 'Company Name *',
+                  labelText: '取引先 *',
                 ),
               ),
               TextFormField(
@@ -204,8 +178,7 @@ class _NewScheduleState extends State<NewSchedule> {
                 maxLines: 1,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.pin_drop_outlined),
-                  hintText: '住所を入力してください',
-                  labelText: 'Address *',
+                  labelText: '住所 *',
                 ),
               ),
               TextFormField(
@@ -216,8 +189,7 @@ class _NewScheduleState extends State<NewSchedule> {
                 maxLines: 1,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.construction_outlined),
-                  hintText: '現場名を入力してください',
-                  labelText: 'Site Name',
+                  labelText: '現場名',
                 ),
               ),
               TextFormField(
@@ -228,8 +200,7 @@ class _NewScheduleState extends State<NewSchedule> {
                 maxLines: 1,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.phone),
-                  hintText: '先方電話番号を入力してください（ハイフンなし）',
-                  labelText: 'Phone Number',
+                  labelText: '先方電話番号',
                 ),
                 keyboardType: TextInputType.phone,
               ),
@@ -245,8 +216,7 @@ class _NewScheduleState extends State<NewSchedule> {
                         maxLines: 1,
                         decoration: const InputDecoration(
                           icon: Icon(Icons.date_range),
-                          hintText: '開始日付を入力してください',
-                          labelText: 'Start Date *',
+                          labelText: '開始日 *',
                         ),
                         keyboardType: TextInputType.datetime,
                         onTap: () async {
@@ -274,8 +244,7 @@ class _NewScheduleState extends State<NewSchedule> {
                         obscureText: false,
                         maxLines: 1,
                         decoration: const InputDecoration(
-                          hintText: '開始時間を入力してください',
-                          labelText: 'Start Hour *',
+                          labelText: '開始時間 *',
                         ),
                         keyboardType: TextInputType.datetime,
                         onTap: () async {
@@ -304,8 +273,7 @@ class _NewScheduleState extends State<NewSchedule> {
                       maxLines: 1,
                       decoration: const InputDecoration(
                         icon: Icon(Icons.date_range),
-                        hintText: '終了日付を入力してください',
-                        labelText: 'End Date *',
+                        labelText: '終了日 *',
                       ),
                       keyboardType: TextInputType.datetime,
                       onTap: () async {
@@ -339,8 +307,7 @@ class _NewScheduleState extends State<NewSchedule> {
                         obscureText: false,
                         maxLines: 1,
                         decoration: const InputDecoration(
-                          hintText: '終了時間を入力してください',
-                          labelText: 'End Hour *',
+                          labelText: '終了時間 *',
                         ),
                         keyboardType: TextInputType.datetime,
                         onTap: () async {
@@ -365,8 +332,7 @@ class _NewScheduleState extends State<NewSchedule> {
                 maxLines: 1,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.text_fields_outlined),
-                  hintText: '備考',
-                  labelText: 'Description',
+                  labelText: '備考',
                 ),
                 keyboardType: TextInputType.text,
               ),

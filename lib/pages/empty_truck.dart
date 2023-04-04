@@ -94,7 +94,9 @@ class _EmptyTruckState extends State<EmptyTruck> {
 
   /// Firestore から全てのトラックを取得する。
   void _getTrucks() async {
-    var qs = await FirebaseFirestore.instance.collection("${MyUser.getCompanyCode()}-trucks").get();
+    var qs = await FirebaseFirestore.instance
+        .collection("${MyUser.getCompanyCode()}-trucks")
+        .get();
     _trucks = qs.docs;
     setState(() {});
   }
@@ -108,7 +110,7 @@ class _EmptyTruckState extends State<EmptyTruck> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('空きトラック検索'),
+        title: const Text('EmptyTruck'),
         // TODO: 再読み込みボタン
       ),
       body: Column(
@@ -154,7 +156,9 @@ class _EmptyTruckState extends State<EmptyTruck> {
               valueListenable: _selectedEvents,
               builder: (context, value, _) {
                 var event = value.map((v) => v.toString());
-                var emptyTrucks = _trucks.where((truck) => !event.contains(truck.id)).toList();
+                var emptyTrucks = _trucks
+                    .where((truck) => !event.contains(truck.id))
+                    .toList();
 
                 return ListView.builder(
                   itemCount: emptyTrucks.length,
@@ -179,7 +183,7 @@ class _EmptyTruckState extends State<EmptyTruck> {
                     } else {
                       // 存在しない時
                       // TODO: UI
-                      return Text('error');
+                      return Text("error");
                     }
                   },
                 );

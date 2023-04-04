@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 import '../data/MyUser.dart';
 
 class NewTruck extends StatefulWidget {
@@ -25,6 +26,7 @@ class _NewTruckState extends State<NewTruck> {
 
   final TextEditingController _inspectionController = TextEditingController();
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -43,8 +45,7 @@ class _NewTruckState extends State<NewTruck> {
                 maxLines: 1,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.fire_truck_outlined),
-                  hintText: '車番を入力してください',
-                  labelText: 'Car number *',
+                  labelText: '車番 *',
                 ),
                 keyboardType: TextInputType.number,
                 //パスワード
@@ -59,8 +60,7 @@ class _NewTruckState extends State<NewTruck> {
                 maxLines: 1,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.type_specimen_outlined),
-                  hintText: '種類を入力してください',
-                  labelText: 'type',
+                  labelText: '車種',
                 ),
                 onSaved: (value) {
                   _type = value!;
@@ -73,8 +73,7 @@ class _NewTruckState extends State<NewTruck> {
                 maxLines: 1,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.factory_outlined),
-                  hintText: '担当営業所を入力してください',
-                  labelText: 'truck Affiliation *',
+                  labelText: '担当部店 *',
                 ),
                 onSaved: (value) {
                   _truckAffiliation = value!;
@@ -88,8 +87,7 @@ class _NewTruckState extends State<NewTruck> {
                 maxLines: 1,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.shopping_bag_rounded),
-                  hintText: '最大積載量を入力してください',
-                  labelText: 'max capacity *',
+                  labelText: '最大積載量(kg) *',
                 ),
                 keyboardType: TextInputType.number,
                 validator: (val) {
@@ -108,8 +106,7 @@ class _NewTruckState extends State<NewTruck> {
                 maxLines: 1,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.fire_truck_outlined),
-                  hintText: '車両重量を入力してください',
-                  labelText: 'car weight *',
+                  labelText: '車両重量(kg) *',
                 ),
                 keyboardType: TextInputType.number,
                 validator: (val) {
@@ -128,8 +125,7 @@ class _NewTruckState extends State<NewTruck> {
                 maxLines: 1,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.monitor_weight_outlined),
-                  hintText: '総重量を入力してください',
-                  labelText: 'total weight *',
+                  labelText: '総重量(kg) *',
                 ),
                 keyboardType: TextInputType.number,
                 validator: (val) {
@@ -148,8 +144,7 @@ class _NewTruckState extends State<NewTruck> {
                 maxLines: 1,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.line_weight),
-                  hintText: '長さを入力してください',
-                  labelText: 'length *',
+                  labelText: '長さ(cm) *',
                 ),
                 keyboardType: TextInputType.number,
                 validator: (val) {
@@ -168,8 +163,7 @@ class _NewTruckState extends State<NewTruck> {
                 maxLines: 1,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.height),
-                  hintText: '高さを入力してください',
-                  labelText: 'height *',
+                  labelText: '高さ(cm) *',
                 ),
                 keyboardType: TextInputType.number,
                 validator: (val) {
@@ -188,8 +182,7 @@ class _NewTruckState extends State<NewTruck> {
                 maxLines: 1,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.width_wide_outlined),
-                  hintText: '車幅を入力してください',
-                  labelText: 'width *',
+                  labelText: '車幅(cm) *',
                 ),
                 keyboardType: TextInputType.number,
                 onSaved: (value) {
@@ -204,16 +197,18 @@ class _NewTruckState extends State<NewTruck> {
                 maxLines: 1,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.schedule_outlined),
-                  hintText: '車検期限を入力してください',
-                  labelText: 'inspection deadline *',
+                  labelText: '車検期限 *',
                 ),
                 keyboardType: TextInputType.datetime,
                 onTap: () async {
                   final DateTime? picked = await showDatePicker(
                       context: context,
                       initialDate: _inspection,
-                      firstDate: DateTime(2016),
+                      firstDate: DateTime(2023),
                       lastDate: DateTime.now().add(const Duration(days: 360)));
+                  if (picked != null) {
+                    _inspectionController.text = DateFormat('yyyy/MM/dd').format(picked);
+                  }
                 },
                 onSaved: (value) {
                   _inspectionDeadline = value!;

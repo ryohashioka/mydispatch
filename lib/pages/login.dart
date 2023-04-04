@@ -22,122 +22,110 @@ class _LoginPageState extends State<LoginPage> {
           key: _formKey,
           child: Column(
             children: <Widget>[
-              Container(
-                child: Image.asset('assets/images/logo.jpg'),
-              ),
-              Container(
-                child: Center(
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        enabled: true,
-                        style: const TextStyle(color: Colors.black),
-                        obscureText: false,
-                        maxLines: 1,
-                        decoration: const InputDecoration(
+              Image.asset('assets/images/logo.jpg'),
+              Center(
+                child: Column(
+                  children: [
+                    TextFormField(
+                      enabled: true,
+                      style: const TextStyle(color: Colors.black),
+                      obscureText: false,
+                      maxLines: 1,
+                      decoration: const InputDecoration(
                           // icon: Icon(Icons.mail_lock_outlined),
                           labelText: 'Email *',
-                            prefixIcon: Icon(Icons.mail),
-                            border: OutlineInputBorder()
-                        ),
-                        keyboardType: TextInputType.emailAddress,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "メールアドレスを入力してください";
-                          }
-                          return null;
-                        },
-                        onSaved: (value) {
-                          _email = value!;
-                        },
-                      ),
-                      const Padding(padding: EdgeInsets.all(10.0))
-                    ],
-                  ),
+                          prefixIcon: Icon(Icons.mail),
+                          border: OutlineInputBorder()),
+                      keyboardType: TextInputType.emailAddress,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "メールアドレスを入力してください";
+                        }
+                        return null;
+                      },
+                      onSaved: (value) {
+                        _email = value!;
+                      },
+                    ),
+                    const Padding(padding: EdgeInsets.all(10.0))
+                  ],
                 ),
               ),
-              Container(
-                child: Center(
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        enabled: true,
-                        style: const TextStyle(color: Colors.black),
-                        obscureText: true,
-                        maxLines: 1,
-                        decoration: const InputDecoration(
+              Center(
+                child: Column(
+                  children: [
+                    TextFormField(
+                      enabled: true,
+                      style: const TextStyle(color: Colors.black),
+                      obscureText: true,
+                      maxLines: 1,
+                      decoration: const InputDecoration(
                           // icon: Icon(Icons.security_outlined),
                           labelText: 'Password *',
                           prefixIcon: Icon(Icons.password_outlined),
-                          border: OutlineInputBorder()
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "パスワードを入力してください";
-                          }
-                          return null;
-                        },
-                        onSaved: (value) {
-                          _password = value!;
-                        },
-                      ),
-                      const Padding(padding: EdgeInsets.all(10.0))
-                    ],
-                  ),
+                          border: OutlineInputBorder()),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "パスワードを入力してください";
+                        }
+                        return null;
+                      },
+                      onSaved: (value) {
+                        _password = value!;
+                      },
+                    ),
+                    const Padding(padding: EdgeInsets.all(10.0))
+                  ],
                 ),
               ),
-              Container(
-                child: Center(
-                  child: Column(
-                    children: [
-                      ElevatedButton(
-                        onPressed: () => onPressLoginButton(),
-                        child: const Text(
-                          'log in',
-                          style: TextStyle(fontSize: 20),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.white,
-                          backgroundColor: Colors.blueAccent,
-                          alignment: Alignment.center,
-                          minimumSize: const Size(242, 40),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
+              Center(
+                child: Column(
+                  children: [
+                    ElevatedButton(
+                      onPressed: () => onPressLoginButton(),
+                      child: const Text(
+                        'log in',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.blueAccent,
+                        alignment: Alignment.center,
+                        minimumSize: const Size(242, 40),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-              Container(
-                child: Center(
-                  child: Column(
-                    children: [
-                      ElevatedButton(
-                        onPressed: () async {
-                          var result = await Navigator.of(context).pushNamed('/miss_password');
-                          if (result != null) {
-                            const snackBar = SnackBar(
-                              content: Text('メールを送信しました。'),
-                            );
-
-                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                          }
-                        },
-                        child: const Text('パスワードをお忘れの方はこちら'),
-                        style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.black,
-                          backgroundColor: Colors.white,
-                          alignment: Alignment.center,
-                          minimumSize: const Size(100, 40),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
+              Center(
+                child: Column(
+                  children: [
+                    ElevatedButton(
+                      onPressed: () async {
+                        var result = await Navigator.of(context)
+                            .pushNamed('/miss_password');
+                        if (result != null) {
+                          const snackBar = SnackBar(
+                            content: Text('メールを送信しました'),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        }
+                      },
+                      child: const Text('パスワードをお忘れの方はこちら'),
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.black,
+                        backgroundColor: Colors.white,
+                        alignment: Alignment.center,
+                        minimumSize: const Size(100, 40),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ],

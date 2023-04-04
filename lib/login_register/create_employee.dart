@@ -23,6 +23,7 @@ class _NewEmployeeState extends State<NewEmployee> {
   String _phonenumber = "";
   String _trucknumber = "";
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -40,8 +41,7 @@ class _NewEmployeeState extends State<NewEmployee> {
                 maxLines: 1,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.face),
-                  hintText: '名前を入力してください',
-                  labelText: 'Name *',
+                  labelText: '氏名 *',
                 ),
                 onSaved: (value) {
                   _name = value!;
@@ -54,8 +54,7 @@ class _NewEmployeeState extends State<NewEmployee> {
                 maxLines: 1,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.factory),
-                  hintText: '所属を入力してください',
-                  labelText: 'Affiliation *',
+                  labelText: '所属 *',
                 ),
                 onSaved: (value) {
                   _affiliation = value!;
@@ -68,8 +67,7 @@ class _NewEmployeeState extends State<NewEmployee> {
                 maxLines: 1,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.factory),
-                  hintText: '役職を入力してください',
-                  labelText: 'Position *',
+                  labelText: '役職 *',
                 ),
                 onSaved: (value) {
                   _position = value!;
@@ -82,8 +80,7 @@ class _NewEmployeeState extends State<NewEmployee> {
                 maxLines: 1,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.fire_truck_outlined),
-                  hintText: '担当トラックを入力してください',
-                  labelText: 'Truck *',
+                  labelText: '担当トラック *',
                 ),
                 onSaved: (value) {
                   _trucknumber = value!;
@@ -96,12 +93,17 @@ class _NewEmployeeState extends State<NewEmployee> {
                 maxLines: 1,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.phone),
-                  hintText: '電話番号を入力してください(ハイフンなし)',
-                  labelText: 'Phone *',
+                  labelText: '電話番号 *',
                 ),
                 keyboardType: TextInputType.phone,
                 onSaved: (value) {
-                  _phonenumber = value!;
+                  _phonenumber = value!.replaceAll(RegExp(r'-'), '');
+                },
+                validator: (value) {
+                  if (value!.contains('-')) {
+                    return "ハイフンは不要です！";
+                  }
+                  return null;
                 },
               ),
               TextFormField(
@@ -111,8 +113,7 @@ class _NewEmployeeState extends State<NewEmployee> {
                 maxLines: 1,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.email),
-                  hintText: 'メールアドレスを入力してください',
-                  labelText: 'email *',
+                  labelText: 'メールアドレス *',
                 ),
                 keyboardType: TextInputType.emailAddress,
                 validator: (value) {
@@ -132,8 +133,7 @@ class _NewEmployeeState extends State<NewEmployee> {
                 maxLines: 1,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.password),
-                  hintText: 'パスワードを入力してください',
-                  labelText: 'password *',
+                  labelText: 'パスワード *',
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {

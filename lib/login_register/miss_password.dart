@@ -7,7 +7,6 @@ class MissPassword extends StatefulWidget {
 }
 
 class _MissPassword extends State<MissPassword> {
-
   String _text = '';
 
   void _handleText(String e) {
@@ -16,50 +15,59 @@ class _MissPassword extends State<MissPassword> {
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Missing Password'),
+        title: const Text('パスワード再発行画面'),
       ),
-      body:SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             TextFormField(
               enabled: true,
-              style: TextStyle(color: Colors.black),
+              style: const TextStyle(color: Colors.black),
               obscureText: false,
-              maxLines:1 ,
+              maxLines: 1,
               keyboardType: TextInputType.emailAddress,
               decoration: const InputDecoration(
                 icon: Icon(Icons.email),
-                hintText: '登録したメールアドレスを入力してください。パスワードを送信します。',
+                hintText: '登録したメールアドレスを入力してください。',
                 labelText: 'email *',
               ),
               onChanged: _handleText,
               // TODO: バリデータ（ユーザ登録などを参照）
             ),
-            ButtonBar(
-                buttonPadding: EdgeInsets.all(30.0),
-                children:[
-                  ElevatedButton(
-                    onPressed: () {
-                      FirebaseAuth.instance.sendPasswordResetEmail(email: _text).then(
-                        (value) => Navigator.pop(context, _text),
-                        onError: (e) {
-                          const snackBar = SnackBar(
-                            content: Text(
-                              'メール送信できませんでした。',
-                              style: TextStyle(color: Colors.redAccent),
-                            ),
-                          );
-
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        }
-                      );
-                    },
-                    child: Text('Send')
-                  )
-                ]),
+            ButtonBar(buttonPadding: const EdgeInsets.all(60.0), children: [
+              ElevatedButton(
+                onPressed: () async {
+                  await FirebaseAuth.instance
+                      .sendPasswordResetEmail(email: _text)
+                      .then((value) => Navigator.pop(context, _text), onError: (e) {
+                    const snackBar = SnackBar(
+                      content: Text(
+                        'メールを送信できませんでした',
+                        style: TextStyle(color: Colors.redAccent),
+                      ),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  });
+                },
+                child: const Text(
+                  'Send',
+                  style: TextStyle(fontSize: 20),
+                ),
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.blueAccent,
+                  alignment: Alignment.center,
+                  minimumSize: const Size(242, 40),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+              )
+            ]),
           ],
         ),
       ),

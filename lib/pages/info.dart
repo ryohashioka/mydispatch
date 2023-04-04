@@ -9,7 +9,7 @@ class InfoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Search Menu'),
+        title: const Text('検索メニュー'),
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -21,7 +21,7 @@ class InfoPage extends StatelessWidget {
               ),
               Container(
                 child: ElevatedButton(
-                  child: Text('Truck Info'),
+                  child: Text('トラック情報'),
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
                     backgroundColor: Colors.blue,
@@ -36,7 +36,7 @@ class InfoPage extends StatelessWidget {
               ),
               Container(
                 child: ElevatedButton(
-                  child: const Text('Driver Info'),
+                  child: const Text('ドライバー情報'),
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
                     backgroundColor: Colors.blue,

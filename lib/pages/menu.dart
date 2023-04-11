@@ -21,8 +21,14 @@ class MenuPage extends StatelessWidget {
         title: const Text('メニュー'),
       ),
       drawer: Drawer(
-        child: ListView(
+         child: ListView(
           children: <Widget>[
+            Image.asset(
+              "assets/icons/icon.png",
+              height: 10,
+              width: 10,
+              fit: BoxFit.cover,
+            ),
             const UserProfile(),
             if(MyUser.isAdmin())
               GestureDetector(

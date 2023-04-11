@@ -35,8 +35,13 @@ class _MissPassword extends State<MissPassword> {
                 hintText: '登録したメールアドレスを入力してください。',
                 labelText: 'email *',
               ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return "メールアドレスを入力してください";
+                }
+                return null;
+              },
               onChanged: _handleText,
-              // TODO: バリデータ（ユーザ登録などを参照）
             ),
             ButtonBar(buttonPadding: const EdgeInsets.all(60.0), children: [
               ElevatedButton(

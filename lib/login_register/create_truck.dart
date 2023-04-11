@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import '../data/MyUser.dart';
 
@@ -19,12 +20,12 @@ class _NewTruckState extends State<NewTruck> {
   int _length = 0; // mm
   int _height = 0; // mm
   int _width = 0; // mm
-  // TODO: 車検は日付に変更
-  String _inspectionDeadline = "";
 
   late DateTime _inspection;
 
   final TextEditingController _inspectionController = TextEditingController();
+  DateTime _inspectionDeadline = DateTime.now();
+
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +53,12 @@ class _NewTruckState extends State<NewTruck> {
                 onSaved: (value) {
                   _carNumber = value!;
                 },
+                validator: (val) {
+                  if (val!.isEmpty) {
+                    return '入力してください';
+                  }
+                  return null;
+                },
               ),
               TextFormField(
                 enabled: true,
@@ -64,6 +71,12 @@ class _NewTruckState extends State<NewTruck> {
                 ),
                 onSaved: (value) {
                   _type = value!;
+                },
+                validator: (val) {
+                  if (val!.isEmpty) {
+                    return '入力してください';
+                  }
+                  return null;
                 },
               ),
               TextFormField(
@@ -78,8 +91,13 @@ class _NewTruckState extends State<NewTruck> {
                 onSaved: (value) {
                   _truckAffiliation = value!;
                 },
+                validator: (val) {
+                  if (val!.isEmpty) {
+                    return '入力してください';
+                  }
+                  return null;
+                },
               ),
-              // TODO: 単位表記
               TextFormField(
                 enabled: true,
                 style: const TextStyle(color: Colors.black),
@@ -91,7 +109,12 @@ class _NewTruckState extends State<NewTruck> {
                 ),
                 keyboardType: TextInputType.number,
                 validator: (val) {
-                  // TODO: 数値のみを許可するように正規表現を記述
+                  if (val!.isEmpty) {
+                    return '入力してください';
+                  }
+                  if (!RegExp(r'^[0-9]+$').hasMatch(val)) {
+                    return '数値を入力してください';
+                  }
                   return null;
                 },
                 onSaved: (value) {
@@ -110,7 +133,12 @@ class _NewTruckState extends State<NewTruck> {
                 ),
                 keyboardType: TextInputType.number,
                 validator: (val) {
-                  // TODO: 数値のみを許可するように正規表現を記述
+                  if (val!.isEmpty) {
+                    return '入力してください';
+                  }
+                  if (!RegExp(r'^[0-9]+$').hasMatch(val)) {
+                    return '数値を入力してください';
+                  }
                   return null;
                 },
                 onSaved: (value) {
@@ -129,7 +157,12 @@ class _NewTruckState extends State<NewTruck> {
                 ),
                 keyboardType: TextInputType.number,
                 validator: (val) {
-                  // TODO: 数値のみを許可するように正規表現を記述
+                  if (val!.isEmpty) {
+                    return '入力してください';
+                  }
+                  if (!RegExp(r'^[0-9]+$').hasMatch(val)) {
+                    return '数値を入力してください';
+                  }
                   return null;
                 },
                 onSaved: (value) {
@@ -148,7 +181,12 @@ class _NewTruckState extends State<NewTruck> {
                 ),
                 keyboardType: TextInputType.number,
                 validator: (val) {
-                  // TODO: 数値のみを許可するように正規表現を記述
+                  if (val!.isEmpty) {
+                    return '入力してください';
+                  }
+                  if (!RegExp(r'^[0-9]+$').hasMatch(val)) {
+                    return '数値を入力してください';
+                  }
                   return null;
                 },
                 onSaved: (value) {
@@ -167,7 +205,12 @@ class _NewTruckState extends State<NewTruck> {
                 ),
                 keyboardType: TextInputType.number,
                 validator: (val) {
-                  // TODO: 数値のみを許可するように正規表現を記述
+                  if (val!.isEmpty) {
+                    return '入力してください';
+                  }
+                  if (!RegExp(r'^[0-9]+$').hasMatch(val)) {
+                    return '数値を入力してください';
+                  }
                   return null;
                 },
                 onSaved: (value) {
@@ -185,33 +228,44 @@ class _NewTruckState extends State<NewTruck> {
                   labelText: '車幅(cm) *',
                 ),
                 keyboardType: TextInputType.number,
+                validator: (val) {
+                  if (val!.isEmpty) {
+                    return '入力してください';
+                  }
+                  if (!RegExp(r'^[0-9]+$').hasMatch(val)) {
+                    return '数値を入力してください';
+                  }
+                  return null;
+                },
                 onSaved: (value) {
-                  // TODO: 数値のみを許可するように正規表現を記述
                   _width = int.parse(value!);
                 },
               ),
               TextFormField(
-                enabled: true,
-                style: const TextStyle(color: Colors.black),
-                obscureText: false,
-                maxLines: 1,
+                controller: _inspectionController,
                 decoration: const InputDecoration(
-                  icon: Icon(Icons.schedule_outlined),
+                  icon: Icon(Icons.date_range),
                   labelText: '車検期限 *',
                 ),
-                keyboardType: TextInputType.datetime,
                 onTap: () async {
-                  final DateTime? picked = await showDatePicker(
-                      context: context,
-                      initialDate: _inspection,
-                      firstDate: DateTime(2023),
-                      lastDate: DateTime.now().add(const Duration(days: 360)));
-                  if (picked != null) {
-                    _inspectionController.text = DateFormat('yyyy/MM/dd').format(picked);
+                  final selectedDate = await showDatePicker(
+                    context: context,
+                    initialDate: _inspectionDeadline,
+                    firstDate: DateTime.now(),
+                    lastDate: DateTime.now().add(const Duration(days: 36500)),
+                  );
+                  if (selectedDate != null) {
+                    setState(() {
+                      _inspectionDeadline = selectedDate;
+                      _inspectionController.text = DateFormat.yMd().format(_inspectionDeadline);
+                    });
                   }
                 },
-                onSaved: (value) {
-                  _inspectionDeadline = value!;
+                validator: (val) {
+                  if (val!.isEmpty) {
+                    return '入力してください';
+                  }
+                  return null;
                 },
               ),
               FloatingActionButton.extended(
@@ -247,53 +301,3 @@ class _NewTruckState extends State<NewTruck> {
     );
   }
 }
-//
-//   void create(BuildContext context) async {
-//     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
-//       _formKey.currentState!.save();
-//     }
-//
-//     try {
-//       final credential =
-//       await FirebaseAuth.instance.createUserWithEmailAndPassword(
-//         email: _email,
-//         password: _password,
-//       );
-//
-//       print(credential);
-//
-//       if (credential.user != null) {
-//         print(credential.user!.uid);
-//
-//         var db = FirebaseFirestore.instance;
-//
-//         db
-//
-//             .collection("users")
-//             .doc()
-//             .set({
-//           "carnumber": _carNumber,
-//           "type": _type,
-//           "max capasity": _maxCapacity,
-//           "car weight": _carWeight,
-//           "total weight": _totalWeight,
-//           "length": _length,
-//           "height": _height,
-//           "width": _width,
-//           "inspection deadline": _inspectionDeadline,
-//         })
-//             .onError((e, _) => print("Error writing ddocument: $e"));
-//       }
-//
-//       Navigator.of(context).pop();
-//     } on FirebaseAuthException catch (e) {
-//       if (e.code == 'weak-password') {
-//         print('The password provided is too weak.');
-//       } else if (e.code == 'email-already-in-use') {
-//         print('The account already exists for that email.');
-//       }
-//     } catch (e) {
-//       print(e);
-//     }
-//   }
-// }

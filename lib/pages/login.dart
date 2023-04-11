@@ -15,14 +15,17 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
+        title: const Text('Wellcome!'),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,
           child: Column(
             children: <Widget>[
+              const SizedBox(height: 20),
               Image.asset('assets/images/logo.jpg'),
+              const SizedBox(height: 20),
               Center(
                 child: Column(
                   children: [
@@ -89,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
-                        backgroundColor: Colors.blueAccent,
+                        backgroundColor: Colors.indigo,
                         alignment: Alignment.center,
                         minimumSize: const Size(242, 40),
                         shape: RoundedRectangleBorder(
@@ -108,10 +111,11 @@ class _LoginPageState extends State<LoginPage> {
                         var result = await Navigator.of(context)
                             .pushNamed('/miss_password');
                         if (result != null) {
-                          const snackBar = SnackBar(
-                            content: Text('メールを送信しました'),
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('メールを送信しました'),
+                            ),
                           );
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         }
                       },
                       child: const Text('パスワードをお忘れの方はこちら'),
@@ -132,6 +136,21 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
       ),
+      bottomNavigationBar: BottomAppBar(
+        child: Container(
+          height: 50.0,
+          color: Colors.indigo,
+          child: const Center(
+            child: Text(
+              'MyDispatch App',
+              style: TextStyle(
+                fontSize: 20.0,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 
@@ -143,18 +162,24 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  // TODO: インデント
-  ///ログイン処理
   void login(String email, String password) async {
     try {
       final credential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
-      // TODO: 認証失敗時のエラー処理（ユーザにメッセージを表示する）
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
       } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
+        final snackBar = SnackBar(
+          content: Text(
+            'ログインできません！アドレスかパスワードに誤りがあります！',
+            style: TextStyle(
+              color: Colors.red,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
     }
   }

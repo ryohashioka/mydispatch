@@ -8,6 +8,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:calendar_view/calendar_view.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,6 +35,10 @@ class MyApp extends StatelessWidget {
           '/new_company' : (BuildContext context) => NewCompany(),
           '/new_truck' : (BuildContext context) => NewTruck(),
        },
+        theme: ThemeData(
+          textTheme: GoogleFonts.kiwiMaruTextTheme(),
+          primarySwatch: Colors.indigo,
+        ),
       ),
     );
   }

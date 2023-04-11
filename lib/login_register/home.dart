@@ -43,9 +43,9 @@ class _MainPageState extends State<MainPage> {
             this.user = user;
           });
         } catch (e) {
-          // TODO エラー処理
-          print("認証情報が取得できなかったよ");
-
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('認証情報が取得できませんでした'),
+          ));
           MyUser.destroy();
           await FirebaseAuth.instance.signOut();
         }

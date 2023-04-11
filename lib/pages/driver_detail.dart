@@ -73,7 +73,22 @@ class _DriverDetailState extends State<DriverDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ドライバー詳細'),
+        title: Text(
+          widget.id == null ? 'ドライバー詳細' : 'ドライバー編集',
+        ),
+        actions: [
+          if (widget.id != null)
+            IconButton(
+              icon: const Icon(Icons.delete_outline_outlined),
+              onPressed: () {
+                FirebaseFirestore.instance
+                    .collection("${MyUser.getCompanyCode()}-users")
+                    .doc(widget.id)
+                    .delete();
+                Navigator.pop(context);
+              },
+            )
+        ],
       ),
       body: FutureBuilder(
         future:

@@ -15,7 +15,7 @@ class SearchPage extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Container(
-                constraints: BoxConstraints(
+                constraints: const BoxConstraints(
                   minHeight: 56.0,
                   maxWidth: 300.0,
                 ),
@@ -36,7 +36,7 @@ class SearchPage extends StatelessWidget {
                         onChanged: (valueSelectedByUser) {
                           _carnumber = valueSelectedByUser;
                         },
-                        hint: Text('トラックを選択'),
+                        hint: const Text('トラックを選択'),
                         items: snapshot.data?.docs
                             .map((DocumentSnapshot document) {
                           return DropdownMenuItem<String>(

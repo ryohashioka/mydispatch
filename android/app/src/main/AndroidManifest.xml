@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.taku.nishikawa.mydispatch">
+    package="com.example.mydispatch">
    <application
         android:label="mydispatch"
         android:name="${applicationName}"

@@ -24,7 +24,7 @@ class InfoPage extends StatelessWidget {
                   child: Text('トラック情報'),
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
-                    backgroundColor: Colors.blue,
+                    backgroundColor: Colors.indigo,
                   ),
                   onPressed: () => Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => const TruckInfo()),

@@ -1,4 +1,4 @@
-package com.example.mydispatch
+package com.taku.nishikawa.mydispatch
 
 import io.flutter.embedding.android.FlutterActivity
 

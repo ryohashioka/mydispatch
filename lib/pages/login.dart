@@ -168,11 +168,20 @@ class _LoginPageState extends State<LoginPage> {
           .signInWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
+         var snackBar = SnackBar(
+          content: Text(
+            'ログインできません！メールアドレスに誤りがあります！',
+            style: TextStyle(
+              color: Colors.red,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        );
         print('No user found for that email.');
       } else if (e.code == 'wrong-password') {
-        final snackBar = SnackBar(
+        var snackBar = SnackBar(
           content: Text(
-            'ログインできません！アドレスかパスワードに誤りがあります！',
+            'ログインできません！パスワードに誤りがあります！',
             style: TextStyle(
               color: Colors.red,
               fontWeight: FontWeight.bold,
